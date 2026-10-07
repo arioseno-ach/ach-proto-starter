@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const roots = ['src/components', 'src/examples']
+const roots = ['src']
 const files = []
 
 async function collect(directory) {
@@ -9,7 +9,8 @@ async function collect(directory) {
     const filePath = path.join(directory, entry.name)
     if (entry.isDirectory()) {
       await collect(filePath)
-    } else if (entry.isFile() && (filePath.endsWith('.vue') || filePath.endsWith('.ts'))) {
+    } else if (entry.isFile() && /\.(vue|ts|css)$/.test(filePath)) {
+      if (filePath === path.join('src', 'styles', 'tokens', 'primitives.css')) continue
       files.push(filePath)
     }
   }
@@ -65,5 +66,5 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`)
   process.exitCode = 1
 } else {
-  console.log(`Design token guard passed (${files.length} component files checked).`)
+  console.log(`Design token guard passed (${files.length} source files checked).`)
 }
