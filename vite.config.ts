@@ -1,5 +1,5 @@
 import path from 'node:path'
-import react from '@vitejs/plugin-react'
+import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 
@@ -10,5 +10,5 @@ export default defineConfig({
       '@': path.resolve(process.cwd(), 'src'),
     },
   },
-  plugins: [react(), tailwindcss()],
+  plugins: [vue(), tailwindcss()],
 })
