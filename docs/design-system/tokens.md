@@ -14,7 +14,7 @@ Keep references flowing from primitives → semantic → components. Add raw val
 
 The existing `--sidebar-*` and `--avatar-*` variables remain available as aliases to component tokens so current Vue styles continue to work. Sidebar hover and active colors now follow the Figma component tokens.
 
-When a spec names a CSS variable, verify it exists in one of the runtime layers. Figma reference names and exported `--ach-*` names do not define the application's CSS API by themselves.
+When a Figma design or external reference names a CSS variable, verify it exists in one of the runtime layers. External token names such as `--ach-*` do not define the application's CSS API by themselves.
 
 ## Accordion compatibility
 

@@ -10,7 +10,7 @@ Apply these guidelines to UI design, implementation, and review across ACH produ
 ## Before shaping a screen
 
 1. Identify the product pillar, surface, primary user, and regulatory or financial risk.
-2. Read `docs/design-system/context/product-overview.md` and any relevant file under `docs/design-system/context/units/`. Read `docs/design-system/patterns.md`, the relevant component spec, and implementation note when the task touches those areas.
+2. Read `docs/design-system/context/product-overview.md` and any relevant file under `docs/design-system/context/units/`. Read `docs/design-system/patterns.md` when composing a documented workflow, and use `docs/design-system/components.md` plus the actual Vue source for component context. Read linked implementation notes only when they apply.
 3. Set the screen's intent using three dials:
    - **Data density (1–10):** 1–3 for onboarding and public guidance, 4–6 for standard settings and forms, 7–10 for high-volume grids and operational workspaces.
    - **Decision friction (1–5):** 1–2 for reversible exploration, 3 for validated saves, 5 for high-stakes or irreversible actions that need deliberate confirmation.

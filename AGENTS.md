@@ -9,7 +9,7 @@
 - Keep reference pages in `src/examples` and design-system documentation in `docs/design-system`.
 - Define shared visual tokens in `src/styles/tokens/` by layer: `primitives.css` → `semantic.css` → `components.css`. Load them through `src/styles/tokens.css` and document them in `docs/design-system/tokens.md`.
 - Use the `@/` alias for imports from `src` and `cn()` from `src/lib/utils.ts` to merge conditional Tailwind classes.
-- Use `docs/design-system/components/_index.md` and its per-component specs as design references. Use `docs/design-system/components.md` as the implementation map for this Vue repo; follow its links to implementation-specific notes when present.
+- Use `docs/design-system/components.md` as the single component overview and implementation map. Vue source under `src/components/` defines the actual props and behavior; follow implementation notes linked there when present.
 
 ## Design-system rules
 
@@ -20,15 +20,16 @@
 - Prefer the established Tailwind spacing and sizing scale. Avoid arbitrary one-off values; when a visual value is repeated or becomes part of the system, promote it to a token.
 - Keep the token layer files limited to design values; `src/styles/tokens.css` is the import entry point. Put layout, component behavior, and composition in their respective component or pattern files.
 
-### Use component specs as design references
+### Use the component guide and source
 
-- Read only the relevant component spec sections: Figma link, purpose, variants, anatomy, token mapping, and states. Specs are design references; Figma-generated React contracts and examples are not Vue APIs.
-- When a Vue implementation section exists, use it for the documented Vue API, then verify against the actual source file. `docs/design-system/components.md` is the source of truth for whether a Vue implementation exists.
+- `docs/design-system/components.md` is the only component guide in the repository. It lists implemented Vue components and links to their source or implementation notes; it is not a substitute for reading the source.
+- Do not expect per-component Figma Markdown specs in this repository. For Figma-specific work, use the Figma node/context supplied for the task and verify the implementation against existing Vue components, tokens, and project assets.
+- Treat the Vue source as the source of truth for component props and behavior. Do not infer a Vue API from React examples or generated design references supplied externally.
 - Inspect the relevant runtime token layer only when styling or tokens are involved. Verify every CSS variable used in code exists under `src/styles/tokens/`; Figma names such as `--ach-*` are not runtime variables by assumption.
 
 ### Reuse and composition
 
-- For a focused component task, inspect its relevant spec sections and nearby Vue implementation only. Check the implementation map when status or app integration is unclear; consult patterns only when composing a documented page/interaction pattern.
+- For a focused component task, check `docs/design-system/components.md` and inspect the relevant Vue source. Consult `docs/design-system/usage-rules.md` for cross-component constraints and `patterns.md` only when composing a documented page or interaction pattern.
 - Keep primitives reusable and independent of full business flows. Compose them into application components and page patterns.
 - Keep shared variants and behavior consistent with the documented component guidance. Update the design-system docs when implementation changes affect shared behavior or appearance.
 
@@ -59,11 +60,11 @@
 
 | Task | Read first |
 | --- | --- |
-| Build or change a screen or flow | Relevant product/unit context when business decisions require it → relevant pattern only when composing an existing workflow → specs for components used on the screen → Vue files and tokens/assets that affect the change |
-| Build or change a component | Relevant sections of its Figma spec → existing Vue component if present → implementation map only when status/integration is unclear → runtime tokens/assets only when used |
+| Build or change a screen or flow | Relevant product/unit context when business decisions require it → relevant pattern only when composing an existing workflow → `components.md` and Vue files for components used on the screen → tokens/assets that affect the change |
+| Build or change a component | `components.md` → existing Vue component if present → `usage-rules.md` when shared behavior or usage constraints matter → runtime tokens/assets only when used |
 | Write or review UI copy | `docs/design-system/context/brand-voice.md` → `docs/design-system/context/legal-rules.md` → relevant product overview or unit context |
 | Change tokens or theme styling | `src/styles/tokens.css` and the relevant file under `src/styles/tokens/` → `docs/design-system/tokens.md` |
-| Review an existing layout | Relevant files in `src/components/layout` → relevant component spec → implementation map and linked notes → `docs/design-system/patterns.md` and token docs |
+| Review an existing layout | Relevant files in `src/components/layout` → `components.md` and linked implementation notes → `docs/design-system/patterns.md` and token docs |
 
 ## Self-review for UI changes
 

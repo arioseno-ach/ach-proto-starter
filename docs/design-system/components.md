@@ -1,13 +1,13 @@
-# Component implementation map
+# Components
 
-This page is the source of truth for component code that currently exists in this Vue repository. The design registry and framework-neutral Figma references live in [`components/_index.md`](components/_index.md) and the linked files beside it. A component appearing in that design registry does not mean it has been implemented in Vue.
+This is the repository's component overview. The Vue files linked below define their props, behavior, and styling. Check `src/styles/tokens/` for runtime tokens and `docs/design-system/usage-rules.md` for shared usage constraints.
 
-## Implemented components
+## Available in Vue
 
-| Component | Vue implementation | Status | Design spec | Implementation notes |
-| --- | --- | --- | --- | --- |
-| Accordion | [`src/components/ui/Accordion.vue`](../../src/components/ui/Accordion.vue), [`src/components/ui/AccordionItem.vue`](../../src/components/ui/AccordionItem.vue) | Implemented | [`components/accordion.md`](components/accordion.md) | Wrapper and independently controlled/uncontrolled item |
-| Sidebar | [`src/components/layout/Sidebar.vue`](../../src/components/layout/Sidebar.vue) | Implemented | [`components/sidebar.md`](components/sidebar.md) | [`Sidebar implementation`](implementations/sidebar.md) |
-| Top Bar | [`src/components/layout/TopBar.vue`](../../src/components/layout/TopBar.vue) | Implemented | [`components/top-bar.md`](components/top-bar.md) | Web, Tab, and Mobile variants; optional logo, action trail, and divider |
+| Component | Source | Current implementation |
+| --- | --- | --- |
+| Accordion | [`Accordion.vue`](../../src/components/ui/Accordion.vue), [`AccordionItem.vue`](../../src/components/ui/AccordionItem.vue) | Custom Vue implementation; migration to shadcn-vue/Reka UI is tracked in the migration checklist. |
+| Sidebar | [`Sidebar.vue`](../../src/components/layout/Sidebar.vue) | ACH navigation and responsive behavior; see the [asset map](implementations/sidebar.md). |
+| Top Bar | [`TopBar.vue`](../../src/components/layout/TopBar.vue) | Custom responsive layout component. |
 
-Other components in the design registry may not have Vue implementations yet.
+Update this list when component source is added or removed. Do not duplicate component APIs or Figma-generated code examples here.

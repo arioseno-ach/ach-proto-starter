@@ -1,10 +1,10 @@
 # Sidebar implementation
 
-This page records repository-specific implementation references for the Sidebar. Its design intent and component spec live in [`../components/sidebar.md`](../components/sidebar.md).
+This page records the Sidebar's project asset map and implementation references. The component overview is in [`../components.md`](../components.md); the Vue source defines its current API and behavior.
 
 - **Vue source:** [`src/components/layout/Sidebar.vue`](../../../src/components/layout/Sidebar.vue)
 - **Figma reference:** [Beta Design System — Sidebar](https://www.figma.com/design/NuDCvey0DAPdptqOT0mRlc/Beta-Design-System?node-id=1125-9352)
-- **Implementation:** Native Vue state and HTML controls; no Radix dependency.
+- **Implementation:** Verify current behavior in the linked Vue source. Use this page for project asset paths only.
 - **Tokens:** Sidebar CSS variables are defined in [`src/styles/tokens.css`](../../../src/styles/tokens.css) and documented in [`tokens.md`](../tokens.md).
 
 ## Project asset map
