@@ -12,7 +12,7 @@ Keep references flowing from primitives → semantic → components. Add raw val
 
 ## Tailwind and shadcn-vue
 
-`semantic.css` exposes shadcn-vue's standard color names as aliases to ACH semantic tokens and maps them to Tailwind v4 utilities with `@theme inline`. Existing ACH token names remain available. Sidebar utility colors are mapped in `components.css` to the existing Sidebar component tokens. The current bridge is light-theme only; add a dark palette only when its design values are available.
+`semantic.css` exposes shadcn-vue's standard color names as aliases to ACH semantic tokens and maps colors, spacing, and radius to Tailwind v4 utilities with `@theme inline`. Existing ACH token names remain available. Sidebar utility colors are mapped in `components.css` to the existing Sidebar component tokens. The current bridge is light-theme only; add a dark palette only when its design values are available.
 
 ## Sidebar compatibility
 
@@ -23,6 +23,10 @@ When a Figma design or external reference names a CSS variable, verify it exists
 ## Accordion compatibility
 
 Accordion colors map to existing `--component-accordion-*` tokens. Header spacing, icon dimensions, typography, and divider width flow through the primitives → semantic → component layers in [`components.css`](../../src/styles/tokens/components.css).
+
+## Button and Input pilot
+
+Button styles consume the existing `--component-button-*` roles, and Input styles consume `--component-input-*` roles. Generic shadcn-vue semantic utilities remain aliases over ACH semantic tokens; component-specific styles should continue to use the ACH component roles when available.
 
 ## Top Bar compatibility
 

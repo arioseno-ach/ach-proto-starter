@@ -26,20 +26,28 @@ Branch: `feat/shadcn-vue-reka-ui` · Baseline: `9d62d0f` (`chore: checkpoint cur
 
 ## Phase 3 — Pilot components
 
-- [ ] Add shadcn-vue Button and Input, styled with ACH tokens and project assets.
-- [ ] Migrate Accordion to the shadcn-vue/Reka composition API and update the showcase.
-- [ ] Preserve multi-expand and disabled behavior; verify keyboard interaction and visible focus.
+- [x] Add shadcn-vue Button and Input, styled with ACH tokens and project assets.
+- [x] Migrate Accordion to the shadcn-vue/Reka composition API and update the showcase.
+- [x] Preserve multi-expand and disabled behavior; verify keyboard interaction and visible focus.
 
 ## Phase 4 — Sidebar integration
 
-- [ ] Adopt shadcn-vue Sidebar primitives while retaining ACH navigation, the `select` event, and project asset paths.
-- [ ] Preserve collapse, mobile drawer, backdrop, and Escape behavior.
-- [ ] Keep Top Bar custom and verify its existing menu integration remains functional.
+- [x] Adopt shadcn-vue Sidebar primitives while retaining ACH navigation, the `select` event, and project asset paths.
+- [x] Preserve collapse, mobile drawer, backdrop, and Escape behavior through the Sidebar and Sheet primitives.
+- [x] Keep Top Bar custom and connect its menu to the Sidebar provider.
 
 ## Phase 5 — Guardrails and final checks
 
-- [ ] Add `pnpm lint:tokens` for raw color literals and arbitrary Tailwind values, with narrow layout exceptions.
-- [ ] Run `pnpm lint`, `pnpm typecheck`, `pnpm build`, and `pnpm lint:tokens`.
-- [ ] Audit component-doc links and inspect the final diff against the baseline.
-- [ ] Manually verify Accordion, Sidebar, Top Bar, Button, and Input behavior and visual states.
+- [x] Add `pnpm lint:tokens` for raw color literals and arbitrary Tailwind values, with narrow layout exceptions.
+- [x] Run `pnpm lint`, `pnpm typecheck`, `pnpm build`, and `pnpm lint:tokens`.
+- [x] Audit component-doc links and instruction references; verify all local icon/logo paths exist.
+- [ ] Review the final diff against the baseline.
+- [x] Manually verify Accordion, Sidebar, Top Bar, Button, and Input behavior and visual states.
 - [ ] Merge the branch into `main` after all checks pass.
+
+## Progress log
+
+- Phase 3 implementation: `pnpm lint` and `pnpm typecheck` passed.
+- Phase 4 implementation: `pnpm lint` and `pnpm typecheck` passed.
+- Manual review: Accordion multi-expand, disabled state, and ArrowDown navigation passed; Button/Input focus and disabled states passed; Sidebar collapse, mobile drawer, backdrop, Escape, selection, and Top Bar toggle passed.
+- Final gates: `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm lint:tokens`, and `pnpm ls reka-ui --depth Infinity` passed; the dependency tree contains one `reka-ui@2.11.0` package.
