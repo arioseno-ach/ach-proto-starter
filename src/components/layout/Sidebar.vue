@@ -1,5 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import {
+  Sidebar as SidebarPrimitive,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from '@/components/ui/sidebar'
 
 type SidebarItem = {
   label: string
@@ -9,11 +21,8 @@ type SidebarItem = {
 }
 
 const activeItem = ref('Home')
-const collapsed = ref(false)
 const companySwitcher = ref<HTMLDetailsElement | null>(null)
-const emit = defineEmits<{
-  select: [label: string]
-}>()
+const { state, toggleSidebar } = useSidebar()
 
 const platformItems: SidebarItem[] = [
   { label: 'Document', icon: '/icons/text-formatting/description.svg' },
@@ -47,6 +56,10 @@ const footerItems: SidebarItem[] = [
   { label: 'Help & Support', icon: '/icons/communications/contact-support.svg' },
 ]
 
+const emit = defineEmits<{
+  select: [label: string]
+}>()
+
 function selectItem(label: string) {
   activeItem.value = label
   emit('select', label)
@@ -58,460 +71,422 @@ function closeCompanySwitcher() {
 </script>
 
 <template>
-  <aside
+  <SidebarPrimitive
     id="primary-navigation"
-    class="sidebar"
-    :class="{ 'sidebar--collapsed': collapsed }"
-    :data-collapsed="collapsed"
+    class="ach-sidebar"
+    collapsible="icon"
     aria-label="Primary navigation"
   >
-    <details ref="companySwitcher" class="sidebar__company-switcher" :class="{ 'sidebar__company-switcher--collapsed': collapsed }">
-      <summary
-        class="sidebar__company"
-        :aria-label="collapsed ? 'PT Harapan Terakhir' : 'Switch company'"
-        :title="collapsed ? 'PT Harapan Terakhir' : undefined"
-      >
-        <span class="sidebar__initials" aria-hidden="true">HT</span>
-        <span v-if="!collapsed" class="sidebar__company-info">
-          <span class="sidebar__company-name">PT Harapan Terakhir</span>
-          <span class="sidebar__badge">Corporate</span>
-          <span class="sidebar__company-id">092388209732087340000000</span>
-        </span>
-        <img
-          v-if="!collapsed"
-          class="sidebar__icon sidebar__company-chevron"
-          src="/icons/ui-actions/expand-more.svg"
-          alt=""
-        />
-      </summary>
-      <div class="sidebar__company-menu" role="group" aria-label="Companies">
-        <button class="sidebar__company-option" type="button" aria-current="true" @click="closeCompanySwitcher">
-          PT Harapan Terakhir
-        </button>
-        <button class="sidebar__company-option" type="button" disabled>
-          Switch company…
-        </button>
-      </div>
-    </details>
-
-    <nav class="sidebar__navigation" aria-label="Main menu">
-      <button
-        class="sidebar__item"
-        :class="{ 'sidebar__item--active': activeItem === 'Home' }"
-        type="button"
-        :aria-label="collapsed ? 'Home' : undefined"
-        :aria-current="activeItem === 'Home' ? 'page' : undefined"
-        :title="collapsed ? 'Home' : undefined"
-        @click="selectItem('Home')"
-      >
-        <img class="sidebar__icon" src="/icons/ui-actions/home.svg" alt="" />
-        <span v-if="!collapsed" class="sidebar__item-label">Home</span>
-      </button>
-
-      <section class="sidebar__group" aria-label="Platform">
-        <h2 v-if="!collapsed" class="sidebar__group-label">Platform</h2>
-        <button
-          v-for="item in platformItems"
-          :key="item.label"
-          class="sidebar__item"
-          :class="{ 'sidebar__item--active': activeItem === item.label }"
-          type="button"
-          :aria-label="collapsed ? item.label : undefined"
-          :aria-current="activeItem === item.label ? 'page' : undefined"
-          :title="collapsed ? item.label : undefined"
-          @click="selectItem(item.label)"
-        >
-          <img class="sidebar__icon" :src="item.icon" alt="" />
-          <span v-if="!collapsed" class="sidebar__item-label">{{ item.label }}</span>
-        </button>
-      </section>
-
-      <section class="sidebar__group" aria-label="Products">
-        <h2 v-if="!collapsed" class="sidebar__group-label">Products</h2>
-        <button
-          v-for="item in productItems"
-          :key="item.label"
-          class="sidebar__item sidebar__product"
-          :class="{ 'sidebar__item--active': activeItem === item.label }"
-          type="button"
-          :aria-label="collapsed ? item.label : undefined"
-          :aria-current="activeItem === item.label ? 'page' : undefined"
-          :title="collapsed ? item.label : undefined"
-          @click="selectItem(item.label)"
-        >
-          <span class="sidebar__product-mark">
-            <img :src="item.logo" alt="" />
+    <SidebarHeader class="ach-sidebar__header">
+      <details ref="companySwitcher" class="ach-sidebar__company-switcher">
+        <summary class="ach-sidebar__company" aria-label="Switch company">
+          <span class="ach-sidebar__initials" aria-hidden="true">HT</span>
+          <span class="ach-sidebar__company-copy">
+            <span class="ach-sidebar__company-name">PT Harapan Terakhir</span>
+            <span class="ach-sidebar__badge">Corporate</span>
+            <span class="ach-sidebar__company-id">092388209732087340000000</span>
           </span>
-          <span v-if="!collapsed" class="sidebar__product-copy">
-            <span class="sidebar__item-label">{{ item.label }}</span>
-            <span class="sidebar__item-subtitle">{{ item.subtitle }}</span>
-          </span>
-        </button>
-      </section>
+          <img class="ach-sidebar__company-chevron" src="/icons/ui-actions/expand-more.svg" alt="" />
+        </summary>
+        <div class="ach-sidebar__company-menu" role="group" aria-label="Companies">
+          <button class="ach-sidebar__company-option" type="button" aria-current="true" @click="closeCompanySwitcher">
+            PT Harapan Terakhir
+          </button>
+          <button class="ach-sidebar__company-option" type="button" disabled>
+            Switch company…
+          </button>
+        </div>
+      </details>
+    </SidebarHeader>
 
-      <button
-        class="sidebar__item"
-        :class="{ 'sidebar__item--active': activeItem === 'All Product' }"
-        type="button"
-        :aria-label="collapsed ? 'All Product' : undefined"
-        :aria-current="activeItem === 'All Product' ? 'page' : undefined"
-        :title="collapsed ? 'All Product' : undefined"
-        @click="selectItem('All Product')"
-      >
-        <img class="sidebar__icon" src="/icons/ui-actions/apps.svg" alt="" />
-        <span v-if="!collapsed" class="sidebar__item-label">All Product</span>
-      </button>
-    </nav>
+    <SidebarContent class="ach-sidebar__content">
+      <nav aria-label="Main menu">
+        <SidebarMenu class="ach-sidebar__menu">
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              class="ach-sidebar__menu-button"
+              :is-active="activeItem === 'Home'"
+              aria-label="Home"
+              :aria-current="activeItem === 'Home' ? 'page' : undefined"
+              tooltip="Home"
+              @click="selectItem('Home')"
+            >
+              <img class="ach-sidebar__icon" src="/icons/ui-actions/home.svg" alt="" />
+              <span>Home</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
 
-    <nav class="sidebar__footer" aria-label="Settings and support">
-      <button
-        v-for="item in footerItems"
-        :key="item.label"
-        class="sidebar__item"
-        :class="{ 'sidebar__item--active': activeItem === item.label }"
-        type="button"
-        :aria-label="collapsed ? item.label : undefined"
-        :aria-current="activeItem === item.label ? 'page' : undefined"
-        :title="collapsed ? item.label : undefined"
-        @click="selectItem(item.label)"
-      >
-        <img class="sidebar__icon" :src="item.icon" alt="" />
-        <span v-if="!collapsed" class="sidebar__item-label">{{ item.label }}</span>
-        <img
-          v-if="!collapsed"
-          class="sidebar__icon sidebar__item-trailing"
-          src="/icons/ui-actions/expand-less.svg"
-          alt=""
-        />
-      </button>
-      <button
-        class="sidebar__item sidebar__collapse"
-        type="button"
-        :aria-label="collapsed ? 'Expand sidebar' : 'Collapse sidebar'"
-        :title="collapsed ? 'Expand sidebar' : undefined"
-        :aria-expanded="!collapsed"
-        @click="collapsed = !collapsed"
-      >
-        <img
-          class="sidebar__icon sidebar__collapse-icon"
-          :class="{ 'sidebar__collapse-icon--rotated': collapsed }"
-          src="/icons/ui-actions/chevron-left.svg"
-          alt=""
-        />
-        <span v-if="!collapsed" class="sidebar__item-label">Collapse</span>
-        <img
-          v-if="!collapsed"
-          class="sidebar__icon sidebar__item-trailing"
-          src="/icons/ui-actions/expand-less.svg"
-          alt=""
-        />
-      </button>
-    </nav>
-  </aside>
+        <SidebarGroup class="ach-sidebar__group">
+          <SidebarGroupLabel as="h2" class="ach-sidebar__group-label">Platform</SidebarGroupLabel>
+          <SidebarMenu class="ach-sidebar__menu">
+            <SidebarMenuItem v-for="item in platformItems" :key="item.label">
+              <SidebarMenuButton
+                class="ach-sidebar__menu-button"
+                :is-active="activeItem === item.label"
+                :aria-label="item.label"
+                :aria-current="activeItem === item.label ? 'page' : undefined"
+                :tooltip="item.label"
+                @click="selectItem(item.label)"
+              >
+                <img class="ach-sidebar__icon" :src="item.icon" alt="" />
+                <span>{{ item.label }}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup class="ach-sidebar__group">
+          <SidebarGroupLabel as="h2" class="ach-sidebar__group-label">Products</SidebarGroupLabel>
+          <SidebarMenu class="ach-sidebar__menu">
+            <SidebarMenuItem v-for="item in productItems" :key="item.label">
+              <SidebarMenuButton
+                class="ach-sidebar__menu-button ach-sidebar__product-button"
+                size="lg"
+                :is-active="activeItem === item.label"
+                :aria-label="item.label"
+                :aria-current="activeItem === item.label ? 'page' : undefined"
+                :tooltip="item.label"
+                @click="selectItem(item.label)"
+              >
+                <span class="ach-sidebar__product-mark">
+                  <img :src="item.logo" alt="" />
+                </span>
+                <span class="ach-sidebar__product-copy">
+                  <span class="ach-sidebar__item-label">{{ item.label }}</span>
+                  <span class="ach-sidebar__item-subtitle">{{ item.subtitle }}</span>
+                </span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarMenu class="ach-sidebar__menu">
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              class="ach-sidebar__menu-button"
+              :is-active="activeItem === 'All Product'"
+              aria-label="All Product"
+              :aria-current="activeItem === 'All Product' ? 'page' : undefined"
+              tooltip="All Product"
+              @click="selectItem('All Product')"
+            >
+              <img class="ach-sidebar__icon" src="/icons/ui-actions/apps.svg" alt="" />
+              <span>All Product</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </nav>
+    </SidebarContent>
+
+    <SidebarFooter class="ach-sidebar__footer">
+      <SidebarMenu class="ach-sidebar__menu">
+        <SidebarMenuItem v-for="item in footerItems" :key="item.label">
+          <SidebarMenuButton
+            class="ach-sidebar__menu-button"
+            :is-active="activeItem === item.label"
+            :aria-label="item.label"
+            :aria-current="activeItem === item.label ? 'page' : undefined"
+            :tooltip="item.label"
+            @click="selectItem(item.label)"
+          >
+            <img class="ach-sidebar__icon" :src="item.icon" alt="" />
+            <span>{{ item.label }}</span>
+            <img class="ach-sidebar__trailing-icon" src="/icons/ui-actions/expand-less.svg" alt="" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            class="ach-sidebar__menu-button"
+            :aria-label="state === 'collapsed' ? 'Expand sidebar' : 'Collapse sidebar'"
+            :aria-expanded="state !== 'collapsed'"
+            :tooltip="state === 'collapsed' ? 'Expand sidebar' : 'Collapse sidebar'"
+            @click="toggleSidebar"
+          >
+            <img
+              class="ach-sidebar__collapse-icon"
+              :class="{ 'ach-sidebar__collapse-icon--rotated': state === 'collapsed' }"
+              src="/icons/ui-actions/chevron-left.svg"
+              alt=""
+            />
+            <span>{{ state === 'collapsed' ? 'Expand' : 'Collapse' }}</span>
+            <img class="ach-sidebar__trailing-icon" src="/icons/ui-actions/expand-less.svg" alt="" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarFooter>
+  </SidebarPrimitive>
 </template>
 
 <style scoped>
-.sidebar {
-  box-sizing: border-box;
-  display: flex;
-  flex: 0 0 240px;
-  flex-direction: column;
-  gap: 16px;
-  height: 100dvh;
-  min-height: 480px;
-  padding: 16px 8px;
-  width: 240px;
-  border-right: 1px solid var(--sidebar-border);
-  background: var(--sidebar-background);
-  color: var(--sidebar-item-text);
-  transition: width 200ms ease-out, flex-basis 200ms ease-out;
+.ach-sidebar {
+  --sidebar-width: 240px;
+  --sidebar-width-icon: 62px;
 }
 
-.sidebar--collapsed {
-  flex-basis: 62px;
-  width: 62px;
+.ach-sidebar__header {
+  gap: 0;
+  padding: var(--primitives-padding-2);
 }
 
-.sidebar__company-switcher {
+.ach-sidebar__company-switcher {
   position: relative;
-  flex: 0 0 auto;
+  width: 100%;
 }
 
-.sidebar__company {
+.ach-sidebar__company {
   box-sizing: border-box;
   display: flex;
   min-height: 78px;
   align-items: flex-start;
-  gap: 12px;
-  padding: 8px;
-  border: 1px solid var(--sidebar-profile-border);
-  border-radius: 8px;
-  background: var(--sidebar-profile-background);
-  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  gap: var(--primitives-padding-3);
+  padding: var(--primitives-padding-2);
+  border: var(--primitives-border-width-default) solid var(--component-sidebar-profile-border);
+  border-radius: var(--primitives-border-radius-sm);
+  background: var(--component-sidebar-profile-background);
+  box-shadow: 0 1px 2px var(--primitives-shadows-xs-color);
+  color: var(--component-sidebar-profile-text);
   cursor: pointer;
   list-style: none;
 }
 
-.sidebar__company::-webkit-details-marker {
+.ach-sidebar__company::-webkit-details-marker {
   display: none;
 }
 
-.sidebar__company-switcher--collapsed .sidebar__company {
-  width: 42px;
-  min-height: 42px;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 4px;
-}
-
-.sidebar__initials {
+.ach-sidebar__initials {
   display: grid;
-  width: 32px;
-  height: 32px;
-  flex: 0 0 32px;
+  width: var(--primitives-padding-8);
+  height: var(--primitives-padding-8);
+  flex: 0 0 var(--primitives-padding-8);
   place-items: center;
-  border-radius: 50%;
+  border-radius: var(--primitives-border-radius-infinite);
   background: var(--avatar-initials-background);
   color: var(--avatar-initials-text);
-  font-size: 14px;
+  font-size: var(--primitives-font-sizes-sm);
   font-weight: 500;
-  line-height: 18px;
 }
 
-.sidebar__company-info,
-.sidebar__product-copy {
+.ach-sidebar__company-copy,
+.ach-sidebar__product-copy {
   display: flex;
   min-width: 0;
   flex: 1;
   flex-direction: column;
 }
 
-.sidebar__company-info {
-  gap: 4px;
+.ach-sidebar__company-copy {
+  gap: var(--primitives-padding-1);
   justify-content: center;
 }
 
-.sidebar__company-name,
-.sidebar__company-id,
-.sidebar__item-label,
-.sidebar__item-subtitle {
+.ach-sidebar__company-name,
+.ach-sidebar__company-id,
+.ach-sidebar__item-label,
+.ach-sidebar__item-subtitle {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.sidebar__company-name,
-.sidebar__item-label {
-  font-size: 14px;
+.ach-sidebar__company-name,
+.ach-sidebar__item-label {
+  font-size: var(--primitives-font-sizes-sm);
   font-weight: 400;
-  line-height: 20px;
+  line-height: var(--primitives-line-heights-sm);
 }
 
-.sidebar__company-name {
-  color: var(--sidebar-profile-text);
-}
-
-.sidebar__badge {
+.ach-sidebar__badge {
   align-self: flex-start;
-  padding: 2px 8px;
-  border-radius: 8px;
+  padding: var(--primitives-padding-1) var(--primitives-padding-2);
+  border-radius: var(--primitives-border-radius-sm);
   background: var(--sidebar-badge-background);
   color: var(--sidebar-badge-text);
-  font-size: 12px;
+  font-size: var(--primitives-font-sizes-xs);
   font-weight: 500;
-  line-height: 14px;
+  line-height: var(--primitives-line-heights-xs);
 }
 
-.sidebar__company-id {
-  color: var(--sidebar-profile-secondary);
-  font-size: 10px;
+.ach-sidebar__company-id {
+  color: var(--component-sidebar-profile-text-secondary);
+  font-size: var(--primitives-font-sizes-2xs);
   font-weight: 500;
-  line-height: 12px;
+  line-height: var(--primitives-line-heights-2xs);
 }
 
-.sidebar__icon {
+.ach-sidebar__company-chevron,
+.ach-sidebar__icon,
+.ach-sidebar__trailing-icon,
+.ach-sidebar__collapse-icon {
   display: block;
-  width: 16px;
-  height: 16px;
-  flex: 0 0 16px;
+  width: var(--primitives-padding-4);
+  height: var(--primitives-padding-4);
+  flex: 0 0 var(--primitives-padding-4);
 }
 
-.sidebar__company-chevron {
-  margin-top: 4px;
+.ach-sidebar__company-chevron {
+  margin-top: var(--primitives-padding-1);
 }
 
-.sidebar__company-menu {
+.ach-sidebar__company-menu {
   position: absolute;
   z-index: 2;
-  top: calc(100% + 4px);
+  top: calc(100% + var(--primitives-padding-1));
   left: 0;
   display: grid;
   width: 222px;
-  gap: 2px;
-  padding: 4px;
-  border: 1px solid var(--sidebar-profile-border);
-  border-radius: 8px;
-  background: var(--sidebar-background);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
+  gap: var(--primitives-padding-1);
+  padding: var(--primitives-padding-1);
+  border: var(--primitives-border-width-default) solid var(--component-sidebar-profile-border);
+  border-radius: var(--primitives-border-radius-sm);
+  background: var(--component-sidebar-background);
+  box-shadow: 0 4px 12px var(--primitives-shadows-sm-color);
 }
 
-.sidebar__company-switcher--collapsed .sidebar__company-menu {
-  top: 0;
-  left: calc(100% + 4px);
-}
-
-.sidebar__company-option {
-  padding: 8px;
+.ach-sidebar__company-option {
+  padding: var(--primitives-padding-2);
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--primitives-border-radius-xs);
   background: transparent;
-  color: var(--sidebar-item-text);
+  color: var(--component-sidebar-item-text);
   font: inherit;
-  font-size: 14px;
+  font-size: var(--primitives-font-sizes-sm);
   text-align: left;
 }
 
-.sidebar__company-option:not(:disabled) {
+.ach-sidebar__company-option:not(:disabled) {
   cursor: pointer;
 }
 
-.sidebar__company-option:not(:disabled):hover,
-.sidebar__company-option:not(:disabled):focus-visible {
-  background: var(--sidebar-item-hover);
-}
-
-.sidebar__company-option:disabled {
-  color: var(--sidebar-item-secondary);
-  cursor: not-allowed;
-}
-
-.sidebar__navigation {
-  display: flex;
-  min-height: 0;
-  flex: 1;
-  flex-direction: column;
-  gap: 16px;
-  overflow-x: visible;
-  overflow-y: auto;
-  scrollbar-width: thin;
-}
-
-.sidebar__group {
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar__group-label {
-  overflow: hidden;
-  margin: 0;
-  padding: 8px 12px;
-  color: var(--sidebar-group-label-text);
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 12px;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.sidebar__item {
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  min-height: 34px;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 8px 7px 12px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--sidebar-item-text);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
-.sidebar__item:hover,
-.sidebar__item:focus-visible {
-  background: var(--sidebar-item-hover);
+.ach-sidebar__company-option:not(:disabled):hover,
+.ach-sidebar__company-option:not(:disabled):focus-visible {
+  background: var(--component-sidebar-item-background-hover);
   outline: none;
 }
 
-.sidebar__item--active {
-  background: var(--sidebar-item-active);
+.ach-sidebar__company-option:disabled {
+  color: var(--component-sidebar-item-secondary);
+  cursor: not-allowed;
 }
 
-.sidebar__item--active:hover,
-.sidebar__item--active:focus-visible {
-  background: var(--sidebar-item-active);
+.ach-sidebar__content {
+  gap: var(--primitives-padding-2);
+  padding-inline: var(--primitives-padding-2);
+  scrollbar-width: thin;
 }
 
-.sidebar__item-label {
-  min-width: 0;
-  flex: 1;
+.ach-sidebar__group {
+  gap: 0;
+  padding: 0;
 }
 
-.sidebar__product {
-  min-height: 36px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+.ach-sidebar__group-label {
+  height: var(--primitives-padding-6);
+  padding-inline: var(--primitives-padding-3);
+  color: var(--component-sidebar-group-label-text);
+  font-size: var(--primitives-font-sizes-xs);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-xs);
+  text-transform: uppercase;
 }
 
-.sidebar__product-mark {
+.ach-sidebar__menu {
+  gap: var(--primitives-padding-1);
+}
+
+.ach-sidebar__menu-button {
+  min-height: 34px;
+  gap: var(--primitives-padding-2);
+  padding: var(--primitives-padding-1) var(--primitives-padding-2) var(--primitives-padding-1) var(--primitives-padding-3);
+  border-radius: var(--primitives-border-radius-sm);
+  color: var(--component-sidebar-item-text);
+  font-size: var(--primitives-font-sizes-sm);
+}
+
+:global(.ach-sidebar__menu-button[data-active="true"]) {
+  background: var(--component-sidebar-item-background-active);
+}
+
+:global(.ach-sidebar__menu-button[data-active="true"]:hover) {
+  background: var(--component-sidebar-item-background-active);
+}
+
+.ach-sidebar__product-button {
+  min-height: var(--primitives-padding-12);
+}
+
+.ach-sidebar__product-mark {
   display: grid;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 24px;
+  width: var(--primitives-padding-6);
+  height: var(--primitives-padding-6);
+  flex: 0 0 var(--primitives-padding-6);
   place-items: center;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: var(--primitives-border-radius-sm);
   background: var(--avatar-logo-background);
 }
 
-.sidebar__product-mark img {
+.ach-sidebar__product-mark img {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: var(--primitives-padding-4);
+  height: var(--primitives-padding-4);
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
 
-.sidebar__item-subtitle {
-  color: var(--sidebar-item-secondary);
-  font-size: 12px;
+.ach-sidebar__item-subtitle {
+  color: var(--component-sidebar-item-secondary);
+  font-size: var(--primitives-font-sizes-xs);
   font-weight: 400;
-  line-height: 14px;
+  line-height: var(--primitives-line-heights-xs);
 }
 
-.sidebar__footer {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
+.ach-sidebar__footer {
+  gap: 0;
+  padding: var(--primitives-padding-2);
 }
 
-.sidebar__item-trailing {
+.ach-sidebar__trailing-icon {
   margin-left: auto;
 }
 
-.sidebar__collapse-icon {
+.ach-sidebar__collapse-icon {
   transition: transform 200ms ease-out;
 }
 
-.sidebar__collapse-icon--rotated {
+.ach-sidebar__collapse-icon--rotated {
   transform: rotate(180deg);
 }
 
-.sidebar--collapsed .sidebar__item {
+:global(.group[data-collapsible="icon"] .ach-sidebar__company-copy),
+:global(.group[data-collapsible="icon"] .ach-sidebar__company-chevron),
+:global(.group[data-collapsible="icon"] .ach-sidebar__trailing-icon),
+:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button > span:not(.ach-sidebar__product-mark)) {
+  display: none;
+}
+
+:global(.group[data-collapsible="icon"] .ach-sidebar__company) {
+  width: var(--primitives-padding-10);
+  height: var(--primitives-padding-10);
+  min-height: var(--primitives-padding-10);
+  align-items: center;
   justify-content: center;
-  padding: 7px;
+  margin-inline: auto;
+  padding: var(--primitives-padding-1);
+}
+
+:global(.group[data-collapsible="icon"] .ach-sidebar__company-menu) {
+  top: 0;
+  left: calc(100% + var(--primitives-padding-2));
+}
+
+:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button) {
+  justify-content: center;
+  padding: var(--primitives-padding-2);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sidebar,
-  .sidebar__collapse-icon {
+  .ach-sidebar__collapse-icon {
     transition: none;
   }
 }
