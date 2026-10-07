@@ -43,7 +43,7 @@ Branch: `feat/shadcn-vue-reka-ui` · Baseline: `9d62d0f` (`chore: checkpoint cur
 - [x] Audit component-doc links and instruction references; verify all local icon/logo paths exist.
 - [x] Review the final diff against the baseline.
 - [x] Manually verify Accordion, Sidebar, Top Bar, Button, and Input behavior and visual states.
-- [ ] Merge the branch into `main` after all checks pass.
+- [x] Merge the branch into `main` after all checks pass.
 
 ## Progress log
 
