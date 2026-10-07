@@ -135,4 +135,52 @@
 
   /* border */
   --semantic-border-ach-color-border-natural: var(--primitives-colors-neutral-0); /* border.strong — selected state, active input, focused element */
+
+  /* shadcn-vue aliases: light theme mapped to existing ACH semantics */
+  --background: var(--semantic-bg-ach-color-bg-canvas);
+  --foreground: var(--semantic-text-ach-color-text-default);
+  --card: var(--semantic-bg-ach-color-bg-surface);
+  --card-foreground: var(--semantic-text-ach-color-text-default);
+  --popover: var(--semantic-bg-ach-color-bg-surface);
+  --popover-foreground: var(--semantic-text-ach-color-text-default);
+  --primary: var(--semantic-bg-ach-color-bg-inverse);
+  --primary-foreground: var(--semantic-text-ach-color-text-inverse);
+  --secondary: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --secondary-foreground: var(--semantic-text-ach-color-text-default);
+  --muted: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --muted-foreground: var(--semantic-text-ach-color-text-secondary);
+  --accent: var(--semantic-brand-ach-color-brand-subtle);
+  --accent-foreground: var(--semantic-brand-ach-color-brand-strong);
+  --destructive: var(--semantic-fg-error-ach-color-fg-error);
+  --destructive-foreground: var(--semantic-text-ach-color-text-inverse);
+  --border: var(--semantic-border-ach-color-border-default);
+  --input: var(--semantic-border-ach-color-border-default);
+  --ring: var(--semantic-brand-ach-color-brand-default);
+  --radius: var(--primitives-border-radius-sm);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: var(--primitives-border-radius-xs);
+  --radius-md: var(--primitives-border-radius-sm);
+  --radius-lg: var(--primitives-border-radius-md);
+  --radius-xl: var(--primitives-border-radius-lg);
 }

@@ -19,10 +19,10 @@ Branch: `feat/shadcn-vue-reka-ui` · Baseline: `9d62d0f` (`chore: checkpoint cur
 
 ## Phase 2 — Tokens and shadcn-vue setup
 
-- [ ] Preserve primitive → semantic → component token layers and current ACH variables.
-- [ ] Add semantic aliases for shadcn-vue and Tailwind v4 `@theme inline`; do not add an invented dark palette.
-- [ ] Configure shadcn-vue for the existing Vue, CSS, utility, and component paths without replacing token files.
-- [ ] Install only the required Reka UI version and confirm `pnpm ls reka-ui --depth Infinity` reports one version.
+- [x] Preserve primitive → semantic → component token layers and current ACH variables.
+- [x] Add semantic aliases for shadcn-vue and Tailwind v4 `@theme inline`; do not add an invented dark palette.
+- [x] Configure shadcn-vue for the existing Vue, CSS, utility, and component paths without replacing token files.
+- [x] Install only the required Reka UI version and confirm `pnpm ls reka-ui --depth Infinity` reports one version.
 
 ## Phase 3 — Pilot components
 

@@ -10,6 +10,10 @@ Runtime design tokens are organized under [`src/styles/tokens/`](../../src/style
 
 Keep references flowing from primitives → semantic → components. Add raw values only in the primitives layer; do not put raw color values in component styles.
 
+## Tailwind and shadcn-vue
+
+`semantic.css` exposes shadcn-vue's standard color names as aliases to ACH semantic tokens and maps them to Tailwind v4 utilities with `@theme inline`. Existing ACH token names remain available. Sidebar utility colors are mapped in `components.css` to the existing Sidebar component tokens. The current bridge is light-theme only; add a dark palette only when its design values are available.
+
 ## Sidebar compatibility
 
 The existing `--sidebar-*` and `--avatar-*` variables remain available as aliases to component tokens so current Vue styles continue to work. Sidebar hover and active colors now follow the Figma component tokens.

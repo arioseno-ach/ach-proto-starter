@@ -828,3 +828,14 @@
   --sidebar-tooltip-background: var(--component-tooltip-default-background);
   --sidebar-tooltip-text: var(--component-tooltip-default-text);
 }
+
+@theme inline {
+  --color-sidebar: var(--sidebar-background);
+  --color-sidebar-foreground: var(--component-sidebar-item-text);
+  --color-sidebar-primary: var(--semantic-bg-ach-color-bg-inverse);
+  --color-sidebar-primary-foreground: var(--semantic-text-ach-color-text-inverse);
+  --color-sidebar-accent: var(--component-sidebar-item-background-hover);
+  --color-sidebar-accent-foreground: var(--component-sidebar-item-text);
+  --color-sidebar-border: var(--component-sidebar-border);
+  --color-sidebar-ring: var(--semantic-brand-ach-color-brand-default);
+}
