@@ -160,6 +160,7 @@
 }
 
 @theme inline {
+  --font-sans: var(--primitives-font-families-body), sans-serif;
   --spacing: var(--primitives-padding-1);
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -22,6 +22,5 @@ const forwarded = useForwardPropsEmits(props, emits)
   display: flex;
   width: 100%;
   flex-direction: column;
-  background: var(--component-accordion-background);
 }
 </style>

@@ -26,7 +26,6 @@ const forwardedProps = useForwardProps(delegatedProps)
 <style scoped>
 .ach-accordion-item {
   border-bottom: var(--component-accordion-divider-width) solid var(--component-accordion-border);
-  background: var(--component-accordion-background);
 }
 
 .ach-accordion-item:last-child {

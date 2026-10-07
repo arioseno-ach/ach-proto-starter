@@ -39,6 +39,7 @@ function closeMobileNav() {
   min-height: 100vh;
   flex: 1;
   flex-direction: column;
+  background: var(--semantic-bg-ach-color-bg-surface);
 }
 
 .app-content {

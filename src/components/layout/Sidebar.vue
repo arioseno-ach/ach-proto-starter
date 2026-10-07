@@ -26,8 +26,8 @@ const { state, toggleSidebar } = useSidebar()
 
 const platformItems: SidebarItem[] = [
   { label: 'Document', icon: '/icons/text-formatting/description.svg' },
-  { label: 'Sales Transaction', icon: '/icons/custom/sales.svg' },
-  { label: 'Purchase Transaction', icon: '/icons/custom/purchase.svg' },
+  { label: 'Sales Transaction', icon: '/icons/custom/e-faktur.svg' },
+  { label: 'Purchase Transaction', icon: '/icons/business-payments/receipt-long.svg' },
 ]
 
 const productItems: SidebarItem[] = [
@@ -73,7 +73,7 @@ function closeCompanySwitcher() {
 <template>
   <SidebarPrimitive
     id="primary-navigation"
-    class="ach-sidebar"
+    class="ach-sidebar border-sidebar-border"
     collapsible="icon"
     aria-label="Primary navigation"
   >
@@ -100,7 +100,7 @@ function closeCompanySwitcher() {
     </SidebarHeader>
 
     <SidebarContent class="ach-sidebar__content">
-      <nav aria-label="Main menu">
+      <nav class="ach-sidebar__nav" aria-label="Main menu">
         <SidebarMenu class="ach-sidebar__menu">
           <SidebarMenuItem>
             <SidebarMenuButton
@@ -192,7 +192,6 @@ function closeCompanySwitcher() {
           >
             <img class="ach-sidebar__icon" :src="item.icon" alt="" />
             <span>{{ item.label }}</span>
-            <img class="ach-sidebar__trailing-icon" src="/icons/ui-actions/expand-less.svg" alt="" />
           </SidebarMenuButton>
         </SidebarMenuItem>
         <SidebarMenuItem>
@@ -210,7 +209,6 @@ function closeCompanySwitcher() {
               alt=""
             />
             <span>{{ state === 'collapsed' ? 'Expand' : 'Collapse' }}</span>
-            <img class="ach-sidebar__trailing-icon" src="/icons/ui-actions/expand-less.svg" alt="" />
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
@@ -226,7 +224,8 @@ function closeCompanySwitcher() {
 
 .ach-sidebar__header {
   gap: 0;
-  padding: var(--primitives-padding-2);
+  padding-block: var(--primitives-padding-4);
+  padding-inline: var(--primitives-padding-2);
 }
 
 .ach-sidebar__company-switcher {
@@ -375,13 +374,19 @@ function closeCompanySwitcher() {
   scrollbar-width: thin;
 }
 
+.ach-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--primitives-padding-4);
+}
+
 .ach-sidebar__group {
   gap: 0;
   padding: 0;
 }
 
 .ach-sidebar__group-label {
-  height: var(--primitives-padding-6);
+  height: var(--primitives-padding-7);
   padding-inline: var(--primitives-padding-3);
   color: var(--component-sidebar-group-label-text);
   font-size: var(--primitives-font-sizes-xs);
@@ -391,10 +396,11 @@ function closeCompanySwitcher() {
 }
 
 .ach-sidebar__menu {
-  gap: var(--primitives-padding-1);
+  gap: 0;
 }
 
-.ach-sidebar__menu-button {
+:global(.ach-sidebar .ach-sidebar__menu-button) {
+  height: 34px;
   min-height: 34px;
   gap: var(--primitives-padding-2);
   padding: var(--primitives-padding-1) var(--primitives-padding-2) var(--primitives-padding-1) var(--primitives-padding-3);
@@ -411,8 +417,10 @@ function closeCompanySwitcher() {
   background: var(--component-sidebar-item-background-active);
 }
 
-.ach-sidebar__product-button {
-  min-height: var(--primitives-padding-12);
+:global(.ach-sidebar .ach-sidebar__product-button) {
+  height: 50px;
+  min-height: 50px;
+  padding-block: var(--primitives-padding-2);
 }
 
 .ach-sidebar__product-mark {
@@ -443,7 +451,8 @@ function closeCompanySwitcher() {
 
 .ach-sidebar__footer {
   gap: 0;
-  padding: var(--primitives-padding-2);
+  padding-block: var(--primitives-padding-4);
+  padding-inline: var(--primitives-padding-2);
 }
 
 .ach-sidebar__trailing-icon {
@@ -482,7 +491,14 @@ function closeCompanySwitcher() {
 
 :global(.group[data-collapsible="icon"] .ach-sidebar__menu-button) {
   justify-content: center;
+  margin-inline: auto;
   padding: var(--primitives-padding-2);
+}
+
+:global(.group[data-collapsible="icon"] .ach-sidebar__product-button) {
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

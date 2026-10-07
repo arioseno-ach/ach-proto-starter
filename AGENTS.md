@@ -50,6 +50,8 @@
 ### Visual taste and copy
 
 - For UI design, implementation, or review, read `.codex/skills/ach-design-taste/SKILL.md` and use the relevant product or unit context.
+- Before creating or changing a product-specific screen, flow, or prototype (including vibe-coding experiments), read `docs/design-system/context/product-overview.md` and the applicable unit context: `units/onlinepajak.md`, `units/credor.md`, and/or `units/covia.md`. For cross-product or platform work, read every relevant unit context as well.
+- Treat those context files as required product guidance for personas, core flows, approved and prohibited terminology, and legal/compliance guardrails. Exploratory or prototype work is not an exception.
 - Prefer clarity over decoration. Avoid wrapping every field or metric in a card; use spacing, dividers, and surface contrast to establish hierarchy.
 - Use tabular numerals for financial values and aligned metric columns where appropriate.
 - Do not add decorative glows or motion without a product reason.
@@ -60,8 +62,9 @@
 
 | Task | Read first |
 | --- | --- |
-| Build or change a screen or flow | Relevant product/unit context when business decisions require it → relevant pattern only when composing an existing workflow → `components.md` and Vue files for components used on the screen → tokens/assets that affect the change |
-| Build or change a component | `components.md` → existing Vue component if present → `usage-rules.md` when shared behavior or usage constraints matter → runtime tokens/assets only when used |
+| Build or change a screen, flow, or prototype | `product-overview.md` and applicable unit context(s) first (mandatory for product and vibe-coding work) → relevant pattern only when composing an existing workflow → `components.md` and Vue files for components used on the screen → tokens/assets that affect the change |
+| Build or change a component | For product-specific components, read `product-overview.md` and applicable unit context(s) first → `components.md` → existing Vue component if present → `usage-rules.md` when shared behavior or usage constraints matter → runtime tokens/assets only when used |
+| Implement a component from Figma | `.codex/skills/figma-to-vue/SKILL.md` → `components.md` and relevant Vue source → runtime tokens/assets used by the component |
 | Write or review UI copy | `docs/design-system/context/brand-voice.md` → `docs/design-system/context/legal-rules.md` → relevant product overview or unit context |
 | Change tokens or theme styling | `src/styles/tokens.css` and the relevant file under `src/styles/tokens/` → `docs/design-system/tokens.md` |
 | Review an existing layout | Relevant files in `src/components/layout` → `components.md` and linked implementation notes → `docs/design-system/patterns.md` and token docs |
