@@ -160,6 +160,7 @@
 }
 
 @theme inline {
+  --spacing: var(--primitives-padding-1);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -179,6 +180,7 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --radius-xs: var(--primitives-border-radius-xs);
   --radius-sm: var(--primitives-border-radius-xs);
   --radius-md: var(--primitives-border-radius-sm);
   --radius-lg: var(--primitives-border-radius-md);

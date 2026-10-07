@@ -79,5 +79,6 @@
 
 - `pnpm dev` starts the Vite development server.
 - `pnpm lint` runs Oxlint.
+- `pnpm lint:tokens` checks component Vue files for raw colors and unapproved arbitrary Tailwind values.
 - `pnpm typecheck` runs Vue-aware TypeScript checks.
 - `pnpm build` runs type checks and the Vite production build.
