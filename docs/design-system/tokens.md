@@ -24,9 +24,9 @@ When a Figma design or external reference names a CSS variable, verify it exists
 
 Accordion colors map to existing `--component-accordion-*` tokens. Header spacing, icon dimensions, typography, and divider width flow through the primitives → semantic → component layers in [`components.css`](../../src/styles/tokens/components.css).
 
-## Button and Input pilot
+## Button and Input
 
-Button styles consume the existing `--component-button-*` roles, and Input styles consume `--component-input-*` roles. Generic shadcn-vue semantic utilities remain aliases over ACH semantic tokens; component-specific styles should continue to use the ACH component roles when available.
+Button color states consume the `--component-button-solid-*` roles, and Input styles consume `--component-input-*` roles. Success and error hover/pressed fills use their stronger semantic foreground colors, while neutral hover/pressed uses the surface-hover token. Solid button size aliases flow through semantic and component roles, including typography; the extra-large height is 54px, and the inverse disabled state uses 40% opacity. The Controls showcase displays every solid color, size, and state combination on a dark semantic canvas so inverse buttons remain visible. Generic shadcn-vue semantic utilities remain aliases over ACH semantic tokens; component-specific styles should continue to use the ACH component roles when available.
 
 ## Top Bar compatibility
 

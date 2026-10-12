@@ -1,6 +1,55 @@
 /* ACH design tokens — semantic layer, adapted from Figma Local Variables. */
 :root {
 
+  /* button showcase */
+  --semantic-bg-ach-color-bg-showcase: var(--primitives-colors-neutral-850);
+  --semantic-border-ach-color-border-showcase: var(--primitives-colors-neutral-750);
+  --semantic-text-ach-color-text-showcase: var(--semantic-text-ach-color-text-inverse);
+
+  /* button sizing and states */
+  --semantic-button-solid-radius: var(--primitives-border-radius-infinite);
+  --semantic-button-inverse-disabled-opacity: var(--primitives-opacity-40);
+  --semantic-button-size-mini-height: var(--primitives-padding-6);
+  --semantic-button-size-mini-padding-block: var(--primitives-padding-1);
+  --semantic-button-size-mini-padding-inline: var(--primitives-padding-3);
+  --semantic-button-size-mini-gap: var(--primitives-padding-1);
+  --semantic-button-size-mini-font-size: var(--primitives-font-sizes-2xs);
+  --semantic-button-size-mini-line-height: var(--primitives-line-heights-4xs);
+  --semantic-button-size-mini-letter-spacing: var(--primitives-letter-spacing-md);
+  --semantic-button-size-mini-icon-size: var(--primitives-font-sizes-xs);
+  --semantic-button-size-small-height: var(--primitives-padding-8);
+  --semantic-button-size-small-padding-block: var(--primitives-padding-2);
+  --semantic-button-size-small-padding-inline: var(--primitives-padding-4);
+  --semantic-button-size-small-gap: var(--primitives-padding-1);
+  --semantic-button-size-small-font-size: var(--primitives-font-sizes-xs);
+  --semantic-button-size-small-line-height: var(--primitives-line-heights-3xs);
+  --semantic-button-size-small-letter-spacing: var(--primitives-letter-spacing-md);
+  --semantic-button-size-small-icon-size: var(--primitives-font-sizes-sm);
+  --semantic-button-size-default-height: var(--primitives-padding-9);
+  --semantic-button-size-default-padding-block: var(--primitives-padding-2);
+  --semantic-button-size-default-padding-inline: var(--primitives-padding-4);
+  --semantic-button-size-default-gap: var(--primitives-padding-2);
+  --semantic-button-size-default-font-size: var(--primitives-font-sizes-sm);
+  --semantic-button-size-default-line-height: var(--primitives-line-heights-xs);
+  --semantic-button-size-default-letter-spacing: var(--primitives-letter-spacing-wide);
+  --semantic-button-size-default-icon-size: var(--primitives-font-sizes-md);
+  --semantic-button-size-large-height: var(--primitives-padding-10);
+  --semantic-button-size-large-padding-block: var(--primitives-padding-2);
+  --semantic-button-size-large-padding-inline: var(--primitives-padding-5);
+  --semantic-button-size-large-gap: var(--primitives-padding-2);
+  --semantic-button-size-large-font-size: var(--primitives-font-sizes-md);
+  --semantic-button-size-large-line-height: var(--primitives-line-heights-sm);
+  --semantic-button-size-large-letter-spacing: var(--primitives-letter-spacing-wide);
+  --semantic-button-size-large-icon-size: var(--primitives-font-sizes-lg);
+  --semantic-button-size-extra-large-height: var(--primitives-button-height-extra-large);
+  --semantic-button-size-extra-large-padding-block: var(--primitives-padding-4);
+  --semantic-button-size-extra-large-padding-inline: var(--primitives-padding-6);
+  --semantic-button-size-extra-large-gap: var(--primitives-padding-2);
+  --semantic-button-size-extra-large-font-size: var(--primitives-font-sizes-lg);
+  --semantic-button-size-extra-large-line-height: var(--primitives-line-heights-lg);
+  --semantic-button-size-extra-large-letter-spacing: var(--primitives-letter-spacing-md);
+  --semantic-button-size-extra-large-icon-size: var(--primitives-font-sizes-xl);
+
   /* topbar */
   --semantic-topbar-height: var(--primitives-topbar-height);
   --semantic-topbar-padding-inline: var(--primitives-topbar-padding-inline);
@@ -62,6 +111,7 @@
 
   /* fg */
   --semantic-fg-success-ach-color-fg-success: var(--primitives-colors-green-600); /* bg.surface — cards, modals, panels, table containers */
+  --semantic-fg-success-ach-color-fg-success-strong: var(--primitives-colors-green-700); /* Strong success fill — emphasis and interactive state */
   --semantic-fg-success-ach-color-fg-success-subtle: var(--primitives-colors-green-500); /* bg.surface — cards, modals, panels, table containers */
   --semantic-fg-success-ach-color-fg-success-muted: var(--primitives-colors-green-400); /* bg.surface — cards, modals, panels, table containers */
   --semantic-fg-warning-ach-color-fg-warning: var(--primitives-colors-orange-700); /* bg.surface — cards, modals, panels, table containers */
@@ -71,6 +121,7 @@
   --semantic-fg-info-ach-color-fg-info-subtle: var(--primitives-colors-blue-500); /* bg.surface — cards, modals, panels, table containers */
   --semantic-fg-info-ach-color-fg-info-muted: var(--primitives-colors-blue-400); /* bg.surface — cards, modals, panels, table containers */
   --semantic-fg-error-ach-color-fg-error: var(--primitives-colors-red-600); /* bg.surface — cards, modals, panels, table containers */
+  --semantic-fg-error-ach-color-fg-error-strong: var(--primitives-colors-red-700); /* Strong error fill — emphasis and interactive state */
   --semantic-fg-error-ach-color-fg-error-subtle: var(--primitives-colors-red-500); /* bg.surface — cards, modals, panels, table containers */
 
   /* bg */

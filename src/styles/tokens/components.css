@@ -4,7 +4,54 @@
   /* card */
   --component-card-background: var(--semantic-bg-ach-color-bg-surface);
 
+  /* controls showcase */
+  --component-controls-showcase-background: var(--semantic-bg-ach-color-bg-showcase);
+  --component-controls-showcase-border: var(--semantic-border-ach-color-border-showcase);
+  --component-controls-showcase-text: var(--semantic-text-ach-color-text-showcase);
+
   /* button */
+  --component-button-solid-radius: var(--semantic-button-solid-radius);
+  --component-button-solid-inverse-opacity-disabled: var(--semantic-button-inverse-disabled-opacity);
+  --component-button-size-mini-height: var(--semantic-button-size-mini-height);
+  --component-button-size-mini-padding-block: var(--semantic-button-size-mini-padding-block);
+  --component-button-size-mini-padding-inline: var(--semantic-button-size-mini-padding-inline);
+  --component-button-size-mini-gap: var(--semantic-button-size-mini-gap);
+  --component-button-size-mini-font-size: var(--semantic-button-size-mini-font-size);
+  --component-button-size-mini-line-height: var(--semantic-button-size-mini-line-height);
+  --component-button-size-mini-letter-spacing: var(--semantic-button-size-mini-letter-spacing);
+  --component-button-size-mini-icon-size: var(--semantic-button-size-mini-icon-size);
+  --component-button-size-small-height: var(--semantic-button-size-small-height);
+  --component-button-size-small-padding-block: var(--semantic-button-size-small-padding-block);
+  --component-button-size-small-padding-inline: var(--semantic-button-size-small-padding-inline);
+  --component-button-size-small-gap: var(--semantic-button-size-small-gap);
+  --component-button-size-small-font-size: var(--semantic-button-size-small-font-size);
+  --component-button-size-small-line-height: var(--semantic-button-size-small-line-height);
+  --component-button-size-small-letter-spacing: var(--semantic-button-size-small-letter-spacing);
+  --component-button-size-small-icon-size: var(--semantic-button-size-small-icon-size);
+  --component-button-size-default-height: var(--semantic-button-size-default-height);
+  --component-button-size-default-padding-block: var(--semantic-button-size-default-padding-block);
+  --component-button-size-default-padding-inline: var(--semantic-button-size-default-padding-inline);
+  --component-button-size-default-gap: var(--semantic-button-size-default-gap);
+  --component-button-size-default-font-size: var(--semantic-button-size-default-font-size);
+  --component-button-size-default-line-height: var(--semantic-button-size-default-line-height);
+  --component-button-size-default-letter-spacing: var(--semantic-button-size-default-letter-spacing);
+  --component-button-size-default-icon-size: var(--semantic-button-size-default-icon-size);
+  --component-button-size-large-height: var(--semantic-button-size-large-height);
+  --component-button-size-large-padding-block: var(--semantic-button-size-large-padding-block);
+  --component-button-size-large-padding-inline: var(--semantic-button-size-large-padding-inline);
+  --component-button-size-large-gap: var(--semantic-button-size-large-gap);
+  --component-button-size-large-font-size: var(--semantic-button-size-large-font-size);
+  --component-button-size-large-line-height: var(--semantic-button-size-large-line-height);
+  --component-button-size-large-letter-spacing: var(--semantic-button-size-large-letter-spacing);
+  --component-button-size-large-icon-size: var(--semantic-button-size-large-icon-size);
+  --component-button-size-extra-large-height: var(--semantic-button-size-extra-large-height);
+  --component-button-size-extra-large-padding-block: var(--semantic-button-size-extra-large-padding-block);
+  --component-button-size-extra-large-padding-inline: var(--semantic-button-size-extra-large-padding-inline);
+  --component-button-size-extra-large-gap: var(--semantic-button-size-extra-large-gap);
+  --component-button-size-extra-large-font-size: var(--semantic-button-size-extra-large-font-size);
+  --component-button-size-extra-large-line-height: var(--semantic-button-size-extra-large-line-height);
+  --component-button-size-extra-large-letter-spacing: var(--semantic-button-size-extra-large-letter-spacing);
+  --component-button-size-extra-large-icon-size: var(--semantic-button-size-extra-large-icon-size);
   --component-button-solid-primary-bg: var(--semantic-bg-ach-color-bg-inverse); /* Neutral button fill → neutral.100 */
   --component-button-solid-primary-border: var(--semantic-border-ach-color-border-default); /* Neutral button border → neutral.200 */
   --component-button-solid-primary-text: var(--semantic-text-ach-color-text-inverse); /* Neutral button label → neutral.700 */
@@ -64,7 +111,7 @@
   --component-button-solid-primary-bg-active: var(--semantic-border-ach-color-border-inverse); /* Neutral button fill → neutral.100 */
   --component-button-solid-primary-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active); /* Neutral button fill → neutral.100 */
   --component-button-solid-success-bg: var(--semantic-fg-success-ach-color-fg-success);
-  --component-button-solid-success-bg-hover: var(--semantic-fg-success-ach-color-fg-success);
+  --component-button-solid-success-bg-hover: var(--semantic-fg-success-ach-color-fg-success-strong);
   --component-button-solid-success-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active);
   --component-button-solid-success-text: var(--semantic-text-ach-color-text-inverse);
   --component-button-solid-success-text-disabled: var(--semantic-text-ach-color-text-disabled);
@@ -74,7 +121,7 @@
   --component-button-solid-warning-text: var(--semantic-text-ach-color-text-inverse);
   --component-button-solid-warning-text-disabled: var(--semantic-text-ach-color-text-disabled);
   --component-button-solid-error-bg: var(--semantic-fg-error-ach-color-fg-error);
-  --component-button-solid-error-bg-hover: var(--semantic-fg-error-ach-color-fg-error);
+  --component-button-solid-error-bg-hover: var(--semantic-fg-error-ach-color-fg-error-strong);
   --component-button-solid-error-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active);
   --component-button-solid-error-text: var(--semantic-text-ach-color-text-inverse);
   --component-button-solid-error-text-disabled: var(--semantic-text-ach-color-text-disabled);
@@ -202,7 +249,7 @@
 
   /* button */
   --component-button-solid-neutral-bg: var(--semantic-bg-ach-color-bg-surface-active);
-  --component-button-solid-neutral-bg-hover: var(--semantic-bg-ach-color-bg-surface-active);
+  --component-button-solid-neutral-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
   --component-button-solid-neutral-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active);
   --component-button-solid-neutral-text: var(--semantic-text-ach-color-text-default);
   --component-button-solid-neutral-text-disabled: var(--semantic-text-ach-color-text-disabled);

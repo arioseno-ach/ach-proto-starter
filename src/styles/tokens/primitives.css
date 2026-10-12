@@ -33,6 +33,10 @@
   --primitives-opacity-high: 90;
   --primitives-opacity-mid: 50;
   --primitives-opacity-low: 10;
+  --primitives-opacity-40: 0.4;
+
+  /* button dimensions */
+  --primitives-button-height-extra-large: 54px;
 
   /* fontSizes */
   --primitives-font-sizes-5xl: 48px;

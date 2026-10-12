@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { SidebarInset, useSidebar } from '@/components/ui/sidebar'
+import AlertShowcase from '@/examples/AlertShowcase.vue'
 import AccordionShowcase from '@/examples/AccordionShowcase.vue'
 import ControlsShowcase from '@/examples/ControlsShowcase.vue'
 import Sidebar from '@/components/layout/Sidebar.vue'
@@ -20,6 +21,7 @@ function closeMobileNav() {
     <SidebarInset class="app-workspace">
       <TopBar :menu-expanded="mobileNavOpen" @menu-click="toggleSidebar" />
       <div class="app-content" aria-label="Component showcase">
+        <AlertShowcase />
         <AccordionShowcase />
         <ControlsShowcase />
       </div>
