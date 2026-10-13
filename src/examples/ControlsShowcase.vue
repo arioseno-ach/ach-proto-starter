@@ -15,6 +15,14 @@ const colors = [
   { value: 'brand', label: 'Brand' },
 ] as const
 
+const outlinedColors = [
+  { value: 'primary', label: 'Primary' },
+  { value: 'neutral', label: 'Neutral' },
+  { value: 'success', label: 'Success' },
+  { value: 'warning', label: 'Warning' },
+  { value: 'error', label: 'Error' },
+] as const
+
 const sizes = [
   { value: 'mini', label: 'Mini' },
   { value: 'small', label: 'Small' },
@@ -72,6 +80,46 @@ const states = [
       </table>
     </div>
 
+    <h3>Outlined buttons</h3>
+    <div class="button-matrix__scroller" role="region" aria-label="Outlined button variants" tabindex="0">
+      <table class="button-matrix" aria-label="Outlined button color, size, and state combinations">
+        <thead>
+          <tr>
+            <th class="button-matrix__color-heading" scope="col" rowspan="2">Color</th>
+            <th v-for="size in sizes" :key="size.value" scope="colgroup" :colspan="states.length">
+              {{ size.label }}
+            </th>
+          </tr>
+          <tr>
+            <template v-for="size in sizes" :key="`${size.value}-outlined-states`">
+              <th v-for="state in states" :key="`${size.value}-outlined-${state.value}`" scope="col">
+                {{ state.label }}
+              </th>
+            </template>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="color in outlinedColors" :key="`outlined-${color.value}`">
+            <th class="button-matrix__color-name" scope="row">{{ color.label }}</th>
+            <template v-for="size in sizes" :key="`outlined-${color.value}-${size.value}`">
+              <td v-for="state in states" :key="`outlined-${color.value}-${size.value}-${state.value}`">
+                <Button
+                  variant="outline"
+                  :color="color.value"
+                  :size="size.value"
+                  :disabled="state.disabled"
+                  :aria-label="`Outlined ${color.label} ${size.label} button, ${state.label.toLowerCase()} state`"
+                  :class="{ 'button-matrix__preview-outlined': state.preview }"
+                >
+                  Button
+                </Button>
+              </td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div class="controls-showcase__fields">
       <label class="controls-showcase__field">
         <span>Reference number</span>
@@ -100,6 +148,13 @@ h2 {
   margin: 0;
   color: var(--semantic-text-ach-color-text-default);
   font-size: var(--primitives-font-sizes-lg);
+  font-weight: 600;
+}
+
+h3 {
+  margin: var(--primitives-padding-2) 0 calc(-1 * var(--primitives-padding-2));
+  color: var(--semantic-text-ach-color-text-default);
+  font-size: var(--primitives-font-sizes-sm);
   font-weight: 600;
 }
 
@@ -189,6 +244,26 @@ h2 {
 
 .button-matrix__preview-hover[data-color='inverse'] {
   background: var(--component-button-solid-inverse-bg-hover);
+}
+
+.button-matrix__preview-outlined[data-color='primary'] {
+  background: var(--component-button-outlined-primary-bg-hover);
+}
+
+.button-matrix__preview-outlined[data-color='neutral'] {
+  background: var(--component-button-outlined-neutral-bg-hover);
+}
+
+.button-matrix__preview-outlined[data-color='success'] {
+  background: var(--component-button-outlined-success-bg-hover);
+}
+
+.button-matrix__preview-outlined[data-color='warning'] {
+  background: var(--component-button-outlined-warning-bg-hover);
+}
+
+.button-matrix__preview-outlined[data-color='error'] {
+  background: var(--component-button-outlined-error-bg-hover);
 }
 
 .controls-showcase__fields {

@@ -10,7 +10,7 @@ export const buttonVariants = cva(
       variant: {
         default: "ach-button--solid",
         destructive: "ach-button--solid",
-        outline: "ach-button--outlined-primary",
+        outline: "ach-button--outlined",
         secondary: "ach-button--solid",
         ghost: "ach-button--link-primary ach-button--ghost",
         link: "ach-button--link-primary ach-button--link",
