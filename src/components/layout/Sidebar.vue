@@ -39,6 +39,12 @@ const platformItems: SidebarItem[] = [
   { label: 'Purchase Transaction', icon: 'business-payments/receipt-long' },
 ]
 
+const productItems = [
+  { label: 'Tax & Compliance', subtitle: 'by OnlinePajak', logo: '/logo/logo-pajak-symbol-blue-20px.svg' },
+  { label: 'Cash & Financing', subtitle: 'by Credor', logo: '/logo/logo-credor-symbol-blue-24px.svg' },
+  { label: 'Insights & Commerce', subtitle: 'by Covia', logo: '/logo/logo-covia-symbol-blue-24px.svg' },
+]
+
 const footerItems: SidebarItem[] = [
   { label: 'Settings', icon: 'ui-actions/settings' },
   { label: 'Help & Support', icon: 'communications/contact-support' },
@@ -144,6 +150,34 @@ const menuItemClass =
               >
                 <Icon :name="item.icon" class="text-icon-default" />
                 <span class="group-data-[collapsible=icon]:hidden">{{ item.label }}</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
+
+        <SidebarGroup class="gap-0 p-0">
+          <SidebarGroupLabel as="h2" class="h-7 px-3 text-xs font-medium text-subtle uppercase">
+            Products
+          </SidebarGroupLabel>
+          <SidebarMenu class="gap-0">
+            <SidebarMenuItem v-for="item in productItems" :key="item.label">
+              <SidebarMenuButton
+                :class="[menuButtonClass, 'h-12.5 min-h-12.5 py-2']"
+                size="lg"
+                :is-active="activeItem === item.label"
+                :aria-label="item.label"
+                :aria-current="activeItem === item.label ? 'page' : undefined"
+                :tooltip="item.label"
+                @click="selectItem(item.label)"
+              >
+                <span class="grid size-6 shrink-0 place-items-center overflow-hidden rounded-md bg-(--component-avatar-logo-background)">
+                  <!-- Product logos ship in brand blue; render them white on the brand tile -->
+                  <img :src="item.logo" alt="" class="size-4 object-contain brightness-0 invert" />
+                </span>
+                <span class="flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden">
+                  <span class="truncate text-sm">{{ item.label }}</span>
+                  <span class="truncate text-xs text-secondary">{{ item.subtitle }}</span>
+                </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
