@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Icon } from '@/components/ui/icon'
 import {
   Sidebar as SidebarPrimitive,
   SidebarContent,
@@ -19,18 +26,22 @@ type SidebarItem = {
 }
 
 const activeItem = ref('Home')
-const companySwitcher = ref<HTMLDetailsElement | null>(null)
-const { state, toggleSidebar } = useSidebar()
+const { state, isMobile, openMobile, toggleSidebar } = useSidebar()
+const iconMode = computed(() => state.value === 'collapsed' && !isMobile.value)
+// In the mobile sheet the toggle closes the sheet; on desktop it collapses to icons.
+const collapsed = computed(() => !isMobile.value && state.value === 'collapsed')
+const toggleLabel = computed(() => (isMobile.value ? 'Close sidebar' : collapsed.value ? 'Expand sidebar' : 'Collapse sidebar'))
+const toggleExpanded = computed(() => (isMobile.value ? openMobile.value : !collapsed.value))
 
 const platformItems: SidebarItem[] = [
-  { label: 'Document', icon: '/icons/text-formatting/description.svg' },
-  { label: 'Sales Transaction', icon: '/icons/custom/e-faktur.svg' },
-  { label: 'Purchase Transaction', icon: '/icons/business-payments/receipt-long.svg' },
+  { label: 'Document', icon: 'text-formatting/description' },
+  { label: 'Sales Transaction', icon: 'custom/e-faktur' },
+  { label: 'Purchase Transaction', icon: 'business-payments/receipt-long' },
 ]
 
 const footerItems: SidebarItem[] = [
-  { label: 'Settings', icon: '/icons/ui-actions/settings.svg' },
-  { label: 'Help & Support', icon: '/icons/communications/contact-support.svg' },
+  { label: 'Settings', icon: 'ui-actions/settings' },
+  { label: 'Help & Support', icon: 'communications/contact-support' },
 ]
 
 const emit = defineEmits<{
@@ -42,380 +53,152 @@ function selectItem(label: string) {
   emit('select', label)
 }
 
-function closeCompanySwitcher() {
-  companySwitcher.value?.removeAttribute('open')
-}
+// Overrides on top of the ui/sidebar menu button: 34px row, 12px leading inset, active surface that survives hover.
+const menuButtonClass =
+  'h-8.5 min-h-8.5 gap-2 rounded-md py-1 pr-2 pl-3 text-sm text-default data-[active=true]:bg-surface-active data-[active=true]:hover:bg-surface-active group-data-[collapsible=icon]:mx-auto group-data-[collapsible=icon]:justify-center'
+
+const menuItemClass =
+  'cursor-pointer rounded-sm p-2 text-sm text-default focus:bg-surface-hover focus:text-default data-[disabled]:pointer-events-auto data-[disabled]:cursor-not-allowed data-[disabled]:text-secondary data-[disabled]:opacity-100'
 </script>
 
 <template>
   <SidebarPrimitive
     id="primary-navigation"
-    class="ach-sidebar border-sidebar-border"
+    class="border-sidebar-border"
     collapsible="icon"
     aria-label="Primary navigation"
   >
-    <SidebarHeader class="ach-sidebar__header">
-      <details ref="companySwitcher" class="ach-sidebar__company-switcher">
-        <summary class="ach-sidebar__company" aria-label="Switch company">
-          <span class="ach-sidebar__initials" aria-hidden="true">HT</span>
-          <span class="ach-sidebar__company-copy">
-            <span class="ach-sidebar__company-name">PT Harapan Terakhir</span>
-            <span class="ach-sidebar__badge">Corporate</span>
-            <span class="ach-sidebar__company-id">092388209732087340000000</span>
+    <SidebarHeader class="gap-0 py-4">
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          class="flex min-h-19.5 w-full cursor-pointer items-start gap-3 rounded-md border border-default bg-surface p-2 text-left text-default shadow-xs group-data-[collapsible=icon]:mx-auto group-data-[collapsible=icon]:size-10 group-data-[collapsible=icon]:min-h-10 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1"
+          aria-label="Switch company"
+        >
+          <span
+            class="grid size-8 shrink-0 place-items-center rounded-full bg-inverse text-sm font-medium text-inverse"
+            aria-hidden="true"
+          >
+            HT
           </span>
-          <img class="ach-sidebar__company-chevron" src="/icons/ui-actions/expand-more.svg" alt="" />
-        </summary>
-        <div class="ach-sidebar__company-menu" role="group" aria-label="Companies">
-          <button class="ach-sidebar__company-option" type="button" aria-current="true" @click="closeCompanySwitcher">
+          <span class="flex min-w-0 flex-1 flex-col justify-center gap-1 group-data-[collapsible=icon]:hidden">
+            <span class="truncate text-sm font-normal">PT Harapan Terakhir</span>
+            <span
+              class="self-start rounded-md bg-surface-active px-2 py-1 text-xs font-medium text-default"
+            >
+              Corporate
+            </span>
+            <span class="truncate text-2xs leading-4 font-medium text-secondary">092388209732087340000000</span>
+          </span>
+          <Icon
+            name="ui-actions/expand-more"
+            class="mt-1 text-icon-default group-data-[collapsible=icon]:hidden"
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          class="grid w-55.5 gap-1 border-default bg-surface shadow-md"
+          :side="iconMode ? 'right' : 'bottom'"
+          align="start"
+          :side-offset="iconMode ? 8 : 4"
+        >
+          <DropdownMenuItem :class="menuItemClass" aria-current="true">
             PT Harapan Terakhir
-          </button>
-          <button class="ach-sidebar__company-option" type="button" disabled>
+          </DropdownMenuItem>
+          <DropdownMenuItem :class="menuItemClass" disabled>
             Switch company…
-          </button>
-        </div>
-      </details>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </SidebarHeader>
 
-    <SidebarContent class="ach-sidebar__content">
-      <nav class="ach-sidebar__nav" aria-label="Main menu">
-        <SidebarMenu class="ach-sidebar__menu">
+    <SidebarContent class="gap-2 px-2 [scrollbar-width:thin]">
+      <nav class="flex flex-col gap-4" aria-label="Main menu">
+        <SidebarMenu class="gap-0">
           <SidebarMenuItem>
             <SidebarMenuButton
-              class="ach-sidebar__menu-button"
+              :class="menuButtonClass"
               :is-active="activeItem === 'Home'"
               aria-label="Home"
               :aria-current="activeItem === 'Home' ? 'page' : undefined"
               tooltip="Home"
               @click="selectItem('Home')"
             >
-              <img class="ach-sidebar__icon" src="/icons/ui-actions/home.svg" alt="" />
-              <span>Home</span>
+              <Icon name="ui-actions/home" class="text-icon-default" />
+              <span class="group-data-[collapsible=icon]:hidden">Home</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
 
-        <SidebarGroup class="ach-sidebar__group">
-          <SidebarGroupLabel as="h2" class="ach-sidebar__group-label">Platform</SidebarGroupLabel>
-          <SidebarMenu class="ach-sidebar__menu">
+        <SidebarGroup class="gap-0 p-0">
+          <SidebarGroupLabel as="h2" class="h-7 px-3 text-xs font-medium text-subtle uppercase">
+            Platform
+          </SidebarGroupLabel>
+          <SidebarMenu class="gap-0">
             <SidebarMenuItem v-for="item in platformItems" :key="item.label">
               <SidebarMenuButton
-                class="ach-sidebar__menu-button"
+                :class="menuButtonClass"
                 :is-active="activeItem === item.label"
                 :aria-label="item.label"
                 :aria-current="activeItem === item.label ? 'page' : undefined"
                 :tooltip="item.label"
                 @click="selectItem(item.label)"
               >
-                <img class="ach-sidebar__icon" :src="item.icon" alt="" />
-                <span>{{ item.label }}</span>
+                <Icon :name="item.icon" class="text-icon-default" />
+                <span class="group-data-[collapsible=icon]:hidden">{{ item.label }}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
 
-        <SidebarMenu class="ach-sidebar__menu">
+        <SidebarMenu class="gap-0">
           <SidebarMenuItem>
             <SidebarMenuButton
-              class="ach-sidebar__menu-button"
+              :class="menuButtonClass"
               :is-active="activeItem === 'All Product'"
               aria-label="All Product"
               :aria-current="activeItem === 'All Product' ? 'page' : undefined"
               tooltip="All Product"
               @click="selectItem('All Product')"
             >
-              <img class="ach-sidebar__icon" src="/icons/ui-actions/apps.svg" alt="" />
-              <span>All Product</span>
+              <Icon name="ui-actions/apps" class="text-icon-default" />
+              <span class="group-data-[collapsible=icon]:hidden">All Product</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </nav>
     </SidebarContent>
 
-    <SidebarFooter class="ach-sidebar__footer">
-      <SidebarMenu class="ach-sidebar__menu">
+    <SidebarFooter class="gap-0 py-4">
+      <SidebarMenu class="gap-0">
         <SidebarMenuItem v-for="item in footerItems" :key="item.label">
           <SidebarMenuButton
-            class="ach-sidebar__menu-button"
+            :class="menuButtonClass"
             :is-active="activeItem === item.label"
             :aria-label="item.label"
             :aria-current="activeItem === item.label ? 'page' : undefined"
             :tooltip="item.label"
             @click="selectItem(item.label)"
           >
-            <img class="ach-sidebar__icon" :src="item.icon" alt="" />
-            <span>{{ item.label }}</span>
+            <Icon :name="item.icon" class="text-icon-default" />
+            <span class="group-data-[collapsible=icon]:hidden">{{ item.label }}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
         <SidebarMenuItem>
           <SidebarMenuButton
-            class="ach-sidebar__menu-button"
-            :aria-label="state === 'collapsed' ? 'Expand sidebar' : 'Collapse sidebar'"
-            :aria-expanded="state !== 'collapsed'"
-            :tooltip="state === 'collapsed' ? 'Expand sidebar' : 'Collapse sidebar'"
+            :class="menuButtonClass"
+            :aria-label="toggleLabel"
+            :aria-expanded="toggleExpanded"
+            :tooltip="toggleLabel"
             @click="toggleSidebar"
           >
-            <img
-              class="ach-sidebar__collapse-icon"
-              :class="{ 'ach-sidebar__collapse-icon--rotated': state === 'collapsed' }"
-              src="/icons/ui-actions/chevron-left.svg"
-              alt=""
+            <Icon
+              name="ui-actions/chevron-left"
+              class="text-icon-default transition-transform duration-base ease-emphasized motion-reduce:transition-none"
+              :class="{ 'rotate-180': collapsed }"
             />
-            <span>{{ state === 'collapsed' ? 'Expand' : 'Collapse' }}</span>
+            <span class="group-data-[collapsible=icon]:hidden">{{ isMobile ? 'Close' : collapsed ? 'Expand' : 'Collapse' }}</span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
     </SidebarFooter>
   </SidebarPrimitive>
 </template>
-
-<style scoped>
-.ach-sidebar {
-  --sidebar-width: 240px;
-  --sidebar-width-icon: 62px;
-}
-
-.ach-sidebar__header {
-  gap: 0;
-  padding-block: var(--primitives-padding-4);
-  padding-inline: var(--primitives-padding-2);
-}
-
-.ach-sidebar__company-switcher {
-  position: relative;
-  width: 100%;
-}
-
-.ach-sidebar__company {
-  box-sizing: border-box;
-  display: flex;
-  min-height: 78px;
-  align-items: flex-start;
-  gap: var(--primitives-padding-3);
-  padding: var(--primitives-padding-2);
-  border: var(--primitives-border-width-default) solid var(--component-sidebar-profile-border);
-  border-radius: var(--primitives-border-radius-sm);
-  background: var(--component-sidebar-profile-background);
-  box-shadow: 0 1px 2px var(--primitives-shadows-xs-color);
-  color: var(--component-sidebar-profile-text);
-  cursor: pointer;
-  list-style: none;
-}
-
-.ach-sidebar__company::-webkit-details-marker {
-  display: none;
-}
-
-.ach-sidebar__initials {
-  display: grid;
-  width: var(--primitives-padding-8);
-  height: var(--primitives-padding-8);
-  flex: 0 0 var(--primitives-padding-8);
-  place-items: center;
-  border-radius: var(--primitives-border-radius-infinite);
-  background: var(--avatar-initials-background);
-  color: var(--avatar-initials-text);
-  font-size: var(--primitives-font-sizes-sm);
-  font-weight: 500;
-}
-
-.ach-sidebar__company-copy {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  flex-direction: column;
-}
-
-.ach-sidebar__company-copy {
-  gap: var(--primitives-padding-1);
-  justify-content: center;
-}
-
-.ach-sidebar__company-name,
-.ach-sidebar__company-id,
-.ach-sidebar__item-label {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.ach-sidebar__company-name,
-.ach-sidebar__item-label {
-  font-size: var(--primitives-font-sizes-sm);
-  font-weight: 400;
-  line-height: var(--primitives-line-heights-sm);
-}
-
-.ach-sidebar__badge {
-  align-self: flex-start;
-  padding: var(--primitives-padding-1) var(--primitives-padding-2);
-  border-radius: var(--primitives-border-radius-sm);
-  background: var(--sidebar-badge-background);
-  color: var(--sidebar-badge-text);
-  font-size: var(--primitives-font-sizes-xs);
-  font-weight: 500;
-  line-height: var(--primitives-line-heights-xs);
-}
-
-.ach-sidebar__company-id {
-  color: var(--component-sidebar-profile-text-secondary);
-  font-size: var(--primitives-font-sizes-2xs);
-  font-weight: 500;
-  line-height: var(--primitives-line-heights-2xs);
-}
-
-.ach-sidebar__company-chevron,
-.ach-sidebar__icon,
-.ach-sidebar__trailing-icon,
-.ach-sidebar__collapse-icon {
-  display: block;
-  width: var(--primitives-padding-4);
-  height: var(--primitives-padding-4);
-  flex: 0 0 var(--primitives-padding-4);
-}
-
-.ach-sidebar__company-chevron {
-  margin-top: var(--primitives-padding-1);
-}
-
-.ach-sidebar__company-menu {
-  position: absolute;
-  z-index: 2;
-  top: calc(100% + var(--primitives-padding-1));
-  left: 0;
-  display: grid;
-  width: 222px;
-  gap: var(--primitives-padding-1);
-  padding: var(--primitives-padding-1);
-  border: var(--primitives-border-width-default) solid var(--component-sidebar-profile-border);
-  border-radius: var(--primitives-border-radius-sm);
-  background: var(--component-sidebar-background);
-  box-shadow: 0 4px 12px var(--primitives-shadows-sm-color);
-}
-
-.ach-sidebar__company-option {
-  padding: var(--primitives-padding-2);
-  border: 0;
-  border-radius: var(--primitives-border-radius-xs);
-  background: transparent;
-  color: var(--component-sidebar-item-text);
-  font: inherit;
-  font-size: var(--primitives-font-sizes-sm);
-  text-align: left;
-}
-
-.ach-sidebar__company-option:not(:disabled) {
-  cursor: pointer;
-}
-
-.ach-sidebar__company-option:not(:disabled):hover,
-.ach-sidebar__company-option:not(:disabled):focus-visible {
-  background: var(--component-sidebar-item-background-hover);
-  outline: none;
-}
-
-.ach-sidebar__company-option:disabled {
-  color: var(--component-sidebar-item-secondary);
-  cursor: not-allowed;
-}
-
-.ach-sidebar__content {
-  gap: var(--primitives-padding-2);
-  padding-inline: var(--primitives-padding-2);
-  scrollbar-width: thin;
-}
-
-.ach-sidebar__nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--primitives-padding-4);
-}
-
-.ach-sidebar__group {
-  gap: 0;
-  padding: 0;
-}
-
-.ach-sidebar__group-label {
-  height: var(--primitives-padding-7);
-  padding-inline: var(--primitives-padding-3);
-  color: var(--component-sidebar-group-label-text);
-  font-size: var(--primitives-font-sizes-xs);
-  font-weight: 500;
-  line-height: var(--primitives-line-heights-xs);
-  text-transform: uppercase;
-}
-
-.ach-sidebar__menu {
-  gap: 0;
-}
-
-:global(.ach-sidebar .ach-sidebar__menu-button) {
-  height: 34px;
-  min-height: 34px;
-  gap: var(--primitives-padding-2);
-  padding: var(--primitives-padding-1) var(--primitives-padding-2) var(--primitives-padding-1) var(--primitives-padding-3);
-  border-radius: var(--primitives-border-radius-sm);
-  color: var(--component-sidebar-item-text);
-  font-size: var(--primitives-font-sizes-sm);
-}
-
-:global(.ach-sidebar__menu-button[data-active="true"]) {
-  background: var(--component-sidebar-item-background-active);
-}
-
-:global(.ach-sidebar__menu-button[data-active="true"]:hover) {
-  background: var(--component-sidebar-item-background-active);
-}
-
-.ach-sidebar__footer {
-  gap: 0;
-  padding-block: var(--primitives-padding-4);
-  padding-inline: var(--primitives-padding-2);
-}
-
-.ach-sidebar__trailing-icon {
-  margin-left: auto;
-}
-
-.ach-sidebar__collapse-icon {
-  transition: transform 200ms ease-out;
-}
-
-.ach-sidebar__collapse-icon--rotated {
-  transform: rotate(180deg);
-}
-
-:global(.group[data-collapsible="icon"] .ach-sidebar__company-copy),
-:global(.group[data-collapsible="icon"] .ach-sidebar__company-chevron),
-:global(.group[data-collapsible="icon"] .ach-sidebar__trailing-icon),
-:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button > span) {
-  display: none;
-}
-
-:global(.group[data-collapsible="icon"] .ach-sidebar__company) {
-  width: var(--primitives-padding-10);
-  height: var(--primitives-padding-10);
-  min-height: var(--primitives-padding-10);
-  align-items: center;
-  justify-content: center;
-  margin-inline: auto;
-  padding: var(--primitives-padding-1);
-}
-
-:global(.group[data-collapsible="icon"] .ach-sidebar__company-menu) {
-  top: 0;
-  left: calc(100% + var(--primitives-padding-2));
-}
-
-:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button) {
-  justify-content: center;
-  margin-inline: auto;
-  padding: var(--primitives-padding-2);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ach-sidebar__collapse-icon {
-    transition: none;
-  }
-}
-</style>

@@ -1,6 +1,6 @@
 # Patterns
 
-Document reusable page and interaction patterns here, with links to reference examples in `src/examples`.
+Document reusable page and interaction patterns here, with links to playground pages in `src/playground`.
 
 ## Prototype scenario switcher
 

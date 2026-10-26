@@ -1,0 +1,244 @@
+/* ACH theme bridge: shadcn-vue contract variables and Tailwind utilities for ACH tokens. */
+/* Loaded after the token layers. Utility names follow the Figma variable path (see docs/design-system/tokens.md). */
+
+:root {
+  /* shadcn-vue contract variables, light theme mapped to ACH semantics */
+  --background: var(--semantic-bg-ach-color-bg-canvas);
+  --foreground: var(--semantic-text-ach-color-text-default);
+  --card: var(--semantic-bg-ach-color-bg-surface);
+  --card-foreground: var(--semantic-text-ach-color-text-default);
+  --popover: var(--semantic-bg-ach-color-bg-surface);
+  --popover-foreground: var(--semantic-text-ach-color-text-default);
+  --primary: var(--semantic-bg-ach-color-bg-inverse);
+  --primary-foreground: var(--semantic-text-ach-color-text-inverse);
+  --secondary: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --secondary-foreground: var(--semantic-text-ach-color-text-default);
+  --muted: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --muted-foreground: var(--semantic-text-ach-color-text-secondary);
+  --accent: var(--semantic-brand-ach-color-brand-subtle);
+  --accent-foreground: var(--semantic-brand-ach-color-brand-strong);
+  --destructive: var(--semantic-fg-error-ach-color-fg-error);
+  --destructive-foreground: var(--semantic-text-ach-color-text-inverse);
+  --border: var(--semantic-border-ach-color-border-default);
+  --input: var(--semantic-border-ach-color-border-default);
+  --ring: var(--semantic-brand-ach-color-brand-default);
+  --radius: var(--primitives-border-radius-sm);
+}
+
+/* shadcn-vue color names, spacing, radius, and font */
+@theme inline {
+  --font-sans: var(--primitives-font-families-body), sans-serif;
+  --spacing: var(--primitives-padding-1);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-xs: var(--primitives-border-radius-xs);
+  --radius-sm: var(--primitives-border-radius-xs);
+  --radius-md: var(--primitives-border-radius-sm);
+  --radius-lg: var(--primitives-border-radius-md);
+  --radius-xl: var(--primitives-border-radius-lg);
+
+  /* Sidebar */
+  --color-sidebar: var(--component-sidebar-background);
+  --color-sidebar-foreground: var(--component-sidebar-item-text);
+  --color-sidebar-primary: var(--semantic-bg-ach-color-bg-inverse);
+  --color-sidebar-primary-foreground: var(--semantic-text-ach-color-text-inverse);
+  --color-sidebar-accent: var(--component-sidebar-item-background-hover);
+  --color-sidebar-accent-foreground: var(--component-sidebar-item-text);
+  --color-sidebar-border: var(--component-sidebar-border);
+  --color-sidebar-ring: var(--semantic-brand-ach-color-brand-default);
+}
+
+/* Breakpoints are compiled into media queries, so they must be literal values, not var() */
+@theme {
+  /* 601px: matches the sidebar's min-[601px] / max-width:600px mobile switch, so max-xs = <=600px */
+  --breakpoint-xs: 37.5625rem;
+}
+
+/* ACH semantic tokens as utilities, named after the Figma variable path */
+@theme inline {
+  /* Background utilities: bg-<name> */
+  --background-color-surface: var(--semantic-bg-ach-color-bg-surface);
+  --background-color-surface-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --background-color-surface-active: var(--semantic-bg-ach-color-bg-surface-active);
+  --background-color-canvas: var(--semantic-bg-ach-color-bg-canvas);
+  --background-color-inverse: var(--semantic-bg-ach-color-bg-inverse);
+  --background-color-surface-secondary: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --background-color-success-surface: var(--semantic-bg-success-ach-color-bg-success-surface);
+  --background-color-warning-surface: var(--semantic-bg-warning-ach-color-bg-warning-surface);
+  --background-color-info-surface: var(--semantic-bg-info-ach-color-bg-info-surface);
+  --background-color-info-surface-subtle: var(--semantic-bg-info-ach-color-bg-info-surface-subtle);
+  --background-color-error-surface: var(--semantic-bg-error-ach-color-bg-error-surface);
+
+  /* Text utilities: text-<name> */
+  --text-color-default: var(--semantic-text-ach-color-text-default);
+  --text-color-secondary: var(--semantic-text-ach-color-text-secondary);
+  --text-color-subtle: var(--semantic-text-ach-color-text-subtle);
+  --text-color-disabled: var(--semantic-text-ach-color-text-disabled);
+  --text-color-inverse: var(--semantic-text-ach-color-text-inverse);
+  --text-color-link: var(--semantic-text-ach-color-text-link);
+  --text-color-hover: var(--semantic-text-ach-color-text-hover);
+  --text-color-success: var(--semantic-text-success-ach-color-text-success);
+  --text-color-success-subtle: var(--semantic-text-success-ach-color-text-success-subtle);
+  --text-color-warning: var(--semantic-text-warning-ach-color-text-warning);
+  --text-color-warning-subtle: var(--semantic-text-warning-ach-color-text-warning-subtle);
+  --text-color-info: var(--semantic-text-info-ach-color-text-info);
+  --text-color-info-subtle: var(--semantic-text-info-ach-color-text-info-subtle);
+  --text-color-error: var(--semantic-text-error-ach-color-text-error);
+  --text-color-error-subtle: var(--semantic-text-error-ach-color-text-error-subtle);
+  --text-color-placeholder: var(--semantic-text-ach-color-text-placeholder);
+
+  /* Icon utilities: text-icon-<name>, icons render with currentColor */
+  --text-color-icon-default: var(--semantic-icon-ach-color-icon-default);
+  --text-color-icon-secondary: var(--semantic-icon-ach-color-icon-secondary);
+  --text-color-icon-subtle: var(--semantic-icon-ach-color-icon-subtle);
+  --text-color-icon-placeholder: var(--semantic-icon-ach-color-icon-placeholder);
+  --text-color-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --text-color-icon-inverse: var(--semantic-icon-ach-color-icon-inverse);
+  --text-color-icon-link: var(--semantic-icon-ach-color-icon-link);
+  --text-color-icon-hover: var(--semantic-icon-ach-color-icon-hover);
+  --text-color-icon-success: var(--semantic-icon-success-ach-color-icon-success);
+  --text-color-icon-success-subtle: var(--semantic-icon-success-ach-color-icon-success-subtle);
+  --text-color-icon-warning: var(--semantic-icon-warning-ach-color-icon-warning);
+  --text-color-icon-warning-subtle: var(--semantic-icon-warning-ach-color-icon-warning-subtle);
+  --text-color-icon-info: var(--semantic-icon-info-ach-color-icon-info);
+  --text-color-icon-info-subtle: var(--semantic-icon-info-ach-color-icon-info-subtle);
+  --text-color-icon-error: var(--semantic-icon-error-ach-color-icon-error);
+  --text-color-icon-error-subtle: var(--semantic-icon-error-ach-color-icon-error-subtle);
+
+  /* Border utilities: border-<name> */
+  --border-color-default: var(--semantic-border-ach-color-border-default);
+  --border-color-subtle: var(--semantic-border-ach-color-border-subtle);
+  --border-color-strong: var(--semantic-border-ach-color-border-strong);
+  --border-color-disabled: var(--semantic-border-ach-color-border-disabled);
+  --border-color-inverse: var(--semantic-border-ach-color-border-inverse);
+  --border-color-success: var(--semantic-border-success-ach-color-border-success);
+  --border-color-success-strong: var(--semantic-border-success-ach-color-border-success-strong);
+  --border-color-warning: var(--semantic-border-warning-ach-color-border-warning);
+  --border-color-warning-strong: var(--semantic-border-warning-ach-color-border-warning-strong);
+  --border-color-info: var(--semantic-border-info-ach-color-border-info);
+  --border-color-info-strong: var(--semantic-border-info-ach-color-border-info-strong);
+  --border-color-error: var(--semantic-border-error-ach-color-border-error);
+  --border-color-error-strong: var(--semantic-border-error-ach-color-border-error-strong);
+  --border-color-natural: var(--semantic-border-ach-color-border-natural);
+
+  /* Foreground marks, usable as bg-, text- and border-: fg-<name> */
+  --color-fg-default: var(--semantic-fg-ach-color-fg-default);
+  --color-fg-muted: var(--semantic-fg-ach-color-fg-muted);
+  --color-fg-subtle: var(--semantic-fg-ach-color-fg-subtle);
+  --color-fg-disabled: var(--semantic-fg-ach-color-fg-disabled);
+  --color-fg-inverse: var(--semantic-fg-ach-color-fg-inverse);
+  --color-fg-success: var(--semantic-fg-success-ach-color-fg-success);
+  --color-fg-success-strong: var(--semantic-fg-success-ach-color-fg-success-strong);
+  --color-fg-success-subtle: var(--semantic-fg-success-ach-color-fg-success-subtle);
+  --color-fg-success-muted: var(--semantic-fg-success-ach-color-fg-success-muted);
+  --color-fg-warning: var(--semantic-fg-warning-ach-color-fg-warning);
+  --color-fg-warning-subtle: var(--semantic-fg-warning-ach-color-fg-warning-subtle);
+  --color-fg-warning-muted: var(--semantic-fg-warning-ach-color-fg-warning-muted);
+  --color-fg-info: var(--semantic-fg-info-ach-color-fg-info);
+  --color-fg-info-subtle: var(--semantic-fg-info-ach-color-fg-info-subtle);
+  --color-fg-info-muted: var(--semantic-fg-info-ach-color-fg-info-muted);
+  --color-fg-error: var(--semantic-fg-error-ach-color-fg-error);
+  --color-fg-error-strong: var(--semantic-fg-error-ach-color-fg-error-strong);
+  --color-fg-error-subtle: var(--semantic-fg-error-ach-color-fg-error-subtle);
+  --color-fg-error-muted: var(--semantic-fg-error-ach-color-fg-error-muted);
+
+  /* Brand, usable as bg-, text- and border-: brand, brand-<name> */
+  --color-brand: var(--semantic-brand-ach-color-brand-default);
+  --color-brand-subtle: var(--semantic-brand-ach-color-brand-subtle);
+  --color-brand-muted: var(--semantic-brand-ach-color-brand-muted);
+  --color-brand-strong: var(--semantic-brand-ach-color-brand-strong);
+  --color-brand-stronger: var(--semantic-brand-ach-color-brand-stronger);
+  --color-brand-secondary: var(--semantic-brand-ach-color-brand-secondary);
+
+  /* Typography: text-<size>, paired with the primitives line height of the same step */
+  --text-2xs: var(--primitives-font-sizes-2xs);
+  --text-2xs--line-height: var(--primitives-line-heights-4xs);
+  --text-xs: var(--primitives-font-sizes-xs);
+  --text-xs--line-height: var(--primitives-line-heights-xs);
+  --text-sm: var(--primitives-font-sizes-sm);
+  --text-sm--line-height: var(--primitives-line-heights-sm);
+  --text-md: var(--primitives-font-sizes-md);
+  --text-md--line-height: var(--primitives-line-heights-md);
+  --text-lg: var(--primitives-font-sizes-lg);
+  --text-lg--line-height: var(--primitives-line-heights-lg);
+  --text-xl: var(--primitives-font-sizes-xl);
+  --text-xl--line-height: var(--primitives-line-heights-xl);
+  --text-2xl: var(--primitives-font-sizes-2xl);
+  --text-2xl--line-height: var(--primitives-line-heights-2xl);
+  --text-3xl: var(--primitives-font-sizes-3xl);
+  --text-3xl--line-height: var(--primitives-line-heights-3xl);
+  --text-4xl: var(--primitives-font-sizes-4xl);
+  --text-4xl--line-height: var(--primitives-line-heights-4xl);
+  --text-5xl: var(--primitives-font-sizes-5xl);
+  --text-5xl--line-height: var(--primitives-line-heights-5xl);
+  --text-base: var(--primitives-font-sizes-md);
+  --text-base--line-height: var(--primitives-line-heights-md);
+
+  /* Shadows: shadow-<size>, built from the unitless primitives shadow parts */
+  --shadow-xs: calc(var(--primitives-shadows-xs-x)*1px) calc(var(--primitives-shadows-xs-y)*1px) calc(var(--primitives-shadows-xs-blur)*1px) calc(var(--primitives-shadows-xs-spread)*1px) var(--primitives-shadows-xs-color);
+  --shadow-sm: calc(var(--primitives-shadows-sm-shadow-1-x)*1px) calc(var(--primitives-shadows-sm-shadow-1-y)*1px) calc(var(--primitives-shadows-sm-shadow-1-blur)*1px) calc(var(--primitives-shadows-sm-shadow-1-spread)*1px) var(--primitives-shadows-sm-color), calc(var(--primitives-shadows-sm-shadow-2-x)*1px) calc(var(--primitives-shadows-sm-shadow-2-y)*1px) calc(var(--primitives-shadows-sm-shadow-2-blur)*1px) calc(var(--primitives-shadows-sm-shadow-2-spread)*1px) var(--primitives-shadows-sm-color);
+  --shadow-md: calc(var(--primitives-shadows-md-shadow-1-x)*1px) calc(var(--primitives-shadows-md-shadow-1-y)*1px) calc(var(--primitives-shadows-md-shadow-1-blur)*1px) calc(var(--primitives-shadows-md-shadow-1-spread)*1px) var(--primitives-shadows-md-color), calc(var(--primitives-shadows-md-shadow-2-x)*1px) calc(var(--primitives-shadows-md-shadow-2-y)*1px) calc(var(--primitives-shadows-md-shadow-2-blur)*1px) calc(var(--primitives-shadows-md-shadow-2-spread)*1px) var(--primitives-shadows-md-color);
+  --shadow-lg: calc(var(--primitives-shadows-lg-shadow-1-x)*1px) calc(var(--primitives-shadows-lg-shadow-1-y)*1px) calc(var(--primitives-shadows-lg-shadow-1-blur)*1px) calc(var(--primitives-shadows-lg-shadow-1-spread)*1px) var(--primitives-shadows-lg-color), calc(var(--primitives-shadows-lg-shadow-2-x)*1px) calc(var(--primitives-shadows-lg-shadow-2-y)*1px) calc(var(--primitives-shadows-lg-shadow-2-blur)*1px) calc(var(--primitives-shadows-lg-shadow-2-spread)*1px) var(--primitives-shadows-lg-color);
+  --shadow-xl: calc(var(--primitives-shadows-xl-shadow-1-x)*1px) calc(var(--primitives-shadows-xl-shadow-1-y)*1px) calc(var(--primitives-shadows-xl-shadow-1-blur)*1px) calc(var(--primitives-shadows-xl-shadow-1-spread)*1px) var(--primitives-shadows-xl-color), calc(var(--primitives-shadows-xl-shadow-2-x)*1px) calc(var(--primitives-shadows-xl-shadow-2-y)*1px) calc(var(--primitives-shadows-xl-shadow-2-blur)*1px) calc(var(--primitives-shadows-xl-shadow-2-spread)*1px) var(--primitives-shadows-xl-color);
+  --shadow-2xl: calc(var(--primitives-shadows-2xl-x)*1px) calc(var(--primitives-shadows-2xl-y)*1px) calc(var(--primitives-shadows-2xl-blur)*1px) calc(var(--primitives-shadows-2xl-spread)*1px) var(--primitives-shadows-2xl-color);
+
+  /* Motion: ease-<name>, duration-<name>, and the default transition duration */
+  --ease-emphasized: var(--semantic-motion-easing-emphasized);
+  --ease-exit: var(--semantic-motion-easing-exit);
+  --transition-duration-fast: var(--semantic-motion-duration-fast);
+  --transition-duration-base: var(--semantic-motion-duration-base);
+  --transition-duration-slow: var(--semantic-motion-duration-slow);
+  --default-transition-duration: var(--semantic-motion-duration-base);
+}
+
+/*
+ * tw-animate-css reads --tw-duration and --tw-ease as its animation defaults.
+ * Open states enter with the base duration and emphasized easing, closed states
+ * leave with the fast duration and exit easing. A duration-* or ease-* utility
+ * on the same element still wins because utilities load after base.
+ * Tailwind transition-* utilities also read --tw-duration and --tw-ease, so any
+ * element with a data-state attribute transitions with these timings unless it
+ * sets duration-* or ease-*.
+ */
+@layer base {
+  [data-state] {
+    --tw-duration: var(--semantic-motion-duration-base);
+    --tw-ease: var(--semantic-motion-easing-emphasized);
+  }
+
+  [data-state="closed"] {
+    --tw-duration: var(--semantic-motion-duration-fast);
+    --tw-ease: var(--semantic-motion-easing-exit);
+  }
+}
+
+/*
+ * tw-animate-css has no reduced-motion handling. Its animate-* utilities read
+ * --tw-animation-duration before --tw-duration, so this beats any duration-*
+ * utility. The animation still runs (for 0.01ms) so animationend fires and reka
+ * Presence and Drawer events keep working; animation: none would skip them.
+ * [data-motion] is set by navigation-menu content.
+ */
+@media (prefers-reduced-motion: reduce) {
+  [data-state],
+  [data-motion] {
+    --tw-animation-duration: 0.01ms;
+  }
+}

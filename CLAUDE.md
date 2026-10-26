@@ -18,6 +18,6 @@ The main session is the orchestrator. Size each task, then run its tier:
 ## Gotchas
 
 - Scoped styles never reach reka-ui parts that render through a Teleport or fragment (Toast, Tooltip/Popper). Style them in an unscoped block with a unique class and a one-line comment. Dialog and Sheet content and overlay take scoped styles normally.
-- `tw-animate-css` is not installed, so `animate-in`, `fade-*`, `zoom-*`, and `slide-*` classes emit nothing. Animate with `@keyframes` on `[data-state]` and the motion tokens; reka Presence waits for a CSS animation, never a transition.
+- `tw-animate-css` is installed: `animate-in`, `fade-*`, `zoom-*`, and `slide-*` work and read the ACH motion defaults from `src/styles/theme.css`. Reka Presence still needs a CSS animation, not a transition.
 - Most of `src/` is untracked: list changes with `git status --short`.
 - The shell is zsh: quote globs and read exit codes with `; echo "exit=$?"`.

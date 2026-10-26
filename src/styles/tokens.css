@@ -1,4 +1,5 @@
-/* Load design tokens from foundational values through component aliases. */
+/* Load design tokens from foundational values through component aliases, then the Tailwind theme bridge. */
 @import "./tokens/primitives.css";
 @import "./tokens/semantic.css";
 @import "./tokens/components.css";
+@import "./theme.css";

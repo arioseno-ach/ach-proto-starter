@@ -1,36 +1,73 @@
 # Components
 
-This is the repository's component overview. Source files define each component's API and behavior; this page tracks which implementations exist. See [`usage-rules.md`](usage-rules.md) for shared rules and [`tokens.md`](tokens.md) for the runtime token layers.
+This is the repository's component overview and implementation map. Vue source under `src/components/` defines each component's props and behavior; this page tracks which components exist and how far each one follows Figma. See [`usage-rules.md`](usage-rules.md) for shared rules and [`tokens.md`](tokens.md) for the runtime token layers.
+
+- **Origin**: where the implementation comes from. `shadcn` is shadcn-vue (new-york-v4), `reka` is a reka-ui primitive, `custom` is written for this project.
+- **Figma node**: the Figma node the component was restyled against, or `—` when none is linked yet.
+- **Status**: `ach` is restyled to Figma with ACH tokens. `upstream` is pulled from shadcn-vue with token-safe classes but not yet restyled from Figma. `custom` is project-specific and not tied to a shadcn-vue API.
+- **Source**: component folder or file, plus playground pages under [`src/playground/pages`](../../src/playground/pages/) where they exist.
 
 ## Available in Vue
 
-| Component | Source | Implementation |
-| --- | --- | --- |
-| Alert | [`alert/`](../../src/components/ui/alert/), [`AlertShowcase.vue`](../../src/examples/AlertShowcase.vue) | Status alert with optional title, action, icon slot, and dismissal. |
-| Dialog | [`dialog/`](../../src/components/ui/dialog/) | Centered modal built on reka-ui with overlay, focus handling, and a close affordance. Width is configurable through the `--ach-dialog-width` and `--ach-dialog-max-width` custom properties. |
-| Snackbar | [`snackbar/`](../../src/components/ui/snackbar/), [`useSnackbar.ts`](../../src/composables/useSnackbar.ts), [`useShareLink.ts`](../../src/composables/useShareLink.ts) | Transient feedback built on reka-ui Toast with `neutral`, `success`, and `error` variants, a title, optional description, and a dismiss button. Mounted once in `App.vue`; call `useSnackbar().show({ variant, title, description })` to display it. A new message replaces the current one instead of stacking. `useShareLink().share()` copies the current URL and reports success, or a recovery hint on failure, through the snackbar. |
-| Slider | [`Slider.vue`](../../src/components/ui/slider/) | Range input with token-driven track, fill, and handle. |
-| Accordion | [`accordion/`](../../src/components/ui/accordion/), [`AccordionShowcase.vue`](../../src/examples/AccordionShowcase.vue) | shadcn-vue composition wrappers backed by Reka UI. |
-| Button | [`Button.vue`](../../src/components/ui/button/Button.vue), [`buttonVariants`](../../src/components/ui/button/index.ts) | Solid color variants (`primary`, `success`, `warning`, `error`, `brand`, `neutral`, `inverse`), outlined variants (`primary`, `neutral`, `success`, `warning`, `error`), five Figma sizes, leading/trailing icon slots, legacy variants and icon sizes, and native disabled behavior. Ghost and link variants remain available. |
-| Credor Overview Header | [`CredorOverviewHeader.vue`](../../src/components/credor/CredorOverviewHeader.vue) | Credor workspace title, description, and available balance summary composed with local assets and the Button primitive. |
-| Credor Financing Banner | [`CredorFinancingBanner.vue`](../../src/components/credor/CredorFinancingBanner.vue), [`CredorFinancingOfferCard.vue`](../../src/components/credor/CredorFinancingOfferCard.vue) | Financing promotion with an automatically rotating, selectable offer-card carousel and playback control. |
-| Credor Compact Banner | [`CredorCompactBanner.vue`](../../src/components/credor/CredorCompactBanner.vue) | Compact financing benefits strip used while personalization is still running. |
-| Credor Personalisation Alert | [`CredorPersonalisationAlert.vue`](../../src/components/credor/CredorPersonalisationAlert.vue) | Info alert for an in-progress personalization, with a "Resume Application" action. |
-| Credor Financing Options | [`CredorFinancingOptions.vue`](../../src/components/credor/CredorFinancingOptions.vue), [`financing-options.ts`](../../src/components/credor/financing-options.ts) | Three financing offer cards with product illustrations and a hover apply action. |
-| Financing Option Card | [`FinancingOptionCard.vue`](../../src/components/financing/FinancingOptionCard.vue), [`FinancingOptionIllustration.vue`](../../src/components/financing/FinancingOptionIllustration.vue) | Product card with title, description, scaled illustration canvas, and a blurred apply action revealed on hover or focus. |
-| Loan Simulation Card | [`LoanSimulationCard.vue`](../../src/components/financing/LoanSimulationCard.vue) | Wide contextual loan simulation banner with icon tile, dot-grid decoration, and a start simulation action. Shown in the main column before personalization and in the sidebar afterwards. |
-| Loan Calculator Dialog | [`LoanCalculatorDialog.vue`](../../src/components/financing/LoanCalculatorDialog.vue), [`LoanCalculatorForm.vue`](../../src/components/financing/LoanCalculatorForm.vue), [`LoanCalculatorSummary.vue`](../../src/components/financing/LoanCalculatorSummary.vue), [`LoanCalculatorItemList.vue`](../../src/components/financing/LoanCalculatorItemList.vue), [`loan-calculator.ts`](../../src/lib/loan-calculator.ts), [`financing-items.ts`](../../src/components/credor/financing-items.ts) | Loan simulation modal with amount entry, repayment term, interest rate, a total repayment comparison, and an invoice or purchase list that fills the amount. |
-| Credor Partners Section | [`CredorPartnersSection.vue`](../../src/components/credor/CredorPartnersSection.vue), [`partners.ts`](../../src/components/credor/partners.ts) | Partner list items with the shared initials avatar, transaction frequency, average transaction, and an outlined finance action. The partner with the most transactions and the largest average transaction is listed first and carries the green badge on the list corner. Cards lift on hover. |
-| Credor Transactions Section | [`CredorTransactionsSection.vue`](../../src/components/credor/CredorTransactionsSection.vue), [`transactions.ts`](../../src/components/credor/transactions.ts) | Sales and purchases list with segmented tabs, due-date status, invoice links, the shared initials avatar, and a per-row financing action. Line items show the description only and collapse to a "+N item" overflow. Rows are ordered per tab rule: the longest cash-out period first for sales, the nearest due date first for purchases. Each tab builds its own subtitle from the row data. |
-| Credor Risk Score Card | [`CredorRiskScoreCard.vue`](../../src/components/credor/CredorRiskScoreCard.vue) | Company health score with unsynced, syncing, and synced variants, score scale, and report download. |
-| Credor Applications Card | [`CredorApplicationsCard.vue`](../../src/components/credor/CredorApplicationsCard.vue) | Recent applications with an empty state, a bank reconciliation feed, and expandable application rows. |
-| Credor Financing Sidebar | [`CredorFinancingSidebar.vue`](../../src/components/credor/CredorFinancingSidebar.vue) | Company health score, recent applications, loan simulation, and contact/share panels for the Credor workspace. "Share Offers" copies the current page URL and confirms with a snackbar. |
-| Scenario Switcher | [`ScenarioSwitcher.vue`](../../src/components/prototype/ScenarioSwitcher.vue), [`usePrototypeState.ts`](../../src/lib/prototype/usePrototypeState.ts) | Prototype chrome that switches the personalization stage and toggles the partner and transaction modules. |
-| Avatar | [`avatar/`](../../src/components/ui/avatar/) | Circular initials tile with an optional verified marker. Shared by the partner list and the transaction cards so both use the same 56px size. |
-| Checkbox | [`checkbox/`](../../src/components/ui/checkbox/) | Native checkbox with a token-driven box, check mark, focus ring, and label slot. |
-| Personalisation Drawer | [`PersonalisationDrawer.vue`](../../src/components/personalisation/PersonalisationDrawer.vue), [`PersonalisationVerifyStep.vue`](../../src/components/personalisation/PersonalisationVerifyStep.vue), [`PersonalisationCoretaxStep.vue`](../../src/components/personalisation/PersonalisationCoretaxStep.vue), [`CompanyIdentityCard.vue`](../../src/components/personalisation/CompanyIdentityCard.vue), [`usePersonalisationDrawer.ts`](../../src/composables/usePersonalisationDrawer.ts), [`personalisation.ts`](../../src/components/credor/personalisation.ts) | Right-hand sheet for the Credor personalisation flow: NPWP verification with a loading state, a verified company card, then the Coretax credential step. Consent is never pre-checked, and continuing from the Coretax step moves the prototype into the personalising stage. |
-| Input | [`Input.vue`](../../src/components/ui/input/Input.vue) | shadcn-vue primitive with ACH component tokens. |
-| Sidebar | [`Sidebar.vue`](../../src/components/layout/Sidebar.vue), [`sidebar primitives`](../../src/components/ui/sidebar/) | ACH navigation composed with shadcn-vue sidebar, sheet, and tooltip primitives. |
-| Top Bar | [`TopBar.vue`](../../src/components/layout/TopBar.vue) | Custom responsive layout component, retained as-is during the migration. |
+| Component | Origin | Figma node | Status | Source |
+| --- | --- | --- | --- | --- |
+| Accordion | shadcn | — | ach | [`accordion/`](../../src/components/ui/accordion/), [`AccordionPage.vue`](../../src/playground/pages/AccordionPage.vue) |
+| Alert | custom | — | ach | [`alert/`](../../src/components/ui/alert/), [`AlertPage.vue`](../../src/playground/pages/AlertPage.vue) |
+| Avatar | custom | — | ach | [`avatar/`](../../src/components/ui/avatar/) |
+| Button | shadcn | — | ach | [`button/`](../../src/components/ui/button/), [`ButtonPage.vue`](../../src/playground/pages/ButtonPage.vue) |
+| Checkbox | custom | — | ach | [`checkbox/`](../../src/components/ui/checkbox/) |
+| Dialog | shadcn | — | ach | [`dialog/`](../../src/components/ui/dialog/) |
+| Icon | custom | — | custom | [`icon/`](../../src/components/ui/icon/) |
+| Input | shadcn | — | ach | [`input/`](../../src/components/ui/input/) |
+| Sheet | shadcn | — | ach | [`sheet/`](../../src/components/ui/sheet/) |
+| Sidebar | shadcn | — | ach | [`sidebar/`](../../src/components/ui/sidebar/), [`Sidebar.vue`](../../src/components/layout/Sidebar.vue) |
+| Slider | custom | — | ach | [`slider/`](../../src/components/ui/slider/) |
+| Snackbar | reka | — | ach | [`snackbar/`](../../src/components/ui/snackbar/), [`useSnackbar.ts`](../../src/composables/useSnackbar.ts), [`useShareLink.ts`](../../src/composables/useShareLink.ts) |
+| Tooltip | shadcn | — | ach | [`tooltip/`](../../src/components/ui/tooltip/) |
+| Top Bar | custom | — | custom | [`TopBar.vue`](../../src/components/layout/TopBar.vue) |
+| Alert Dialog | shadcn | — | upstream; buttons unstyled until Button migrates to utilities (Button's ACH styles are scoped CSS) | [`alert-dialog/`](../../src/components/ui/alert-dialog/) |
+| Aspect Ratio | shadcn | — | upstream | [`aspect-ratio/`](../../src/components/ui/aspect-ratio/) |
+| Badge | shadcn | — | upstream | [`badge/`](../../src/components/ui/badge/) |
+| Breadcrumb | shadcn | — | upstream | [`breadcrumb/`](../../src/components/ui/breadcrumb/) |
+| Calendar | shadcn | — | upstream; buttons unstyled until Button migrates to utilities (Button's ACH styles are scoped CSS) | [`calendar/`](../../src/components/ui/calendar/) |
+| Card | shadcn | — | upstream | [`card/`](../../src/components/ui/card/) |
+| Collapsible | shadcn | — | upstream | [`collapsible/`](../../src/components/ui/collapsible/) |
+| Combobox | shadcn | — | upstream | [`combobox/`](../../src/components/ui/combobox/) |
+| Command | shadcn | — | upstream | [`command/`](../../src/components/ui/command/) |
+| Context Menu | shadcn | — | upstream | [`context-menu/`](../../src/components/ui/context-menu/) |
+| Drawer | shadcn | — | upstream | [`drawer/`](../../src/components/ui/drawer/) |
+| Dropdown Menu | shadcn | — | upstream | [`dropdown-menu/`](../../src/components/ui/dropdown-menu/) |
+| Hover Card | shadcn | — | upstream | [`hover-card/`](../../src/components/ui/hover-card/) |
+| Label | shadcn | — | upstream | [`label/`](../../src/components/ui/label/) |
+| Menubar | shadcn | — | upstream | [`menubar/`](../../src/components/ui/menubar/) |
+| Native Select | shadcn | — | upstream | [`native-select/`](../../src/components/ui/native-select/) |
+| Navigation Menu | shadcn | — | upstream | [`navigation-menu/`](../../src/components/ui/navigation-menu/) |
+| Number Field | shadcn | — | upstream | [`number-field/`](../../src/components/ui/number-field/) |
+| Pagination | shadcn | — | upstream; buttons unstyled until Button migrates to utilities (Button's ACH styles are scoped CSS) | [`pagination/`](../../src/components/ui/pagination/) |
+| Pin Input | shadcn | — | upstream | [`pin-input/`](../../src/components/ui/pin-input/) |
+| Popover | shadcn | — | upstream | [`popover/`](../../src/components/ui/popover/) |
+| Progress | shadcn | — | upstream | [`progress/`](../../src/components/ui/progress/) |
+| Radio Group | shadcn | — | upstream | [`radio-group/`](../../src/components/ui/radio-group/) |
+| Range Calendar | shadcn | — | upstream; buttons unstyled until Button migrates to utilities (Button's ACH styles are scoped CSS) | [`range-calendar/`](../../src/components/ui/range-calendar/) |
+| Resizable | shadcn | — | upstream | [`resizable/`](../../src/components/ui/resizable/) |
+| Scroll Area | shadcn | — | upstream | [`scroll-area/`](../../src/components/ui/scroll-area/) |
+| Select | shadcn | — | upstream | [`select/`](../../src/components/ui/select/) |
+| Separator | shadcn | — | upstream | [`separator/`](../../src/components/ui/separator/) |
+| Skeleton | shadcn | — | upstream | [`skeleton/`](../../src/components/ui/skeleton/) |
+| Stepper | shadcn | — | upstream | [`stepper/`](../../src/components/ui/stepper/) |
+| Switch | shadcn | — | upstream | [`switch/`](../../src/components/ui/switch/) |
+| Table | shadcn | — | upstream | [`table/`](../../src/components/ui/table/) |
+| Tabs | shadcn | — | upstream | [`tabs/`](../../src/components/ui/tabs/) |
+| Tags Input | shadcn | — | upstream | [`tags-input/`](../../src/components/ui/tags-input/) |
+| Textarea | shadcn | — | upstream | [`textarea/`](../../src/components/ui/textarea/) |
+| Toggle | shadcn | — | upstream | [`toggle/`](../../src/components/ui/toggle/) |
+| Toggle Group | shadcn | — | upstream | [`toggle-group/`](../../src/components/ui/toggle-group/) |
+
+## Notes
+
+- Dialog width is configurable through the `--ach-dialog-width` and `--ach-dialog-max-width` custom properties.
+- Snackbar is mounted once in `App.vue`. Call `useSnackbar().show({ variant, title, description })` to display it; a new message replaces the current one. `useShareLink().share()` copies the current URL and reports the result through the snackbar.
+- Button has solid and outlined color variants, five Figma sizes, and leading/trailing icon slots. Legacy variants, icon sizes, ghost, and link remain available.
+- Upstream components render icons through `Icon` from `public/icons`. Upstream class strings that target svg are rewritten to `[data-slot=icon]`.
 
 Update this list when component source is added or removed. Keep API descriptions and code examples in the Vue implementation rather than duplicating them here.

@@ -6,19 +6,45 @@
 
 - This project uses Vue 3, TypeScript, Vite, and Tailwind CSS v4.
 - Put reusable UI primitives in `src/components/ui` and composed application components in `src/components`. Keep layout components in `src/components/layout`.
-- Keep reference pages in `src/examples` and design-system documentation in `docs/design-system`.
+- Keep component playground pages in `src/playground` (one page per component, registered in `src/playground/registry.ts`), screens and prototypes in `src/pages`, and design-system documentation in `docs/design-system`.
 - Define shared visual tokens in `src/styles/tokens/` by layer: `primitives.css` → `semantic.css` → `components.css`. Load them through `src/styles/tokens.css` and document them in `docs/design-system/tokens.md`.
 - Use the `@/` alias for imports from `src` and `cn()` from `src/lib/utils.ts` to merge conditional Tailwind classes.
 - Use `docs/design-system/components.md` as the single component overview and implementation map. Vue source under `src/components/` defines the actual props and behavior; follow implementation notes linked there when present.
 
 ## Design-system rules
 
-### Resolve visuals through the existing system
+### Component reuse ladder
 
-- Do not add raw color values to component styles. Add literal values in the primitives layer, semantic aliases in the semantic layer, and component aliases in the components layer. Keep the references flowing from primitives → semantic → components, then document shared changes in `docs/design-system/tokens.md`.
-- Reuse the variables already in the project; do not assume token names or Tailwind utilities that are not configured here.
-- Prefer the established Tailwind spacing and sizing scale. Avoid arbitrary one-off values; when a visual value is repeated or becomes part of the system, promote it to a token.
-- Keep the token layer files limited to design values; `src/styles/tokens.css` is the import entry point. Put layout, component behavior, and composition in their respective component or pattern files.
+Every new or changed UI piece starts on the lowest rung that fits. Name the rung in the handoff.
+
+1. **Existing component** (listed in `docs/design-system/components.md`): use or extend it with props and `cva` variants, keeping its API.
+2. **shadcn-vue has it**: run `pnpm ui:add <name>`, then restyle the pulled file with ACH utilities (fork pattern).
+3. **reka-ui has the primitive**: build on it for focus, keyboard, overlay and positioning behavior.
+4. **Static markup only**: write a small Vue component with the same conventions.
+
+Rungs 2–4 live in `src/components/ui/<name>/` and follow the conventions below. Product-specific composition goes in `src/components/` or `src/components/patterns/`.
+
+### Color and tokens: primitives → semantic → component
+
+- Every visual value resolves through the existing chain:
+  - **Primitive** (`tokens/primitives.css`): the only place literal values live.
+  - **Semantic** (`tokens/semantic.css`): a role referencing a primitive, exposed as a Tailwind utility in `src/styles/theme.css`, e.g. `bg-surface`, `text-secondary`, `border-subtle`, `bg-brand`.
+  - **Component** (`tokens/components.css`): a per-component or per-state alias referencing a semantic token, used as `bg-(--component-x)`.
+- Components style with semantic utilities first and component tokens for per-state values. Reuse an existing role whenever the meaning matches; the Figma variable name tells you the role.
+- A Figma variable with no code token gets added in its matching Figma layer, referencing the layer below. A new semantic token also gets a utility in `theme.css`. A new scale key gets added to `extendTailwindMerge` in `src/lib/utils.ts`. Record shared additions in `docs/design-system/tokens.md`.
+- Sizes use the Tailwind spacing scale (4px unit) or a token. A repeated one-off value becomes a token.
+- `src/styles/tokens.css` is the import entry point; token files hold design values only.
+
+### Component code conventions
+
+- Match the neighbouring `ui/` components:
+  - a folder with an `index.ts` exporting the parts and `cva` variants;
+  - typed `defineProps`;
+  - `cn()` for class merging;
+  - upstream shadcn prop names, with Figma-required props added alongside.
+- Styling lives in class strings and `cva`. Reserve `<style scoped>` for Teleport/fragment parts or mask effects.
+- Keep code clean and tidy: one responsibility per component, small named computeds over inline logic, and only the props, code and comments that are used. Delete what you replace.
+- Each component gets a playground page in `src/playground/pages/`, registered in `registry.ts`, and a row in `components.md`.
 
 ### Use the component guide and source
 
@@ -29,7 +55,7 @@
 
 ### Reuse and composition
 
-- For a focused component task, check `docs/design-system/components.md` and inspect the relevant Vue source. Consult `docs/design-system/usage-rules.md` for cross-component constraints and `patterns.md` only when composing a documented page or interaction pattern.
+- Consult `docs/design-system/usage-rules.md` for cross-component constraints and `patterns.md` only when composing a documented page or interaction pattern.
 - Keep primitives reusable and independent of full business flows. Compose them into application components and page patterns.
 - Keep shared variants and behavior consistent with the documented component guidance. Update the design-system docs when implementation changes affect shared behavior or appearance.
 

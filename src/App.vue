@@ -15,7 +15,7 @@ const snackbar = useSnackbar()
       <Sidebar />
       <SidebarInset>
         <TopBar />
-        <main class="p-6" />
+        <main class="p-6"><RouterView /></main>
       </SidebarInset>
     </SidebarProvider>
 

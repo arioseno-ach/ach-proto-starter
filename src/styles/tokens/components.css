@@ -3,6 +3,7 @@
 
   /* card */
   --component-card-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-card-border: var(--semantic-border-ach-color-border-default);
 
   /* controls showcase */
   --component-controls-showcase-background: var(--semantic-bg-ach-color-bg-showcase);
@@ -55,80 +56,6 @@
   --component-button-solid-primary-bg: var(--semantic-bg-ach-color-bg-inverse); /* Neutral button fill → neutral.100 */
   --component-button-solid-primary-border: var(--semantic-border-ach-color-border-default); /* Neutral button border → neutral.200 */
   --component-button-solid-primary-text: var(--semantic-text-ach-color-text-inverse); /* Neutral button label → neutral.700 */
-
-  /* badge */
-  --component-badge-success-background: var(--semantic-bg-success-ach-color-bg-success-surface);
-  --component-badge-success-border: var(--semantic-border-success-ach-color-border-success);
-  --component-badge-success-text: var(--semantic-text-success-ach-color-text-success);
-  --component-badge-success-icon: var(--semantic-icon-success-ach-color-icon-success-subtle);
-  --component-badge-warning-background: var(--semantic-bg-warning-ach-color-bg-warning-surface);
-  --component-badge-warning-border: var(--semantic-border-warning-ach-color-border-warning);
-  --component-badge-warning-text: var(--semantic-text-warning-ach-color-text-warning);
-  --component-badge-warning-icon: var(--semantic-icon-warning-ach-color-icon-warning);
-  --component-badge-info-background: var(--semantic-bg-info-ach-color-bg-info-surface);
-  --component-badge-info-border: var(--semantic-border-info-ach-color-border-info);
-  --component-badge-info-text: var(--semantic-text-info-ach-color-text-info);
-  --component-badge-info-icon: var(--semantic-icon-info-ach-color-icon-info-subtle);
-  --component-badge-error-background: var(--semantic-bg-error-ach-color-bg-error-surface);
-  --component-badge-error-border: var(--semantic-border-error-ach-color-border-error);
-  --component-badge-error-text: var(--semantic-text-error-ach-color-text-error);
-  --component-badge-error-icon: var(--semantic-icon-error-ach-color-icon-error-subtle);
-  --component-badge-brand-background: var(--semantic-brand-ach-color-brand-default);
-  --component-badge-brand-text: var(--semantic-text-ach-color-text-inverse);
-  --component-badge-neutral-background: var(--semantic-bg-ach-color-bg-surface-secondary);
-  --component-badge-neutral-border: var(--semantic-border-ach-color-border-default);
-  --component-badge-neutral-text: var(--semantic-text-ach-color-text-default);
-
-  /* input */
-  --component-input-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-input-border: var(--semantic-border-ach-color-border-default);
-  --component-input-border-focus: var(--semantic-brand-ach-color-brand-default);
-  --component-input-border-error: var(--semantic-border-error-ach-color-border-error);
-  --component-input-text: var(--semantic-text-ach-color-text-default);
-  --component-input-placeholder: var(--semantic-text-ach-color-text-placeholder);
-  --component-input-label-text: var(--semantic-text-ach-color-text-subtle);
-  --component-input-helper-text: var(--semantic-text-ach-color-text-secondary);
-  --component-input-error-text: var(--semantic-text-error-ach-color-text-error);
-
-  /* table */
-  --component-table-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-table-header-background: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-table-header-text: var(--semantic-text-ach-color-text-secondary);
-  --component-table-row-text: var(--semantic-text-ach-color-text-default);
-  --component-table-cell-stripe: var(--semantic-bg-ach-color-bg-surface-secondary);
-  --component-table-cell-selected: var(--semantic-bg-info-ach-color-bg-info-surface);
-  --component-table-border: var(--semantic-border-ach-color-border-default);
-  --component-table-cell-divider: var(--semantic-border-ach-color-border-subtle);
-
-  /* card */
-  --component-card-border: var(--semantic-border-ach-color-border-default);
-
-  /* drawer */
-  --component-drawer-background: var(--component-card-background);
-  --component-drawer-border: var(--component-card-border);
-  --component-drawer-width: var(--primitives-drawer-width);
-  --component-drawer-header-height: var(--primitives-drawer-header-height);
-
-  /* checkbox */
-  --component-checkbox-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-checkbox-border: var(--semantic-border-ach-color-border-strong);
-  --component-checkbox-checked-background: var(--semantic-bg-ach-color-bg-inverse);
-  --component-checkbox-checked-border: var(--semantic-bg-ach-color-bg-inverse);
-  --component-checkbox-check: var(--semantic-text-ach-color-text-inverse);
-  --component-checkbox-text: var(--semantic-text-ach-color-text-default);
-  --component-checkbox-focus: var(--semantic-brand-ach-color-brand-default);
-
-  /* slider */
-  --component-slider-track: var(--primitives-colors-neutral-200);
-  --component-slider-fill: var(--semantic-brand-ach-color-brand-default);
-  --component-slider-handle: var(--semantic-brand-ach-color-brand-default);
-  --component-slider-handle-border: var(--component-card-background);
-  --component-slider-height: var(--primitives-padding-1);
-
-  /* table */
-  --component-table-header-background-hover: var(--semantic-bg-ach-color-bg-surface-active);
-
-  /* button */
   --component-button-solid-primary-bg-hover: var(--semantic-border-ach-color-border-inverse); /* Neutral button fill → neutral.100 */
   --component-button-solid-primary-bg-active: var(--semantic-border-ach-color-border-inverse); /* Neutral button fill → neutral.100 */
   --component-button-solid-primary-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active); /* Neutral button fill → neutral.100 */
@@ -247,29 +174,6 @@
   --component-button-fab-brand-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active);
   --component-button-fab-brand-icon: var(--semantic-icon-ach-color-icon-inverse);
   --component-button-fab-brand-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-
-  /* accordion */
-  --component-accordion-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-accordion-background-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-accordion-border: var(--semantic-border-ach-color-border-default);
-  --component-accordion-title: var(--semantic-text-ach-color-text-default);
-  --component-accordion-title-disabled: var(--semantic-text-ach-color-text-disabled);
-  --component-accordion-content: var(--semantic-text-ach-color-text-secondary);
-  --component-accordion-content-disabled: var(--semantic-text-ach-color-text-disabled);
-  --component-accordion-icon: var(--semantic-icon-ach-color-icon-default);
-  --component-accordion-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-accordion-header-padding-block: var(--semantic-accordion-header-padding-block);
-  --component-accordion-header-gap: var(--semantic-accordion-header-gap);
-  --component-accordion-icon-size: var(--semantic-accordion-icon-size);
-  --component-accordion-title-font-family: var(--semantic-accordion-title-font-family);
-  --component-accordion-title-font-size: var(--semantic-accordion-title-font-size);
-  --component-accordion-title-line-height: var(--semantic-accordion-title-line-height);
-  --component-accordion-content-font-family: var(--semantic-accordion-content-font-family);
-  --component-accordion-content-font-size: var(--semantic-accordion-content-font-size);
-  --component-accordion-content-line-height: var(--semantic-accordion-content-line-height);
-  --component-accordion-divider-width: var(--semantic-accordion-divider-width);
-
-  /* button */
   --component-button-solid-neutral-bg: var(--semantic-bg-ach-color-bg-surface-active);
   --component-button-solid-neutral-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
   --component-button-solid-neutral-bg-disabled: var(--semantic-bg-ach-color-bg-surface-active);
@@ -318,8 +222,51 @@
   --component-button-fab-inverse-bg-disabled: var(--semantic-bg-ach-color-bg-surface);
   --component-button-fab-inverse-icon: var(--semantic-icon-ach-color-icon-default);
   --component-button-fab-inverse-icon-disabled: var(--semantic-icon-ach-color-icon-placeholder);
+  --component-button-solid-primary-text-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-button-solid-primary-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-button-solid-primary-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-neutral-icon: var(--semantic-icon-ach-color-icon-default);
+  --component-button-solid-neutral-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-success-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-button-solid-success-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-warning-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-button-solid-warning-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-error-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-button-solid-error-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-brand-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-button-solid-brand-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-solid-inverse-icon: var(--semantic-icon-ach-color-icon-default);
+  --component-button-solid-inverse-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-button-link-primary-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-neutral-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-success-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-warning-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-error-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-brand-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-button-link-inverse-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
 
   /* badge */
+  --component-badge-success-background: var(--semantic-bg-success-ach-color-bg-success-surface);
+  --component-badge-success-border: var(--semantic-border-success-ach-color-border-success);
+  --component-badge-success-text: var(--semantic-text-success-ach-color-text-success);
+  --component-badge-success-icon: var(--semantic-icon-success-ach-color-icon-success-subtle);
+  --component-badge-warning-background: var(--semantic-bg-warning-ach-color-bg-warning-surface);
+  --component-badge-warning-border: var(--semantic-border-warning-ach-color-border-warning);
+  --component-badge-warning-text: var(--semantic-text-warning-ach-color-text-warning);
+  --component-badge-warning-icon: var(--semantic-icon-warning-ach-color-icon-warning);
+  --component-badge-info-background: var(--semantic-bg-info-ach-color-bg-info-surface);
+  --component-badge-info-border: var(--semantic-border-info-ach-color-border-info);
+  --component-badge-info-text: var(--semantic-text-info-ach-color-text-info);
+  --component-badge-info-icon: var(--semantic-icon-info-ach-color-icon-info-subtle);
+  --component-badge-error-background: var(--semantic-bg-error-ach-color-bg-error-surface);
+  --component-badge-error-border: var(--semantic-border-error-ach-color-border-error);
+  --component-badge-error-text: var(--semantic-text-error-ach-color-text-error);
+  --component-badge-error-icon: var(--semantic-icon-error-ach-color-icon-error-subtle);
+  --component-badge-brand-background: var(--semantic-brand-ach-color-brand-default);
+  --component-badge-brand-text: var(--semantic-text-ach-color-text-inverse);
+  --component-badge-neutral-background: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --component-badge-neutral-border: var(--semantic-border-ach-color-border-default);
+  --component-badge-neutral-text: var(--semantic-text-ach-color-text-default);
   --component-badge-solid-primary-background: var(--semantic-bg-ach-color-bg-inverse);
   --component-badge-solid-primary-text: var(--semantic-text-ach-color-text-inverse);
   --component-badge-solid-secondary-background: var(--semantic-fg-ach-color-fg-subtle);
@@ -338,6 +285,104 @@
   --component-badge-soft-primary-background: var(--semantic-bg-ach-color-bg-surface-active);
   --component-badge-soft-primary-text: var(--semantic-text-ach-color-text-default);
   --component-badge-soft-primary-border: var(--semantic-border-ach-color-border-strong);
+  --component-badge-soft-primary-icon: var(--semantic-icon-ach-color-icon-default);
+  --component-badge-solid-primary-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-solid-secondary-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-solid-info-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-solid-warning-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-solid-error-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-solid-success-icon: var(--semantic-icon-ach-color-icon-inverse);
+  --component-badge-outline-primary-background: var(--semantic-bg-ach-color-bg-surface);
+
+  /* input */
+  --component-input-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-input-border: var(--semantic-border-ach-color-border-default);
+  --component-input-border-focus: var(--semantic-brand-ach-color-brand-default);
+  --component-input-border-error: var(--semantic-border-error-ach-color-border-error);
+  --component-input-text: var(--semantic-text-ach-color-text-default);
+  --component-input-placeholder: var(--semantic-text-ach-color-text-placeholder);
+  --component-input-label-text: var(--semantic-text-ach-color-text-subtle);
+  --component-input-helper-text: var(--semantic-text-ach-color-text-secondary);
+  --component-input-error-text: var(--semantic-text-error-ach-color-text-error);
+  --component-input-label-text-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-input-helper-text-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-input-field-background-disabled: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --component-input-field-text-disabled: var(--semantic-text-ach-color-text-disabled);
+
+  /* table */
+  --component-table-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-table-header-background: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-table-header-text: var(--semantic-text-ach-color-text-secondary);
+  --component-table-row-text: var(--semantic-text-ach-color-text-default);
+  --component-table-cell-stripe: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --component-table-cell-selected: var(--semantic-bg-info-ach-color-bg-info-surface);
+  --component-table-border: var(--semantic-border-ach-color-border-default);
+  --component-table-cell-divider: var(--semantic-border-ach-color-border-subtle);
+  --component-table-header-background-hover: var(--semantic-bg-ach-color-bg-surface-active);
+  --component-table-cell-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-table-cell-active: var(--semantic-bg-ach-color-bg-surface-active);
+
+  /* drawer */
+  --component-drawer-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-drawer-border: var(--semantic-border-ach-color-border-default);
+  --component-drawer-width: var(--primitives-drawer-width);
+  --component-drawer-header-height: var(--primitives-drawer-header-height);
+  --component-drawer-title-text: var(--semantic-text-ach-color-text-default);
+  --component-drawer-icon: var(--semantic-icon-ach-color-icon-default);
+
+  /* checkbox */
+  --component-checkbox-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-checkbox-border: var(--semantic-border-ach-color-border-strong);
+  --component-checkbox-checked-background: var(--semantic-bg-ach-color-bg-inverse);
+  --component-checkbox-checked-border: var(--semantic-bg-ach-color-bg-inverse);
+  --component-checkbox-check: var(--semantic-text-ach-color-text-inverse);
+  --component-checkbox-text: var(--semantic-text-ach-color-text-default);
+  --component-checkbox-focus: var(--semantic-brand-ach-color-brand-default);
+  --component-checkbox-default-text: var(--semantic-text-ach-color-text-default);
+  --component-checkbox-disabled-text: var(--semantic-text-ach-color-text-disabled);
+  --component-checkbox-default-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-checkbox-default-border: var(--semantic-border-ach-color-border-strong);
+  --component-checkbox-default-checked: var(--semantic-fg-ach-color-fg-default);
+  --component-checkbox-disabled-background: var(--semantic-bg-ach-color-bg-surface-active);
+  --component-checkbox-disabled-checked: var(--semantic-fg-ach-color-fg-disabled);
+  --component-checkbox-error-border: var(--semantic-border-error-ach-color-border-error-strong);
+  --component-checkbox-error-checked: var(--semantic-fg-error-ach-color-fg-error-subtle);
+  --component-checkbox-icon: var(--semantic-fg-ach-color-fg-inverse);
+  --component-checkbox-error-indeterminate: var(--semantic-fg-error-ach-color-fg-error-subtle);
+
+  /* slider */
+  --component-slider-track: var(--primitives-colors-neutral-200);
+  --component-slider-fill: var(--semantic-brand-ach-color-brand-default);
+  --component-slider-handle: var(--semantic-brand-ach-color-brand-default);
+  --component-slider-handle-border: var(--component-card-background);
+  --component-slider-height: var(--primitives-padding-1);
+  --component-slider-track-background: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-slider-track-fill: var(--semantic-fg-ach-color-fg-default);
+  --component-slider-marker-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-slider-marker-background-focus: var(--semantic-bg-ach-color-bg-canvas);
+  --component-slider-marker-border: var(--semantic-border-ach-color-border-inverse);
+  --component-slider-marker-border-focus: var(--semantic-border-ach-color-border-strong);
+
+  /* accordion */
+  --component-accordion-background: var(--semantic-bg-ach-color-bg-surface);
+  --component-accordion-background-hover: var(--semantic-bg-ach-color-bg-surface-hover);
+  --component-accordion-border: var(--semantic-border-ach-color-border-default);
+  --component-accordion-title: var(--semantic-text-ach-color-text-default);
+  --component-accordion-title-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-accordion-content: var(--semantic-text-ach-color-text-secondary);
+  --component-accordion-content-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-accordion-icon: var(--semantic-icon-ach-color-icon-default);
+  --component-accordion-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
+  --component-accordion-header-padding-block: var(--semantic-accordion-header-padding-block);
+  --component-accordion-header-gap: var(--semantic-accordion-header-gap);
+  --component-accordion-icon-size: var(--semantic-accordion-icon-size);
+  --component-accordion-title-font-family: var(--semantic-accordion-title-font-family);
+  --component-accordion-title-font-size: var(--semantic-accordion-title-font-size);
+  --component-accordion-title-line-height: var(--semantic-accordion-title-line-height);
+  --component-accordion-content-font-family: var(--semantic-accordion-content-font-family);
+  --component-accordion-content-font-size: var(--semantic-accordion-content-font-size);
+  --component-accordion-content-line-height: var(--semantic-accordion-content-line-height);
+  --component-accordion-divider-width: var(--semantic-accordion-divider-width);
 
   /* alert */
   --component-alert-neutral-background: var(--semantic-bg-ach-color-bg-surface-secondary);
@@ -431,6 +476,8 @@
   --component-datepicker-header-icon-hover: var(--semantic-icon-ach-color-icon-hover);
   --component-datepicker-header-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
   --component-datepicker-weekday-text: var(--semantic-text-ach-color-text-subtle);
+  --component-datepicker-field-background-disabled: var(--semantic-bg-ach-color-bg-surface-secondary);
+  --component-datepicker-field-icon: var(--semantic-icon-ach-color-icon-secondary);
 
   /* spinner */
   --component-spinner-primary-track: var(--semantic-bg-ach-color-bg-surface-hover);
@@ -447,27 +494,8 @@
   --component-spinner-error-indicator: var(--semantic-icon-error-ach-color-icon-error-subtle);
   --component-spinner-info-track: var(--semantic-bg-info-ach-color-bg-info-surface);
   --component-spinner-info-indicator: var(--semantic-icon-info-ach-color-icon-info-subtle);
-
-  /* badge */
-  --component-badge-soft-primary-icon: var(--semantic-icon-ach-color-icon-default);
-  --component-badge-solid-primary-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-badge-solid-secondary-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-badge-solid-info-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-badge-solid-warning-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-badge-solid-error-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-badge-solid-success-icon: var(--semantic-icon-ach-color-icon-inverse);
-
-  /* spinner */
   --component-spinner-inverse-track: var(--semantic-icon-ach-color-icon-placeholder);
   --component-spinner-inverse-indicator: var(--semantic-icon-ach-color-icon-inverse);
-
-  /* input */
-  --component-input-label-text-disabled: var(--semantic-text-ach-color-text-disabled);
-  --component-input-helper-text-disabled: var(--semantic-text-ach-color-text-disabled);
-
-  /* checkbox */
-  --component-checkbox-default-text: var(--semantic-text-ach-color-text-default);
-  --component-checkbox-disabled-text: var(--semantic-text-ach-color-text-disabled);
 
   /* file-input */
   --component-file-input-label-text: var(--semantic-text-ach-color-text-default);
@@ -540,6 +568,7 @@
   --component-textarea-supporting-text: var(--semantic-text-ach-color-text-secondary);
   --component-textarea-error-text: var(--semantic-text-error-ach-color-text-error);
   --component-textarea-text-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-textarea-resizable: var(--semantic-border-ach-color-border-default);
 
   /* select */
   --component-select-field-background: var(--semantic-bg-ach-color-bg-surface);
@@ -582,9 +611,6 @@
   --component-search-input-filter-background-hover: var(--semantic-bg-ach-color-bg-surface-hover);
   --component-search-input-divider: var(--semantic-border-ach-color-border-subtle);
 
-  /* datepicker */
-  --component-datepicker-field-background-disabled: var(--semantic-bg-ach-color-bg-surface-secondary);
-
   /* input-group */
   --component-input-group-default-background: var(--semantic-bg-ach-color-bg-surface);
   --component-input-group-default-border: var(--semantic-border-ach-color-border-default);
@@ -598,10 +624,8 @@
   --component-input-group-disabled-text: var(--semantic-text-ach-color-text-disabled);
   --component-input-group-disabled-icon: var(--semantic-icon-ach-color-icon-disabled);
   --component-input-group-error-text: var(--semantic-text-error-ach-color-text-error);
-
-  /* input */
-  --component-input-field-background-disabled: var(--semantic-bg-ach-color-bg-surface-secondary);
-  --component-input-field-text-disabled: var(--semantic-text-ach-color-text-disabled);
+  --component-input-group-label-text: var(--semantic-text-ach-color-text-secondary);
+  --component-input-group-label-text-disabled: var(--semantic-text-ach-color-text-disabled);
 
   /* divider */
   --component-divider-default: var(--semantic-border-ach-color-border-default);
@@ -609,9 +633,6 @@
   --component-divider-disabled: var(--semantic-border-ach-color-border-disabled);
   --component-divider-inverse: var(--semantic-border-ach-color-border-inverse);
   --component-divider-strong: var(--semantic-border-ach-color-border-strong);
-
-  /* badge */
-  --component-badge-outline-primary-background: var(--semantic-bg-ach-color-bg-surface);
 
   /* banner */
   --component-banner-default-background: var(--semantic-bg-ach-color-bg-canvas);
@@ -651,17 +672,6 @@
   --component-breadcrumb-icon: var(--semantic-icon-ach-color-icon-subtle);
   --component-breadcrumb-more-icon: var(--semantic-fg-ach-color-fg-default);
 
-  /* checkbox */
-  --component-checkbox-default-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-checkbox-default-border: var(--semantic-border-ach-color-border-strong);
-  --component-checkbox-default-checked: var(--semantic-fg-ach-color-fg-default);
-  --component-checkbox-disabled-background: var(--semantic-bg-ach-color-bg-surface-active);
-  --component-checkbox-disabled-checked: var(--semantic-fg-ach-color-fg-disabled);
-  --component-checkbox-error-border: var(--semantic-border-error-ach-color-border-error-strong);
-  --component-checkbox-error-checked: var(--semantic-fg-error-ach-color-fg-error-subtle);
-  --component-checkbox-icon: var(--semantic-fg-ach-color-fg-inverse);
-  --component-checkbox-error-indeterminate: var(--semantic-fg-error-ach-color-fg-error-subtle);
-
   /* contextual-menu */
   --component-contextual-menu-background: var(--semantic-bg-ach-color-bg-surface);
   --component-contextual-menu-border: var(--semantic-border-ach-color-border-default);
@@ -671,16 +681,6 @@
   --component-contextual-menu-item-text-secondary: var(--semantic-text-ach-color-text-secondary);
   --component-contextual-menu-item-icon: var(--semantic-fg-ach-color-fg-subtle);
   --component-contextual-menu-group-label-text: var(--semantic-text-ach-color-text-subtle);
-
-  /* table */
-  --component-table-cell-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-table-cell-active: var(--semantic-bg-ach-color-bg-surface-active);
-
-  /* drawer */
-  --component-drawer-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-drawer-border: var(--semantic-border-ach-color-border-default);
-  --component-drawer-title-text: var(--semantic-text-ach-color-text-default);
-  --component-drawer-icon: var(--semantic-icon-ach-color-icon-default);
 
   /* dialog */
   --component-dialog-background: var(--semantic-bg-ach-color-bg-surface);
@@ -733,11 +733,6 @@
   --component-radio-default-text: var(--semantic-text-ach-color-text-default);
   --component-radio-disabled-text: var(--semantic-text-ach-color-text-disabled);
 
-  /* offer carousel */
-  --component-offer-carousel-rotation-duration: var(--semantic-motion-duration-rotation);
-  --component-offer-carousel-transition-duration: var(--semantic-motion-duration-slow);
-  --component-offer-carousel-transition-easing: var(--semantic-motion-easing-emphasized);
-
   /* tabs */
   --component-tabs-segmented-background: var(--semantic-bg-ach-color-bg-surface);
   --component-tabs-segmented-item-background-active: var(--semantic-bg-ach-color-bg-surface);
@@ -757,6 +752,7 @@
   --component-tabs-panel-enter-duration: var(--semantic-motion-duration-base);
   --component-tabs-panel-exit-duration: var(--semantic-motion-duration-fast);
   --component-tabs-panel-exit-easing: var(--semantic-motion-easing-exit);
+  --component-tabs-segmented-secondary: var(--semantic-bg-ach-color-bg-surface-secondary);
 
   /* tooltip */
   --component-tooltip-default-background: var(--semantic-fg-ach-color-fg-default);
@@ -801,14 +797,7 @@
   --component-sidebar-profile-text: var(--semantic-text-ach-color-text-default);
   --component-sidebar-profile-text-secondary: var(--semantic-text-ach-color-text-secondary);
   --component-sidebar-profile-icon: var(--semantic-fg-ach-color-fg-subtle);
-
-  /* slider */
-  --component-slider-track-background: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-slider-track-fill: var(--semantic-fg-ach-color-fg-default);
-  --component-slider-marker-background: var(--semantic-bg-ach-color-bg-surface);
-  --component-slider-marker-background-focus: var(--semantic-bg-ach-color-bg-canvas);
-  --component-slider-marker-border: var(--semantic-border-ach-color-border-inverse);
-  --component-slider-marker-border-focus: var(--semantic-border-ach-color-border-strong);
+  --component-sidebar-item-secondary: var(--semantic-text-ach-color-text-secondary);
 
   /* stats */
   --component-stats-item-background: var(--semantic-bg-ach-color-bg-surface);
@@ -846,16 +835,6 @@
   --component-timeline-disabled-text-secondary: var(--semantic-text-ach-color-text-disabled);
   --component-timeline-disabled-text-tertiary: var(--semantic-text-ach-color-text-disabled);
 
-  /* datepicker */
-  --component-datepicker-field-icon: var(--semantic-icon-ach-color-icon-secondary);
-
-  /* textarea */
-  --component-textarea-resizable: var(--semantic-border-ach-color-border-default);
-
-  /* input-group */
-  --component-input-group-label-text: var(--semantic-text-ach-color-text-secondary);
-  --component-input-group-label-text-disabled: var(--semantic-text-ach-color-text-disabled);
-
   /* pagination */
   --component-pagination-background: var(--semantic-bg-ach-color-bg-surface);
   --component-pagination-border: var(--semantic-border-ach-color-border-subtle);
@@ -866,65 +845,4 @@
   --component-pagination-label-text: var(--semantic-text-ach-color-text-secondary);
   --component-pagination-nav-icon: var(--semantic-icon-ach-color-icon-default);
   --component-pagination-nav-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-
-  /* sidebar */
-  --component-sidebar-item-secondary: var(--semantic-text-ach-color-text-secondary);
-
-  /* tabs */
-  --component-tabs-segmented-secondary: var(--semantic-bg-ach-color-bg-surface-secondary);
-
-  /* button */
-  --component-button-solid-primary-text-disabled: var(--semantic-text-ach-color-text-disabled);
-  --component-button-solid-primary-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-button-solid-primary-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-neutral-icon: var(--semantic-icon-ach-color-icon-default);
-  --component-button-solid-neutral-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-success-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-button-solid-success-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-warning-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-button-solid-warning-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-error-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-button-solid-error-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-brand-icon: var(--semantic-icon-ach-color-icon-inverse);
-  --component-button-solid-brand-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-solid-inverse-icon: var(--semantic-icon-ach-color-icon-default);
-  --component-button-solid-inverse-icon-disabled: var(--semantic-icon-ach-color-icon-disabled);
-  --component-button-link-primary-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-neutral-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-success-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-warning-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-error-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-brand-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-  --component-button-link-inverse-bg-hover: var(--semantic-bg-ach-color-bg-surface-hover);
-
-  /* Existing Vue variable names remain as aliases to the Figma component layer. */
-  --sidebar-background: var(--component-sidebar-background);
-  --sidebar-border: var(--component-sidebar-border);
-  --sidebar-group-label-text: var(--component-sidebar-group-label-text);
-  --sidebar-item-text: var(--component-sidebar-item-text);
-  --sidebar-item-secondary: var(--component-sidebar-item-secondary);
-  --sidebar-item-hover: var(--component-sidebar-item-background-hover);
-  --sidebar-item-active: var(--component-sidebar-item-background-active);
-  --sidebar-profile-background: var(--component-sidebar-profile-background);
-  --sidebar-profile-border: var(--component-sidebar-profile-border);
-  --sidebar-profile-text: var(--component-sidebar-profile-text);
-  --sidebar-profile-secondary: var(--component-sidebar-profile-text-secondary);
-  --sidebar-badge-background: var(--component-badge-soft-primary-background);
-  --sidebar-badge-text: var(--component-badge-soft-primary-text);
-  --avatar-initials-background: var(--component-avatar-initials-background);
-  --avatar-initials-text: var(--component-avatar-initials-text);
-  --avatar-logo-background: var(--component-avatar-logo-background);
-  --sidebar-tooltip-background: var(--component-tooltip-default-background);
-  --sidebar-tooltip-text: var(--component-tooltip-default-text);
-}
-
-@theme inline {
-  --color-sidebar: var(--sidebar-background);
-  --color-sidebar-foreground: var(--component-sidebar-item-text);
-  --color-sidebar-primary: var(--semantic-bg-ach-color-bg-inverse);
-  --color-sidebar-primary-foreground: var(--semantic-text-ach-color-text-inverse);
-  --color-sidebar-accent: var(--component-sidebar-item-background-hover);
-  --color-sidebar-accent-foreground: var(--component-sidebar-item-text);
-  --color-sidebar-border: var(--component-sidebar-border);
-  --color-sidebar-ring: var(--semantic-brand-ach-color-brand-default);
 }
