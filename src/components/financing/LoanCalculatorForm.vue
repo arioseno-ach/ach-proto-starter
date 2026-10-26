@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, ref } from "vue"
 import { Slider } from "@/components/ui/slider"
 import { useShareLink } from "@/composables/useShareLink"
+import { useSegmentedIndicator } from "@/composables/useSegmentedIndicator"
 import LoanCalculatorItemList from "@/components/financing/LoanCalculatorItemList.vue"
 import type { CredorFinancingItem } from "@/components/credor/financing-items"
 import {
@@ -40,6 +41,9 @@ const tabs: { id: CalculatorTab; label: string }[] = [
 ]
 
 const { share } = useShareLink()
+
+const tablist = ref<HTMLElement | null>(null)
+const { indicatorStyle, ready } = useSegmentedIndicator(tablist, () => props.tab)
 
 const amountValue = computed(() => formatNumber(props.amount))
 
@@ -80,7 +84,13 @@ function onRateInput(event: Event) {
     <div class="calculator-form__top">
       <p class="calculator-form__label">Enter transaction amount</p>
 
-      <div class="calculator-form__tabs" role="tablist" aria-label="Amount source">
+      <div ref="tablist" class="calculator-form__tabs" role="tablist" aria-label="Amount source">
+        <span
+          class="calculator-form__tab-indicator"
+          :class="{ 'calculator-form__tab-indicator--animated': ready }"
+          aria-hidden="true"
+          :style="indicatorStyle"
+        ></span>
         <button
           v-for="item in tabs"
           :key="item.id"
@@ -96,7 +106,8 @@ function onRateInput(event: Event) {
       </div>
     </div>
 
-    <template v-if="props.tab === 'amount'">
+    <Transition name="calculator-panel" mode="out-in">
+    <div v-if="props.tab === 'amount'" key="amount" class="calculator-form__panel">
       <div class="calculator-form__value">
         <input
           class="calculator-form__value-input"
@@ -121,9 +132,9 @@ function onRateInput(event: Event) {
         <span>{{ formatRupiah(loanAmountRange.min) }}</span>
         <span>{{ formatRupiah(loanAmountRange.max) }}</span>
       </div>
-    </template>
+    </div>
 
-    <div v-else class="calculator-form__list">
+    <div v-else key="list" class="calculator-form__list">
       <LoanCalculatorItemList
         :items="activeItems"
         :selected-id="props.selectedItemId"
@@ -134,6 +145,7 @@ function onRateInput(event: Event) {
         @select="emit('select-item', $event)"
       />
     </div>
+    </Transition>
 
     <hr class="calculator-form__divider">
 
@@ -247,6 +259,7 @@ function onRateInput(event: Event) {
 }
 
 .calculator-form__tabs {
+  position: relative;
   display: inline-flex;
   flex: 0 0 auto;
   padding: var(--primitives-padding-1);
@@ -255,6 +268,8 @@ function onRateInput(event: Event) {
 }
 
 .calculator-form__tab {
+  position: relative;
+  z-index: 1;
   min-height: 28px;
   padding: 0 var(--primitives-padding-2);
   border: 0;
@@ -270,8 +285,16 @@ function onRateInput(event: Event) {
 }
 
 .calculator-form__tab--active {
-  background: var(--component-tabs-segmented-item-background-active);
   color: var(--component-tabs-segmented-item-text);
+}
+
+.calculator-form__tab-indicator {
+  position: absolute;
+  top: var(--primitives-padding-1);
+  bottom: var(--primitives-padding-1);
+  left: 0;
+  border-radius: var(--primitives-border-radius-sm);
+  background: var(--component-tabs-segmented-item-background-active);
   box-shadow:
     calc(var(--primitives-shadows-sm-shadow-1-x) * 1px)
       calc(var(--primitives-shadows-sm-shadow-1-y) * 1px)
@@ -281,6 +304,52 @@ function onRateInput(event: Event) {
       calc(var(--primitives-shadows-sm-shadow-2-y) * 1px)
       calc(var(--primitives-shadows-sm-shadow-2-blur) * 1px)
       var(--primitives-shadows-sm-color);
+  pointer-events: none;
+}
+
+.calculator-form__tab-indicator--animated {
+  transition:
+    transform var(--component-tabs-indicator-duration) var(--component-tabs-indicator-easing),
+    width var(--component-tabs-indicator-duration) var(--component-tabs-indicator-easing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calculator-form__tab-indicator--animated {
+    transition: none;
+  }
+}
+
+.calculator-form__panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--primitives-padding-3);
+}
+
+.calculator-panel-enter-active {
+  transition:
+    opacity var(--component-tabs-panel-enter-duration) var(--component-tabs-indicator-easing),
+    transform var(--component-tabs-panel-enter-duration) var(--component-tabs-indicator-easing);
+}
+
+.calculator-panel-leave-active {
+  transition: opacity var(--component-tabs-panel-exit-duration) var(--component-tabs-panel-exit-easing);
+}
+
+.calculator-panel-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.calculator-panel-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .calculator-panel-enter-active,
+  .calculator-panel-leave-active {
+    transition: none;
+  }
 }
 
 .calculator-form__value {

@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "lint:tokens": "node scripts/lint-tokens.mjs",
     "typecheck": "vue-tsc -b",
+    "check": "node scripts/lint-tokens.mjs && oxlint src && vue-tsc -b",
     "preview": "vite preview"
   },
   "dependencies": {

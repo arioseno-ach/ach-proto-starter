@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import { usePersonalisationDrawer } from '@/composables/usePersonalisationDrawer'
 import CredorFinancingOfferCard from '@/components/credor/CredorFinancingOfferCard.vue'
@@ -11,10 +11,15 @@ import {
 const { open: openPersonalisation } = usePersonalisationDrawer()
 
 const activeIndex = ref(0)
-const isPlaying = ref(true)
-let rotationTimer: number | undefined
+const isPlaying = ref(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+const cycle = ref(0)
+const isHovered = ref(false)
+const hasFocusWithin = ref(false)
 
 const activeOffer = computed(() => financingOffers[activeIndex.value])
+const isProgressRunning = computed(
+  () => isPlaying.value && !isHovered.value && !hasFocusWithin.value,
+)
 
 function getCardPosition(index: number): FinancingCardPosition {
   if (index === activeIndex.value) return 'active'
@@ -22,34 +27,38 @@ function getCardPosition(index: number): FinancingCardPosition {
   return 'far'
 }
 
-function stopRotation() {
-  if (rotationTimer !== undefined) {
-    window.clearInterval(rotationTimer)
-    rotationTimer = undefined
-  }
-}
-
-function startRotation() {
-  stopRotation()
-  if (!isPlaying.value) return
-
-  rotationTimer = window.setInterval(() => {
-    activeIndex.value = (activeIndex.value + 1) % financingOffers.length
-  }, 5000)
+function advance() {
+  activeIndex.value = (activeIndex.value + 1) % financingOffers.length
+  cycle.value += 1
 }
 
 function selectOffer(index: number) {
   activeIndex.value = index
-  startRotation()
+  cycle.value += 1
 }
 
 function toggleRotation() {
   isPlaying.value = !isPlaying.value
-  startRotation()
 }
 
-onMounted(startRotation)
-onBeforeUnmount(stopRotation)
+function onPointerEnter(event: PointerEvent) {
+  if (event.pointerType === 'mouse') isHovered.value = true
+}
+
+function onPointerLeave(event: PointerEvent) {
+  if (event.pointerType === 'mouse') isHovered.value = false
+}
+
+function onFocusIn(event: FocusEvent) {
+  const target = event.target as Element
+  const isPlaybackButton = target.closest('.credor-financing-banner__playback') !== null
+  hasFocusWithin.value = !isPlaybackButton && target.matches(':focus-visible')
+}
+
+function onFocusOut(event: FocusEvent) {
+  const region = event.currentTarget as HTMLElement
+  if (!region.contains(event.relatedTarget as Node | null)) hasFocusWithin.value = false
+}
 </script>
 
 <template>
@@ -92,6 +101,10 @@ onBeforeUnmount(stopRotation)
       role="region"
       aria-roledescription="carousel"
       aria-label="Financing offers"
+      @pointerenter="onPointerEnter"
+      @pointerleave="onPointerLeave"
+      @focusin="onFocusIn"
+      @focusout="onFocusOut"
     >
       <div class="credor-financing-banner__card-stack">
         <CredorFinancingOfferCard
@@ -122,7 +135,15 @@ onBeforeUnmount(stopRotation)
             :aria-controls="'credor-financing-offer-' + offer.id"
             @click="selectOffer(index)"
           >
-            {{ offer.selectorLabel }}
+            <span
+              v-if="index === activeIndex"
+              :key="cycle"
+              class="credor-financing-banner__selector-progress"
+              :class="{ 'credor-financing-banner__selector-progress--paused': !isProgressRunning }"
+              aria-hidden="true"
+              @animationend="advance"
+            />
+            <span class="credor-financing-banner__selector-label">{{ offer.selectorLabel }}</span>
           </Button>
         </div>
 
@@ -148,7 +169,7 @@ onBeforeUnmount(stopRotation)
         </Button>
       </div>
 
-      <span class="sr-only" :aria-live="isPlaying ? 'off' : 'polite'" aria-atomic="true">
+      <span class="sr-only" :aria-live="isProgressRunning ? 'off' : 'polite'" aria-atomic="true">
         {{ activeOffer.eyebrow }} offer selected
       </span>
     </div>
@@ -315,6 +336,37 @@ onBeforeUnmount(stopRotation)
   padding-inline: var(--primitives-padding-2);
   font-size: var(--primitives-font-sizes-xs);
   line-height: var(--primitives-line-heights-2xs);
+  position: relative;
+  overflow: hidden;
+}
+
+.credor-financing-banner__selector-progress {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--semantic-text-ach-color-text-inverse) 40%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: credor-financing-banner-progress var(--component-offer-carousel-rotation-duration)
+    linear forwards;
+  pointer-events: none;
+}
+
+.credor-financing-banner__selector-progress--paused {
+  animation-play-state: paused;
+}
+
+.credor-financing-banner__selector-label {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes credor-financing-banner-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .credor-financing-banner .credor-financing-banner__selector--active {

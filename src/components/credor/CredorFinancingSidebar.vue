@@ -73,7 +73,7 @@ const { share } = useShareLink()
   width: var(--primitives-padding-3);
   height: var(--primitives-padding-3);
   flex: 0 0 var(--primitives-padding-3);
-  background: var(--semantic-text-ach-color-text-link);
+  background: currentColor;
   mask: url('/icons/ui-actions/arrow-forward.svg') center / contain no-repeat;
   -webkit-mask: url('/icons/ui-actions/arrow-forward.svg') center / contain no-repeat;
 }
@@ -188,23 +188,25 @@ const { share } = useShareLink()
   z-index: 1;
   padding: var(--primitives-padding-1) var(--primitives-padding-3);
   border-radius: var(--primitives-border-radius-infinite);
-  background: var(--semantic-bg-ach-color-bg-surface);
+  background: var(--component-card-background);
+  color: var(--semantic-text-ach-color-text-default);
+  font-family: var(--primitives-font-families-display), sans-serif;
+  font-size: var(--primitives-font-sizes-2xs);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-4xs);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%);
   transition: opacity 150ms ease;
   box-shadow:
-    calc(var(--primitives-shadows-md-shadow-1-x) * 1px)
-      calc(var(--primitives-shadows-md-shadow-1-y) * 1px)
-      calc(var(--primitives-shadows-md-shadow-1-blur) * 1px)
-      calc(var(--primitives-shadows-md-shadow-1-spread) * 1px)
-      var(--primitives-shadows-md-color),
-    calc(var(--primitives-shadows-md-shadow-2-x) * 1px)
-      calc(var(--primitives-shadows-md-shadow-2-y) * 1px)
-      calc(var(--primitives-shadows-md-shadow-2-blur) * 1px)
-      calc(var(--primitives-shadows-md-shadow-2-spread) * 1px)
-      var(--primitives-shadows-md-color);
-  backdrop-filter: blur(8px);
+    calc(var(--primitives-shadows-sm-shadow-1-x) * 1px)
+      calc(var(--primitives-shadows-sm-shadow-1-y) * 1px)
+      calc(var(--primitives-shadows-sm-shadow-1-blur) * 1px)
+      var(--primitives-shadows-sm-color),
+    calc(var(--primitives-shadows-sm-shadow-2-x) * 1px)
+      calc(var(--primitives-shadows-sm-shadow-2-y) * 1px)
+      calc(var(--primitives-shadows-sm-shadow-2-blur) * 1px)
+      var(--primitives-shadows-sm-color);
 }
 
 .simulation-card:hover > .sidebar-link,

@@ -720,6 +720,15 @@
   --component-dialog-border: var(--semantic-border-ach-color-border-default);
   --component-dialog-title-text: var(--semantic-text-ach-color-text-default);
   --component-dialog-icon: var(--semantic-icon-ach-color-icon-default);
+  --component-dialog-enter-duration: var(--semantic-motion-duration-base);
+  --component-dialog-exit-duration: var(--semantic-motion-duration-fast);
+  --component-dialog-enter-easing: var(--semantic-motion-easing-emphasized);
+  --component-dialog-exit-easing: var(--semantic-motion-easing-exit);
+  --component-sheet-enter-duration: var(--semantic-motion-duration-slow);
+  --component-sheet-exit-duration: var(--semantic-motion-duration-base);
+
+  /* risk card */
+  --component-risk-card-sync-spin-duration: var(--semantic-motion-duration-spin);
 
   /* list */
   --component-list-background: var(--semantic-bg-ach-color-bg-surface);
@@ -760,6 +769,11 @@
   --component-radio-default-text: var(--semantic-text-ach-color-text-default);
   --component-radio-disabled-text: var(--semantic-text-ach-color-text-disabled);
 
+  /* offer carousel */
+  --component-offer-carousel-rotation-duration: var(--semantic-motion-duration-rotation);
+  --component-offer-carousel-transition-duration: var(--semantic-motion-duration-slow);
+  --component-offer-carousel-transition-easing: var(--semantic-motion-easing-emphasized);
+
   /* tabs */
   --component-tabs-segmented-background: var(--semantic-bg-ach-color-bg-surface);
   --component-tabs-segmented-item-background-active: var(--semantic-bg-ach-color-bg-surface);
@@ -774,6 +788,11 @@
   --component-tabs-segmented-item-text-inactive: var(--semantic-text-ach-color-text-secondary);
   --component-tabs-counter-background: var(--semantic-bg-ach-color-bg-surface-hover);
   --component-tabs-counter-text: var(--semantic-text-ach-color-text-default);
+  --component-tabs-indicator-duration: var(--semantic-motion-duration-base);
+  --component-tabs-indicator-easing: var(--semantic-motion-easing-emphasized);
+  --component-tabs-panel-enter-duration: var(--semantic-motion-duration-base);
+  --component-tabs-panel-exit-duration: var(--semantic-motion-duration-fast);
+  --component-tabs-panel-exit-easing: var(--semantic-motion-easing-exit);
 
   /* tooltip */
   --component-tooltip-default-background: var(--semantic-fg-ach-color-fg-default);
@@ -782,6 +801,10 @@
   --component-tooltip-inverse-background: var(--semantic-bg-ach-color-bg-surface);
   --component-tooltip-inverse-text: var(--semantic-fg-ach-color-fg-default);
   --component-tooltip-inverse-arrow: var(--semantic-bg-ach-color-bg-surface);
+  --component-tooltip-enter-duration: var(--semantic-motion-duration-fast);
+  --component-tooltip-exit-duration: var(--semantic-motion-duration-fast);
+  --component-tooltip-enter-easing: var(--semantic-motion-easing-emphasized);
+  --component-tooltip-exit-easing: var(--semantic-motion-easing-exit);
 
   /* topbar */
   --component-topbar-background: var(--semantic-bg-ach-color-bg-surface);

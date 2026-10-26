@@ -1,4 +1,17 @@
 {
   "model": "claude-sonnet-5-5",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/lint-tokens-on-edit.sh"
+          }
+        ]
+      }
+    ]
+  },
   "advisorModel": "claude-opus-5-5"
 }

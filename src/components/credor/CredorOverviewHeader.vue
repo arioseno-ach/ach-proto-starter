@@ -8,6 +8,7 @@ const { state } = usePrototypeState()
 const formatAmount = (amount: number) => `Rp${amount.toLocaleString('id-ID')}`
 
 const balanceLabel = computed(() => formatAmount(state.data.balance))
+const hasBalance = computed(() => state.data.balance > 0)
 const incomingFundLabel = computed(() => formatAmount(state.data.incomingFund))
 </script>
 
@@ -37,7 +38,7 @@ const incomingFundLabel = computed(() => formatAmount(state.data.incomingFund))
           </div>
         </div>
 
-        <Button class="balance-card__disburse" type="button" size="mini" color="inverse">
+        <Button v-if="hasBalance" class="balance-card__disburse" type="button" size="mini" color="inverse">
           Disburse Money
           <template #trailingIcon>
             <span class="balance-card__arrow" aria-hidden="true"></span>

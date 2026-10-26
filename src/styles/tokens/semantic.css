@@ -207,6 +207,15 @@
   /* border */
   --semantic-border-ach-color-border-natural: var(--primitives-colors-neutral-0); /* border.strong — selected state, active input, focused element */
 
+  /* motion */
+  --semantic-motion-duration-slow: var(--primitives-motion-duration-slow);
+  --semantic-motion-easing-emphasized: var(--primitives-motion-easing-emphasized);
+  --semantic-motion-duration-fast: var(--primitives-motion-duration-fast);
+  --semantic-motion-duration-base: var(--primitives-motion-duration-base);
+  --semantic-motion-easing-exit: var(--primitives-motion-easing-exit);
+  --semantic-motion-duration-spin: var(--primitives-motion-duration-spin);
+  --semantic-motion-duration-rotation: var(--primitives-motion-duration-rotation);
+
   /* shadcn-vue aliases: light theme mapped to existing ACH semantics */
   --background: var(--semantic-bg-ach-color-bg-canvas);
   --foreground: var(--semantic-text-ach-color-text-default);

@@ -13,7 +13,7 @@ const delegatedProps = reactiveOmit(props, "class")
 <template>
   <DialogOverlay
     data-slot="sheet-overlay"
-    :class="cn('ach-sheet-overlay data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50', props.class)"
+    :class="cn('ach-sheet-overlay fixed inset-0 z-50', props.class)"
     v-bind="delegatedProps"
   >
     <slot />
@@ -23,5 +23,24 @@ const delegatedProps = reactiveOmit(props, "class")
 <style scoped>
 .ach-sheet-overlay {
   background: color-mix(in srgb, var(--semantic-bg-ach-color-bg-inverse) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ach-sheet-overlay[data-state="open"] {
+    animation: ach-sheet-overlay-in var(--component-sheet-enter-duration) var(--component-dialog-enter-easing) both;
+  }
+  .ach-sheet-overlay[data-state="closed"] {
+    animation: ach-sheet-overlay-out var(--component-sheet-exit-duration) var(--component-dialog-exit-easing) both;
+  }
+}
+
+@keyframes ach-sheet-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ach-sheet-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 </style>

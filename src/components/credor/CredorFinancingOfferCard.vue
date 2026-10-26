@@ -4,18 +4,62 @@ import type {
   FinancingOffer,
 } from '@/components/credor/financing-offers'
 
-defineProps<{
+import { onBeforeUnmount, ref, watch } from 'vue'
+
+const props = defineProps<{
   offer: FinancingOffer
   position: FinancingCardPosition
 }>()
+
+const isRecycling = ref(false)
+let recycleFrame = 0
+
+function cancelRecycleFrame() {
+  if (recycleFrame) {
+    cancelAnimationFrame(recycleFrame)
+    recycleFrame = 0
+  }
+}
+
+watch(
+  () => props.position,
+  (next, previous) => {
+    cancelRecycleFrame()
+    isRecycling.value = false
+
+    if (
+      previous === 'active' &&
+      next === 'far' &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      recycleFrame = requestAnimationFrame(() => {
+        recycleFrame = 0
+        isRecycling.value = true
+      })
+    }
+  },
+)
+
+onBeforeUnmount(cancelRecycleFrame)
+
+function onAnimationEnd(event: AnimationEvent) {
+  if (event.target === event.currentTarget) {
+    isRecycling.value = false
+  }
+}
 </script>
 
 <template>
   <article
     :id="'credor-financing-offer-' + offer.id"
     class="offer-card"
-    :class="['offer-card--' + offer.id, 'offer-card--position-' + position]"
+    :class="[
+      'offer-card--' + offer.id,
+      'offer-card--position-' + position,
+      { 'offer-card--recycling': isRecycling },
+    ]"
     :aria-label="offer.eyebrow + ' offer'"
+    @animationend="onAnimationEnd"
   >
     <div class="offer-card__art" aria-hidden="true">
       <img
@@ -56,6 +100,7 @@ defineProps<{
   left: 50%;
   display: flex;
   box-sizing: border-box;
+  width: 100%;
   height: 141px;
   max-width: 336px;
   flex-direction: column;
@@ -77,35 +122,63 @@ defineProps<{
   color: var(--semantic-text-ach-color-text-default);
   font-family: var(--primitives-font-families-body), sans-serif;
   pointer-events: none;
-  transform: translate(-50%, 0);
-  transition: width 500ms ease, transform 500ms ease;
-}
-
-.offer-card--position-active {
-  width: 100%;
-}
-
-.offer-card--position-near {
-  width: 96%;
-}
-
-.offer-card--position-far {
-  width: 92%;
+  transform: translate(-50%, 0) scale(0.92);
+  transform-origin: top center;
+  transition:
+    transform var(--component-offer-carousel-transition-duration)
+      var(--component-offer-carousel-transition-easing),
+    opacity var(--component-offer-carousel-transition-duration)
+      var(--component-offer-carousel-transition-easing);
+  will-change: transform, opacity;
 }
 
 .offer-card--position-active {
   z-index: 3;
-  transform: translate(-50%, 47px);
+  opacity: 1;
+  transform: translate(-50%, 47px) scale(1);
 }
 
 .offer-card--position-near {
   z-index: 2;
-  transform: translate(-50%, 23px);
+  opacity: 1;
+  transform: translate(-50%, 23px) scale(0.96);
 }
 
 .offer-card--position-far {
   z-index: 1;
-  transform: translate(-50%, 0);
+  opacity: 1;
+  transform: translate(-50%, 0) scale(0.92);
+}
+
+.offer-card--recycling {
+  animation: offer-card-recycle var(--component-offer-carousel-transition-duration)
+    var(--component-offer-carousel-transition-easing);
+}
+
+@keyframes offer-card-recycle {
+  0% {
+    z-index: 4;
+    opacity: 1;
+    transform: translate(-50%, 47px) scale(1);
+  }
+
+  40% {
+    z-index: 4;
+    opacity: 0;
+    transform: translate(-50%, 59px) scale(0.94);
+  }
+
+  41% {
+    z-index: 1;
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.92);
+  }
+
+  100% {
+    z-index: 1;
+    opacity: 1;
+    transform: translate(-50%, 0) scale(0.92);
+  }
 }
 
 .offer-card__art {
@@ -286,8 +359,10 @@ defineProps<{
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .offer-card {
+  .offer-card,
+  .offer-card--recycling {
     transition: none;
+    animation: none;
   }
 }
 </style>

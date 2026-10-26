@@ -77,6 +77,22 @@ The checkbox primitive resolves its colors through `--component-checkbox-*` role
 `--component-checkbox-checked-background`, `--component-checkbox-checked-border`,
 `--component-checkbox-check`, `--component-checkbox-text`, and `--component-checkbox-focus`.
 
+## Motion
+
+Motion values flow through the layers. Primitives hold the literals (`--primitives-motion-duration-fast`, `--primitives-motion-duration-base`, `--primitives-motion-duration-slow`, `--primitives-motion-duration-rotation`, `--primitives-motion-duration-spin`, `--primitives-motion-easing-emphasized`, `--primitives-motion-easing-exit`), and `semantic.css` aliases the reusable ones as `--semantic-motion-duration-fast`, `--semantic-motion-duration-base`, `--semantic-motion-duration-slow`, `--semantic-motion-duration-spin`, `--semantic-motion-duration-rotation`, `--semantic-motion-easing-emphasized` and `--semantic-motion-easing-exit`. Components consume them through component roles. Nonessential motion must respect `prefers-reduced-motion`.
+
+Dialog and sheet open/close animations use `--component-dialog-enter-duration`, `--component-dialog-exit-duration`, `--component-dialog-enter-easing`, `--component-dialog-exit-easing`, `--component-sheet-enter-duration` and `--component-sheet-exit-duration`. They are driven by `@keyframes` on `[data-state]` (Reka waits for animations, not transitions) and only run under `prefers-reduced-motion: no-preference`.
+
+Segmented tab controls (Credor transactions, loan calculator) use `--component-tabs-indicator-duration` and `--component-tabs-indicator-easing` for the sliding active indicator, and `--component-tabs-panel-enter-duration` and `--component-tabs-panel-exit-duration` for the panel fade and rise, with `--component-tabs-panel-exit-easing` (exit easing) on leave. Transitions are disabled under `prefers-reduced-motion: reduce`.
+
+The Credor risk score card syncing state uses `--component-risk-card-sync-spin-duration` (linear icon rotation). The animation is removed under `prefers-reduced-motion: reduce`, leaving a static icon.
+
+Tooltips use `--component-tooltip-enter-duration`, `--component-tooltip-exit-duration`, `--component-tooltip-enter-easing` and `--component-tooltip-exit-easing`.
+
+## Offer carousel
+
+The Credor financing banner carousel uses `--component-offer-carousel-rotation-duration` (time each offer stays active, and the length of the progress pill fill), `--component-offer-carousel-transition-duration`, and `--component-offer-carousel-transition-easing` (card restack motion) in `components.css`.
+
 ## Top Bar compatibility
 
 The TopBar uses top-bar, avatar, icon-button, divider, and focus tokens. Its literal dimensions are in the primitives layer, semantic aliases are in `semantic.css`, and `--component-topbar-*` role tokens are in [`components.css`](../../src/styles/tokens/components.css).

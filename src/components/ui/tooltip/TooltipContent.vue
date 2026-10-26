@@ -24,7 +24,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     <TooltipContent
       data-slot="tooltip-content"
       v-bind="{ ...forwarded, ...$attrs }"
-      :class="cn('bg-foreground text-background animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit rounded-md px-3 py-1.5 text-xs text-balance', props.class)"
+      :class="cn('ach-tooltip-content bg-foreground text-background z-50 w-fit rounded-md px-3 py-1.5 text-xs text-balance', props.class)"
     >
       <slot />
 
@@ -32,3 +32,30 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     </TooltipContent>
   </TooltipPortal>
 </template>
+
+<!-- Unscoped: Reka applies the scope id to the popper wrapper, not the inner element that carries data-state/data-side. -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  .ach-tooltip-content[data-state="delayed-open"],
+  .ach-tooltip-content[data-state="instant-open"] {
+    animation: ach-tooltip-in var(--component-tooltip-enter-duration) var(--component-tooltip-enter-easing) both;
+  }
+  .ach-tooltip-content[data-state="closed"] {
+    animation: ach-tooltip-out var(--component-tooltip-exit-duration) var(--component-tooltip-exit-easing) both;
+  }
+  .ach-tooltip-content[data-side="top"] { --ach-tooltip-from: translateY(4px); }
+  .ach-tooltip-content[data-side="bottom"] { --ach-tooltip-from: translateY(-4px); }
+  .ach-tooltip-content[data-side="left"] { --ach-tooltip-from: translateX(4px); }
+  .ach-tooltip-content[data-side="right"] { --ach-tooltip-from: translateX(-4px); }
+}
+
+@keyframes ach-tooltip-in {
+  from { opacity: 0; transform: var(--ach-tooltip-from, none) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ach-tooltip-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: var(--ach-tooltip-from, none) scale(0.97); }
+}
+</style>

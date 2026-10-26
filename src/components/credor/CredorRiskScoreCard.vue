@@ -263,6 +263,18 @@ const isSyncing = computed(() => props.variant === 'syncing')
   justify-content: center;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .risk-card__badge-icon--sync {
+    animation: risk-card-sync-spin var(--component-risk-card-sync-spin-duration) linear infinite;
+  }
+}
+
+@keyframes risk-card-sync-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .risk-card__scale {
   display: flex;
   width: 100%;

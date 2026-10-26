@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useSegmentedIndicator } from '@/composables/useSegmentedIndicator'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { credorTransactionTabs, type CredorLineItem } from '@/components/credor/transactions'
 
 const activeTabId = ref(credorTransactionTabs[0].id)
+
+const tablist = ref<HTMLElement | null>(null)
+const { indicatorStyle, ready } = useSegmentedIndicator(tablist, () => activeTabId.value)
 
 const activeTab = computed(
   () => credorTransactionTabs.find((tab) => tab.id === activeTabId.value) ?? credorTransactionTabs[0],
@@ -78,7 +82,13 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
         </p>
       </div>
 
-      <div class="transactions__tabs" role="tablist" aria-label="Transaction type">
+      <div ref="tablist" class="transactions__tabs" role="tablist" aria-label="Transaction type">
+        <span
+          class="transactions__tab-indicator"
+          :class="{ 'transactions__tab-indicator--animated': ready }"
+          aria-hidden="true"
+          :style="indicatorStyle"
+        ></span>
         <button
           v-for="tab in credorTransactionTabs"
           :id="'transactions-tab-' + tab.id"
@@ -96,62 +106,65 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
       </div>
     </div>
 
-    <div
-      class="transactions__list"
-      role="tabpanel"
-      :aria-labelledby="'transactions-tab-' + activeTabId"
-    >
-      <article v-for="row in sortedRows" :key="row.id" class="transactions-card">
-        <Avatar :initials="initials(row.counterparty)" :label="row.counterparty" />
+    <Transition name="transactions-panel" mode="out-in">
+      <div
+        class="transactions__list"
+        :key="activeTabId"
+        role="tabpanel"
+        :aria-labelledby="'transactions-tab-' + activeTabId"
+      >
+        <article v-for="row in sortedRows" :key="row.id" class="transactions-card">
+          <Avatar :initials="initials(row.counterparty)" :label="row.counterparty" />
 
-        <div class="transactions-card__identity">
-          <p class="transactions-card__counterparty">{{ row.counterparty }}</p>
-          <a class="transactions-card__invoice" href="#">{{ row.invoiceNumber }}</a>
-          <p class="transactions-card__due">
-            <span>{{ row.dueDate }}</span>
-            <span
-              class="transactions-card__due-note"
-              :class="{ 'transactions-card__due-note--overdue': row.overdue }"
+          <div class="transactions-card__identity">
+            <p class="transactions-card__counterparty">{{ row.counterparty }}</p>
+            <a class="transactions-card__invoice" href="#">{{ row.invoiceNumber }}</a>
+            <p class="transactions-card__due">
+              <span>{{ row.dueDate }}</span>
+              <span
+                class="transactions-card__due-note"
+                :class="{ 'transactions-card__due-note--overdue': row.overdue }"
+              >
+                {{ row.dueNote }}
+              </span>
+            </p>
+          </div>
+
+          <ul class="transactions-card__line-items">
+            <li
+              v-for="(item, index) in visibleLineItems(row.lineItems)"
+              :key="index"
+              class="transactions-card__line-item"
             >
-              {{ row.dueNote }}
-            </span>
-          </p>
+              <span v-if="'overflow' in item" class="transactions-card__line-item-overflow">
+                +{{ item.overflow }} item
+              </span>
+              <span v-else class="transactions-card__line-item-name">{{ item.name }}</span>
+            </li>
+          </ul>
+
+          <div class="transactions-card__side">
+            <p class="transactions-card__amount">{{ formatAmount(row.amount) }}</p>
+            <Button
+              variant="outline"
+              color="primary"
+              size="small"
+              type="button"
+              class="transactions-card__action"
+            >
+              {{ activeTab.actionLabel }}
+            </Button>
+          </div>
+        </article>
+
+        <div class="transactions__footer">
+          <button type="button" class="transactions__view-all">
+            View All
+            <span class="transactions__view-all-icon" aria-hidden="true"></span>
+          </button>
         </div>
-
-        <ul class="transactions-card__line-items">
-          <li
-            v-for="(item, index) in visibleLineItems(row.lineItems)"
-            :key="index"
-            class="transactions-card__line-item"
-          >
-            <span v-if="'overflow' in item" class="transactions-card__line-item-overflow">
-              +{{ item.overflow }} item
-            </span>
-            <span v-else class="transactions-card__line-item-name">{{ item.name }}</span>
-          </li>
-        </ul>
-
-        <div class="transactions-card__side">
-          <p class="transactions-card__amount">{{ formatAmount(row.amount) }}</p>
-          <Button
-            variant="outline"
-            color="primary"
-            size="small"
-            type="button"
-            class="transactions-card__action"
-          >
-            {{ activeTab.actionLabel }}
-          </Button>
-        </div>
-      </article>
-
-      <div class="transactions__footer">
-        <button type="button" class="transactions__view-all">
-          View All
-          <span class="transactions__view-all-icon" aria-hidden="true"></span>
-        </button>
       </div>
-    </div>
+    </Transition>
   </section>
 </template>
 
@@ -198,6 +211,7 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
 }
 
 .transactions__tabs {
+  position: relative;
   display: inline-flex;
   flex: 0 0 auto;
   padding: var(--primitives-padding-1);
@@ -206,6 +220,8 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
 }
 
 .transactions__tab {
+  position: relative;
+  z-index: 1;
   min-height: 28px;
   padding: 0 var(--primitives-padding-2);
   border: 0;
@@ -225,8 +241,16 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
 }
 
 .transactions__tab--active {
-  background: var(--component-tabs-segmented-item-background-active);
   color: var(--component-tabs-segmented-item-text);
+}
+
+.transactions__tab-indicator {
+  position: absolute;
+  top: var(--primitives-padding-1);
+  bottom: var(--primitives-padding-1);
+  left: 0;
+  border-radius: var(--primitives-border-radius-sm);
+  background: var(--component-tabs-segmented-item-background-active);
   box-shadow:
     calc(var(--primitives-shadows-sm-shadow-1-x) * 1px)
       calc(var(--primitives-shadows-sm-shadow-1-y) * 1px)
@@ -236,6 +260,19 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
       calc(var(--primitives-shadows-sm-shadow-2-y) * 1px)
       calc(var(--primitives-shadows-sm-shadow-2-blur) * 1px)
       var(--primitives-shadows-sm-color);
+  pointer-events: none;
+}
+
+.transactions__tab-indicator--animated {
+  transition:
+    transform var(--component-tabs-indicator-duration) var(--component-tabs-indicator-easing),
+    width var(--component-tabs-indicator-duration) var(--component-tabs-indicator-easing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transactions__tab-indicator--animated {
+    transition: none;
+  }
 }
 
 .transactions__tab:focus-visible,
@@ -249,6 +286,32 @@ const visibleLineItems = (items: CredorLineItem[]): VisibleLineItem[] => {
   min-width: 0;
   flex-direction: column;
   gap: var(--primitives-padding-3);
+}
+
+.transactions-panel-enter-active {
+  transition:
+    opacity var(--component-tabs-panel-enter-duration) var(--component-tabs-indicator-easing),
+    transform var(--component-tabs-panel-enter-duration) var(--component-tabs-indicator-easing);
+}
+
+.transactions-panel-leave-active {
+  transition: opacity var(--component-tabs-panel-exit-duration) var(--component-tabs-panel-exit-easing);
+}
+
+.transactions-panel-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.transactions-panel-leave-to {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transactions-panel-enter-active,
+  .transactions-panel-leave-active {
+    transition: none;
+  }
 }
 
 .transactions-card {

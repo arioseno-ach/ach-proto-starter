@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Button } from '@/components/ui/button'
 import type { BcaBankFeed, LoanApplication } from '@/lib/prototype/types'
 
 defineProps<{
@@ -38,7 +39,13 @@ function toggleApplication(id: string): void {
     </div>
 
     <template v-else>
-      <div class="applications-card__feed" :class="{ 'is-expanded': feedExpanded }">
+      <div
+        class="applications-card__feed"
+        :class="{
+          'is-expanded': feedExpanded,
+          'applications-card__feed--has-action': !feedExpanded,
+        }"
+      >
         <button
           type="button"
           class="applications-card__feed-header"
@@ -67,20 +74,34 @@ function toggleApplication(id: string): void {
           <span class="applications-card__feed-badge">{{ feed.badge }}</span>
         </button>
 
-        <span class="applications-card__feed-action applications-card__feed-action--hover">
+        <span
+          v-if="!feedExpanded"
+          class="applications-card__feed-action applications-card__feed-action--hover"
+        >
           Open Settings
-          <span class="applications-card__action-icon" aria-hidden="true"></span>
         </span>
 
         <div v-if="feedExpanded" class="applications-card__feed-details">
-          <div v-for="detail in feed.details" :key="detail.label" class="applications-card__detail">
-            <span class="applications-card__detail-label">{{ detail.label }}</span>
-            <span class="applications-card__detail-value">{{ detail.value }}</span>
+          <div class="applications-card__detail-list">
+            <div
+              v-for="detail in feed.details"
+              :key="detail.label"
+              class="applications-card__detail"
+            >
+              <span class="applications-card__detail-label">{{ detail.label }}</span>
+              <span class="applications-card__detail-value">{{ detail.value }}</span>
+            </div>
           </div>
-          <span class="applications-card__feed-action applications-card__feed-action--expanded">
-            Open Settings
-            <span class="applications-card__action-icon" aria-hidden="true"></span>
-          </span>
+          <div class="applications-card__actions">
+            <Button
+              type="button"
+              size="small"
+              color="inverse"
+              class="applications-card__expanded-button"
+            >
+              Open Settings
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -94,7 +115,10 @@ function toggleApplication(id: string): void {
           v-for="application in applications"
           :key="application.id"
           class="applications-card__row"
-          :class="{ 'is-expanded': expandedApplicationId === application.id }"
+          :class="{
+            'is-expanded': expandedApplicationId === application.id,
+            'applications-card__row--has-action': expandedApplicationId !== application.id,
+          }"
         >
           <button
             type="button"
@@ -129,24 +153,35 @@ function toggleApplication(id: string): void {
             <span class="applications-card__row-status">{{ application.status }}</span>
           </button>
 
-          <span class="applications-card__row-action">
+          <span v-if="expandedApplicationId !== application.id" class="applications-card__row-action">
             <span class="applications-card__action-icon" aria-hidden="true"></span>
             Add Invoice
           </span>
 
           <div v-if="expandedApplicationId === application.id" class="applications-card__row-details">
-            <div
-              v-for="detail in application.details"
-              :key="detail.label"
-              class="applications-card__detail"
-            >
-              <span class="applications-card__detail-label">{{ detail.label }}</span>
-              <span class="applications-card__detail-value">{{ detail.value }}</span>
+            <div class="applications-card__detail-list">
+              <div
+                v-for="detail in application.details"
+                :key="detail.label"
+                class="applications-card__detail"
+              >
+                <span class="applications-card__detail-label">{{ detail.label }}</span>
+                <span class="applications-card__detail-value">{{ detail.value }}</span>
+              </div>
             </div>
-            <span class="applications-card__row-action applications-card__row-action--expanded">
-              <span class="applications-card__action-icon" aria-hidden="true"></span>
-              Add Invoice
-            </span>
+            <div class="applications-card__actions">
+              <Button
+                type="button"
+                size="small"
+                color="inverse"
+                class="applications-card__expanded-button"
+              >
+                <template #leadingIcon>
+                  <span class="applications-card__button-icon" aria-hidden="true"></span>
+                </template>
+                Add Invoice
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -249,6 +284,10 @@ function toggleApplication(id: string): void {
   background: var(--semantic-brand-ach-color-brand-subtle);
 }
 
+.applications-card__feed.is-expanded {
+  background: var(--semantic-bg-ach-color-bg-canvas);
+}
+
 .applications-card__feed-header {
   display: flex;
   width: 100%;
@@ -334,6 +373,7 @@ function toggleApplication(id: string): void {
 .applications-card__feed-action,
 .applications-card__row-action {
   display: none;
+  pointer-events: none;
   align-items: center;
   gap: var(--primitives-padding-1);
   padding: var(--primitives-padding-1) var(--primitives-padding-3);
@@ -365,13 +405,17 @@ function toggleApplication(id: string): void {
   -webkit-mask: url('/icons/ui-actions/add.svg') center / contain no-repeat;
 }
 
-.applications-card__feed:hover .applications-card__feed-badge,
-.applications-card__row:hover .applications-card__row-status {
+.applications-card__feed--has-action:hover .applications-card__feed-badge,
+.applications-card__feed--has-action:has(:focus-visible) .applications-card__feed-badge,
+.applications-card__row--has-action:hover .applications-card__row-status,
+.applications-card__row--has-action:has(:focus-visible) .applications-card__row-status {
   visibility: hidden;
 }
 
-.applications-card__feed:hover .applications-card__feed-action--hover,
-.applications-card__row:hover .applications-card__row-action:not(.applications-card__row-action--expanded) {
+.applications-card__feed--has-action:hover .applications-card__feed-action--hover,
+.applications-card__feed--has-action:has(:focus-visible) .applications-card__feed-action--hover,
+.applications-card__row--has-action:hover .applications-card__row-action,
+.applications-card__row--has-action:has(:focus-visible) .applications-card__row-action {
   position: absolute;
   z-index: 1;
   top: var(--primitives-padding-3);
@@ -391,9 +435,16 @@ function toggleApplication(id: string): void {
   padding-left: var(--primitives-padding-9);
 }
 
+.applications-card__detail-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--primitives-padding-2);
+}
+
 .applications-card__detail {
-  display: flex;
-  gap: var(--primitives-padding-4);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   padding-block: var(--primitives-padding-1);
   font-size: var(--primitives-font-sizes-xs);
   line-height: var(--primitives-line-heights-2xs);
@@ -410,11 +461,30 @@ function toggleApplication(id: string): void {
   font-weight: 500;
 }
 
-.applications-card__feed-action--expanded,
-.applications-card__row-action--expanded {
-  display: inline-flex;
-  align-self: flex-end;
-  margin-top: var(--primitives-padding-2);
+.applications-card__actions {
+  padding-top: var(--primitives-padding-2);
+}
+
+.applications-card__expanded-button {
+  width: 100%;
+  box-shadow:
+    calc(var(--primitives-shadows-md-shadow-1-x) * 1px)
+      calc(var(--primitives-shadows-md-shadow-1-y) * 1px)
+      calc(var(--primitives-shadows-md-shadow-1-blur) * 1px)
+      calc(var(--primitives-shadows-md-shadow-1-spread) * 1px) var(--primitives-shadows-md-color),
+    calc(var(--primitives-shadows-md-shadow-2-x) * 1px)
+      calc(var(--primitives-shadows-md-shadow-2-y) * 1px)
+      calc(var(--primitives-shadows-md-shadow-2-blur) * 1px)
+      calc(var(--primitives-shadows-md-shadow-2-spread) * 1px) var(--primitives-shadows-md-color);
+}
+
+.applications-card__button-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--component-button-solid-inverse-icon);
+  mask: url('/icons/ui-actions/add.svg') center / contain no-repeat;
+  -webkit-mask: url('/icons/ui-actions/add.svg') center / contain no-repeat;
 }
 
 .applications-card__table {

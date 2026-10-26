@@ -33,7 +33,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     <DialogContent
       data-slot="dialog-content"
       :class="cn(
-        'ach-dialog-content data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 max-w-lg -translate-x-1/2 -translate-y-1/2',
+        'ach-dialog-content fixed top-1/2 left-1/2 z-50 max-w-lg -translate-x-1/2 -translate-y-1/2',
         props.class,
       )"
       v-bind="{ ...$attrs, ...forwarded }"
@@ -82,5 +82,26 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 
 .ach-dialog-close-icon {
   display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ach-dialog-content[data-state="open"] {
+    animation: ach-dialog-content-in var(--component-dialog-enter-duration) var(--component-dialog-enter-easing) both;
+  }
+
+  .ach-dialog-content[data-state="closed"] {
+    animation: ach-dialog-content-out var(--component-dialog-exit-duration) var(--component-dialog-exit-easing) both;
+  }
+}
+
+/* Animate transform only; Tailwind's -translate-* uses the separate translate property for centring. */
+@keyframes ach-dialog-content-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ach-dialog-content-out {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: scale(0.98); }
 }
 </style>
