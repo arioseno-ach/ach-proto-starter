@@ -24,9 +24,9 @@ defineProps<{
 .avatar {
   position: relative;
   display: grid;
-  width: 56px;
-  height: 56px;
-  flex: 0 0 56px;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
   place-items: center;
   border: var(--primitives-border-width-default) solid var(--semantic-border-ach-color-border-default);
   border-radius: var(--primitives-border-radius-infinite);

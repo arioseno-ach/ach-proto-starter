@@ -31,12 +31,20 @@ const scoreRatio = computed(() =>
 
 const categories = ['Poor', 'Fair', 'Good', 'Very Good', 'Excellent']
 
-const segmentColors = [
+const mutedSegmentColors = [
   'var(--component-risk-score-meter-low)',
   'var(--component-risk-score-meter-fair)',
   'var(--component-risk-score-meter-good)',
   'var(--component-risk-score-meter-very-good)',
   'var(--component-risk-score-meter-excellent)',
+]
+
+const strongSegmentColors = [
+  'var(--component-risk-score-meter-low-strong)',
+  'var(--component-risk-score-meter-fair-strong)',
+  'var(--component-risk-score-meter-good-strong)',
+  'var(--component-risk-score-meter-very-good-strong)',
+  'var(--component-risk-score-meter-excellent-strong)',
 ]
 
 const scoreCategory = computed(() => {
@@ -48,6 +56,9 @@ const markerPosition = computed(() => `${scoreRatio.value * 100}%`)
 
 const isSynced = computed(() => props.variant === 'synced')
 const isSyncing = computed(() => props.variant === 'syncing')
+
+/** Once the score is unlocked the meter switches to the saturated palette. */
+const segmentColors = computed(() => (isSynced.value ? strongSegmentColors : mutedSegmentColors))
 </script>
 
 <template>

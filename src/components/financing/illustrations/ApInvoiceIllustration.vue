@@ -1,77 +1,82 @@
+<script setup lang="ts">
+import { Button } from '@/components/ui/button'
+import { Avatar } from '@/components/ui/avatar'
+import { credorTransactionTabs } from '@/components/credor/transactions'
+
+// Mirrors the Purchases rows of the transactions list, so the card previews what the product shows.
+const purchases = credorTransactionTabs.find((tab) => tab.id === 'purchases')
+const purchaseRows = purchases?.rows.slice(0, 3) ?? []
+
+// Two quieter rows above and below fill the card, so the highlighted row sits mid-list.
+const topRow = {
+  id: 'ap-ghost-top',
+  counterparty: 'CV Mitra Baja',
+  invoiceNumber: '#BILL-2026-0291',
+  dueDate: '12 Nov',
+  dueNote: '21 days left',
+  overdue: false,
+  amount: 48500000,
+}
+const bottomRow = {
+  id: 'ap-ghost-bottom',
+  counterparty: 'UD Tani Jaya',
+  invoiceNumber: '#BILL-2026-0287',
+  dueDate: '21 Nov',
+  dueNote: '30 days left',
+  overdue: false,
+  amount: 21300000,
+}
+const rows = [topRow, ...purchaseRows, bottomRow]
+const FEATURE_INDEX = 2
+
+const formatAmount = (amount: number) => `Rp${amount.toLocaleString('id-ID')}`
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .filter((word) => !/^(pt|cv|ud|tb|co)$/i.test(word))
+    .slice(0, 2)
+    .map((word) => word[0])
+    .join('')
+    .toUpperCase()
+</script>
+
 <template>
   <div class="illustration illustration--ap">
-    <div class="ap__row ap__row--first">
-      <span class="ap__avatar">BP</span>
-      <span class="ap__copy">
-        <span class="ap__name">CV Baja Perkasa</span>
-        <span class="ap__due">Due: 14 Oct 2026</span>
-      </span>
-      <span class="ap__side">
-        <span class="ap__amount">Rp 32.000.000</span>
-        <span class="ap__status ap__status--paid"><i></i>Paid</span>
-      </span>
-    </div>
+    <div class="ap__zoom">
+      <div class="ap__rows">
+        <article
+          v-for="(row, index) in rows"
+          :key="row.id"
+          class="ap__card"
+          :class="{
+            'ap__card--feature': index === FEATURE_INDEX,
+            'ap__card--faded': index !== FEATURE_INDEX && index > 0 && index < rows.length - 1,
+            'ap__card--ghost': index === 0 || index === rows.length - 1,
+          }"
+        >
+          <Avatar :initials="initials(row.counterparty)" />
 
-    <div class="ap__feature">
-      <div class="ap__feature-top">
-        <span class="ap__avatar ap__avatar--dark">SM</span>
-        <span class="ap__copy">
-          <span class="ap__name ap__name--large">Supplier Makmur Jaya</span>
-          <span class="ap__due ap__due--large">Due: 20 Oct 2026</span>
-        </span>
-        <span class="ap__side">
-          <span class="ap__amount ap__amount--large">Rp 48.500.000</span>
-          <span class="ap__status ap__status--large ap__status--unpaid"><i></i>Unpaid</span>
-        </span>
+          <div class="ap__identity">
+            <p class="ap__counterparty">{{ row.counterparty }}</p>
+            <p class="ap__invoice">{{ row.invoiceNumber }}</p>
+          </div>
+
+          <div class="ap__due">
+            <span class="ap__dot" :class="{ 'ap__dot--overdue': row.overdue }" aria-hidden="true"></span>
+            <div>
+              <p class="ap__due-note" :class="{ 'ap__due-note--overdue': row.overdue }">{{ row.dueNote }}</p>
+              <p class="ap__due-date">{{ row.dueDate }}</p>
+            </div>
+          </div>
+
+          <p class="ap__amount">{{ formatAmount(row.amount) }}</p>
+
+          <Button variant="outline" color="neutral" size="small" type="button" tabindex="-1" class="ap__action">
+            {{ purchases?.actionLabel }}
+          </Button>
+        </article>
       </div>
-
-      <div class="ap__rule"></div>
-
-      <div class="ap__feature-bottom">
-        <span class="ap__tag"><i></i>Repay later · 2 × Rp 24.250.000</span>
-        <span class="ap__button">
-          Pay supplier now
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </span>
-      </div>
-    </div>
-
-    <div class="ap__row ap__row--second">
-      <span class="ap__avatar">PB</span>
-      <span class="ap__copy">
-        <span class="ap__name">PT Bahan Prima</span>
-        <span class="ap__due">Due: 28 Oct 2026</span>
-      </span>
-      <span class="ap__side">
-        <span class="ap__amount">Rp 15.750.000</span>
-        <span class="ap__status ap__status--unpaid"><i></i>Unpaid</span>
-      </span>
-    </div>
-
-    <div class="ap__row ap__row--third">
-      <span class="ap__avatar">TJ</span>
-      <span class="ap__copy">
-        <span class="ap__name">UD Tani Jaya</span>
-        <span class="ap__due">Due: 02 Nov 2026</span>
-      </span>
-      <span class="ap__side">
-        <span class="ap__amount">Rp 21.300.000</span>
-        <span class="ap__status ap__status--unpaid"><i></i>Unpaid</span>
-      </span>
-    </div>
-
-    <div class="ap__row ap__row--fourth">
-      <span class="ap__avatar">SL</span>
-      <span class="ap__copy">
-        <span class="ap__name">PT Sinar Logistik</span>
-        <span class="ap__due">Due: 05 Nov 2026</span>
-      </span>
-      <span class="ap__side">
-        <span class="ap__amount">Rp 9.800.000</span>
-        <span class="ap__status ap__status--unpaid"><i></i>Unpaid</span>
-      </span>
     </div>
   </div>
 </template>
@@ -85,204 +90,121 @@
   height: 480px;
   color: var(--semantic-text-ach-color-text-default);
   font-family: var(--primitives-font-families-body), sans-serif;
+  pointer-events: none;
 }
 
-.ap__row {
+/* Rows are laid out at the real list's size, then enlarged to fill the 720px stage. */
+.ap__zoom {
   position: absolute;
-  left: 80px;
+  top: 6px;
+  left: 22px;
+  width: 520px;
+  transform: scale(1.3);
+  transform-origin: top left;
+}
+
+.ap__rows {
   display: flex;
-  width: 560px;
-  height: 72px;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid var(--component-option-illustration-hairline);
-}
-
-.ap__row--first {
-  top: 24px;
-}
-
-.ap__row--second {
-  top: 284px;
-  opacity: 0.6;
-}
-
-.ap__row--third {
-  top: 356px;
-  opacity: 0.3;
-}
-
-.ap__row--fourth {
-  top: 428px;
-  opacity: 0.15;
-}
-
-.ap__avatar {
-  display: grid;
-  width: 36px;
-  height: 36px;
-  flex: none;
-  place-items: center;
-  border-radius: var(--primitives-border-radius-infinite);
-  background: var(--component-option-illustration-tint);
-  color: var(--semantic-brand-ach-color-brand-default);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.ap__avatar--dark {
-  width: 44px;
-  height: 44px;
-  background: var(--semantic-text-ach-color-text-default);
-  color: var(--semantic-text-ach-color-text-inverse);
-  font-size: 13px;
-}
-
-.ap__copy {
-  display: flex;
-  min-width: 0;
-  flex: 1;
   flex-direction: column;
 }
 
-.ap__name {
-  color: var(--semantic-text-ach-color-text-default);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.3;
+.ap__card {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: auto minmax(0, 1fr) 108px 100px 76px;
+  align-items: center;
+  gap: var(--primitives-padding-2);
+  padding: var(--primitives-padding-4) var(--primitives-padding-3);
+  border: var(--primitives-border-width-default) solid transparent;
 }
 
-.ap__name--large {
-  font-size: 17px;
+.ap__card--faded {
+  opacity: 0.5;
+}
+
+.ap__card--ghost {
+  opacity: 0.22;
+}
+
+/* The one highlighted row: same anatomy, lifted onto its own bordered surface. */
+.ap__card--feature {
+  border-color: var(--semantic-border-ach-color-border-default);
+  border-radius: var(--primitives-border-radius-lg);
+  background: var(--semantic-bg-ach-color-bg-surface);
+}
+
+.ap__identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ap__counterparty,
+.ap__invoice,
+.ap__due-note,
+.ap__due-date,
+.ap__amount {
+  margin: 0;
+}
+
+.ap__counterparty {
+  overflow: hidden;
+  font-size: var(--primitives-font-sizes-sm);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ap__invoice,
+.ap__due-date {
+  color: var(--semantic-text-ach-color-text-secondary);
+  font-size: var(--primitives-font-sizes-xs);
+  line-height: var(--primitives-line-heights-2xs);
 }
 
 .ap__due {
-  color: var(--component-option-illustration-text);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.ap__due--large {
-  font-size: 14px;
-}
-
-.ap__side {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: flex-start;
+  gap: var(--primitives-padding-2);
+}
+
+.ap__dot {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  margin-top: 7px;
+  border-radius: var(--primitives-border-radius-infinite);
+  background: var(--semantic-text-ach-color-text-disabled);
+}
+
+.ap__dot--overdue {
+  background: var(--semantic-fg-error-ach-color-fg-error);
+}
+
+.ap__due-note {
+  font-size: var(--primitives-font-sizes-xs);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-sm);
+  white-space: nowrap;
+}
+
+.ap__due-note--overdue {
+  color: var(--semantic-text-error-ach-color-text-error);
 }
 
 .ap__amount {
-  color: var(--semantic-text-ach-color-text-default);
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-
-.ap__amount--large {
-  font-size: 22px;
-  line-height: 1.2;
-}
-
-.ap__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 2px;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.ap__status--large {
-  font-size: 14px;
-}
-
-.ap__status i {
-  display: block;
-  width: 6px;
-  height: 6px;
-  border-radius: var(--primitives-border-radius-infinite);
-  background: currentColor;
-}
-
-.ap__status--paid {
-  color: var(--semantic-brand-ach-color-brand-default);
-}
-
-.ap__status--unpaid {
-  color: var(--component-option-illustration-error);
-}
-
-.ap__feature {
-  position: absolute;
-  top: 108px;
-  left: 56px;
-  box-sizing: border-box;
-  width: 608px;
-  height: 156px;
-  padding: 20px 22px;
-  border: 1px solid var(--component-option-illustration-hairline);
-  border-radius: 18px;
-  background: var(--component-card-background);
-}
-
-.ap__feature-top {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.ap__rule {
-  height: 1px;
-  margin: 14px 0;
-  background: var(--component-option-illustration-hairline);
-}
-
-.ap__feature-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ap__tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 11px;
-  border-radius: var(--primitives-border-radius-infinite);
-  background: var(--component-option-card-background);
-  color: var(--semantic-text-ach-color-text-default);
-  font-size: 13px;
+  font-size: var(--primitives-font-sizes-xs);
   font-weight: 500;
-  line-height: 1;
+  line-height: var(--primitives-line-heights-sm);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
 }
 
-.ap__tag i {
-  display: block;
-  width: 6px;
-  height: 6px;
-  border-radius: var(--primitives-border-radius-infinite);
-  background: var(--semantic-brand-ach-color-brand-default);
-}
-
-.ap__button {
-  display: inline-flex;
-  height: 40px;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-  border-radius: 12px;
-  background: var(--semantic-text-ach-color-text-default);
-  color: var(--semantic-text-ach-color-text-inverse);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.ap__button svg {
-  width: 16px;
-  height: 16px;
+.ap__action {
+  width: 100%;
+  background: transparent;
 }
 </style>

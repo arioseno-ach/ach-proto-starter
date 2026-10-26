@@ -1,32 +1,54 @@
+<script setup lang="ts">
+import { buildQuotes, formatRupiah } from '@/lib/loan-calculator'
+
+// Mirrors the Loan Simulation result: total repayment, the cost breakdown and a term comparison.
+const AMOUNT = 10_000_000
+const RATE = 1
+const TERM = 30
+
+const quotes = buildQuotes(AMOUNT, RATE).filter((quote) => [30, 60, 90].includes(quote.term))
+const selected = quotes.find((quote) => quote.term === TERM) ?? quotes[0]
+</script>
+
 <template>
   <div class="illustration illustration--short-term">
-    <div class="stt__panel"></div>
+    <div class="stt__zoom">
+      <div class="stt__panel">
+        <div class="stt__feature">
+          <p class="stt__caption">Total repayment for a {{ TERM }}-day term</p>
+          <p class="stt__total">{{ formatRupiah(selected.total) }}</p>
 
-    <p class="stt__label" style="left: 92px; top: 56px">Loan amount</p>
-    <div class="stt__field" style="top: 74px">
-      <span class="stt__value">Rp 10.000.000</span>
-      <span class="stt__hint">Max Rp 10.000.000</span>
-    </div>
+          <dl class="stt__stats">
+            <div class="stt__stat">
+              <dt>Transaction amount</dt>
+              <dd>{{ formatRupiah(AMOUNT) }}</dd>
+            </div>
+            <div class="stt__stat">
+              <dt>Interest</dt>
+              <dd>{{ formatRupiah(selected.interest) }}</dd>
+            </div>
+            <div class="stt__stat">
+              <dt>Rate</dt>
+              <dd>{{ RATE }}% / month</dd>
+            </div>
+          </dl>
+        </div>
 
-    <div class="stt__track"></div>
-    <div class="stt__fill stt__fill--full"></div>
-    <div class="stt__handle stt__handle--full"></div>
-    <p class="stt__scale" style="left: 92px">Rp 1.000.000</p>
-    <p class="stt__scale stt__scale--end" style="right: 28px">Rp 10.000.000</p>
-
-    <p class="stt__label" style="left: 92px; top: 196px">Selected invoice</p>
-    <div class="stt__field" style="top: 214px">
-      <span class="stt__field-text">INV-2026-014 · PT Bumi Mandiri</span>
-      <span class="stt__hint">Rp 10.000.000</span>
-    </div>
-
-    <p class="stt__label" style="left: 92px; top: 300px">Repayment time</p>
-    <p class="stt__label" style="left: 402px; top: 300px">Interest rate</p>
-    <div class="stt__field stt__field--half" style="left: 92px; top: 318px">
-      <span class="stt__field-text">30 days</span>
-    </div>
-    <div class="stt__field stt__field--half" style="left: 402px; top: 318px">
-      <span class="stt__field-text">1% / month</span>
+        <ul class="stt__quotes">
+          <li
+            v-for="quote in quotes"
+            :key="quote.term"
+            class="stt__quote"
+            :class="{ 'stt__quote--active': quote.term === TERM }"
+          >
+            <span class="stt__quote-term">{{ quote.term }} days</span>
+            <span class="stt__quote-value">{{ formatRupiah(quote.total) }}</span>
+            <span class="stt__quote-bar">
+              <span class="stt__quote-fill" :style="{ width: `${Math.max(8, quote.fillRatio * 100)}%` }"></span>
+            </span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -40,115 +62,129 @@
   height: 480px;
   color: var(--semantic-text-ach-color-text-default);
   font-family: var(--primitives-font-families-body), sans-serif;
+  pointer-events: none;
+}
+
+/* Laid out at the real summary's size, then enlarged so it bleeds off the right and bottom edges. */
+.stt__zoom {
+  position: absolute;
+  top: 28px;
+  left: 36px;
+  width: 560px;
+  transform: scale(1.45);
+  transform-origin: top left;
 }
 
 .stt__panel {
-  position: absolute;
-  top: 36px;
-  left: 56px;
   box-sizing: border-box;
-  width: 700px;
-  height: 560px;
-  border: 1px solid var(--component-option-illustration-hairline);
-  border-radius: 22px;
-  background: var(--component-card-background);
+  padding: var(--primitives-padding-3);
+  border: var(--primitives-border-width-default) solid var(--semantic-border-ach-color-border-default);
+  border-radius: var(--primitives-border-radius-lg);
+  background: var(--semantic-bg-ach-color-bg-surface);
 }
 
-.stt__label {
-  position: absolute;
-  color: var(--component-option-illustration-text);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
+/* The highlighted block: a soft brand tint with the figure in brand colour, so it leads without shouting. */
+.stt__feature {
+  padding: var(--primitives-padding-5) var(--primitives-padding-4) var(--primitives-padding-4);
+  border-radius: var(--primitives-border-radius-md);
+  background: var(--semantic-brand-ach-color-brand-subtle);
+  color: var(--semantic-text-ach-color-text-default);
 }
 
-.stt__field {
-  position: absolute;
-  left: 92px;
+.stt__caption {
+  margin: 0;
+  color: var(--semantic-text-ach-color-text-secondary);
+  font-size: var(--primitives-font-sizes-xs);
+  line-height: var(--primitives-line-heights-2xs);
+}
+
+.stt__total {
+  margin: var(--primitives-padding-2) 0 var(--primitives-padding-4);
+  font-family: var(--primitives-font-families-display), sans-serif;
+  font-size: var(--primitives-font-sizes-4xl);
+  font-weight: 700;
+  line-height: var(--primitives-line-heights-4xl);
+  font-variant-numeric: tabular-nums;
+}
+
+.stt__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--primitives-padding-2);
+  margin: 0;
+}
+
+.stt__stat {
   display: flex;
-  width: 600px;
-  height: 68px;
-  box-sizing: border-box;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--primitives-padding-2) var(--primitives-padding-3);
+  border-radius: var(--primitives-border-radius-sm);
+  background: var(--semantic-bg-ach-color-bg-surface);
+}
+
+.stt__stat dt {
+  color: var(--semantic-text-ach-color-text-secondary);
+  font-size: var(--primitives-font-sizes-xs);
+  line-height: var(--primitives-line-heights-2xs);
+}
+
+.stt__stat dd {
+  margin: 0;
+  font-size: var(--primitives-font-sizes-sm);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stt__quotes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--primitives-padding-1);
+  margin: var(--primitives-padding-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stt__quote:not(.stt__quote--active) {
+  opacity: 0.5;
+}
+
+.stt__quote {
+  display: grid;
+  grid-template-columns: 64px 96px minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  border: 1.5px solid var(--component-option-illustration-hairline);
-  border-radius: 14px;
+  gap: var(--primitives-padding-3);
+  padding: var(--primitives-padding-2) var(--primitives-padding-3);
+  border: var(--primitives-border-width-default) solid transparent;
+  border-radius: var(--primitives-border-radius-sm);
 }
 
-.stt__field--half {
-  width: 290px;
+.stt__quote--active {
+  border-color: var(--semantic-border-ach-color-border-default);
+  background: var(--semantic-brand-ach-color-brand-subtle);
 }
 
-.stt__value {
-  color: var(--semantic-text-ach-color-text-default);
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.stt__quote-term,
+.stt__quote-value {
+  font-size: var(--primitives-font-sizes-sm);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.stt__field-text {
-  color: var(--semantic-text-ach-color-text-default);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.stt__hint {
-  color: var(--component-option-illustration-text);
-  font-size: 14px;
-}
-
-.stt__track {
-  position: absolute;
-  top: 152px;
-  left: 92px;
-  width: 600px;
+.stt__quote-bar {
+  display: block;
   height: 6px;
-  border-radius: 3px;
-  background: var(--component-option-illustration-tint);
-}
-
-.stt__fill {
-  position: absolute;
-  top: 152px;
-  left: 92px;
-  width: 282px;
-  height: 6px;
-  border-radius: 3px;
-  background: var(--semantic-brand-ach-color-brand-default);
-}
-
-.stt__fill--full {
-  width: 600px;
-}
-
-.stt__handle {
-  position: absolute;
-  top: 144px;
-  left: 363px;
-  width: 22px;
-  height: 22px;
-  box-sizing: border-box;
-  border: 3px solid var(--semantic-brand-ach-color-brand-default);
+  overflow: hidden;
   border-radius: var(--primitives-border-radius-infinite);
-  background: var(--component-card-background);
+  background: var(--primitives-colors-neutral-200);
 }
 
-.stt__handle--full {
-  left: 681px;
-}
-
-.stt__scale {
-  position: absolute;
-  top: 166px;
-  color: var(--component-option-illustration-text);
-  font-size: 13px;
-  line-height: 1;
-}
-
-.stt__scale--end {
-  right: 28px;
-  text-align: right;
+.stt__quote-fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--primitives-border-radius-infinite);
+  background: var(--semantic-brand-ach-color-brand-default);
 }
 </style>

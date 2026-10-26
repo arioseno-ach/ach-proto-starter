@@ -5,6 +5,8 @@ import { Avatar } from '@/components/ui/avatar'
 import { credorPartners } from '@/components/credor/partners'
 
 /** The partner with the most transactions and the largest average transaction is highlighted. */
+const VISIBLE_PARTNERS = 4
+
 const partners = computed(() => {
   const ranked = [...credorPartners].sort(
     (a, b) =>
@@ -13,7 +15,9 @@ const partners = computed(() => {
   )
   const featuredId = ranked[0]?.id
 
-  return ranked.map((partner) => ({ ...partner, featured: partner.id === featuredId }))
+  return ranked
+    .slice(0, VISIBLE_PARTNERS)
+    .map((partner) => ({ ...partner, featured: partner.id === featuredId }))
 })
 </script>
 
@@ -22,10 +26,6 @@ const partners = computed(() => {
     <div class="partners__heading">
       <div class="partners__intro">
         <h2 id="partners-title">Partners you already work with</h2>
-        <p>
-          Start a new transaction with any of them and get a financing offer. Based on your
-          tax records.
-        </p>
       </div>
       <button type="button" class="partners__see-all">See All</button>
     </div>
@@ -37,39 +37,39 @@ const partners = computed(() => {
         class="partner"
         :class="{ 'partner--featured': partner.featured }"
       >
-        <span v-if="partner.featured" class="partners__badge">
-          <span class="partners__badge-icon" aria-hidden="true"></span>
-          Higher chance of approval
-        </span>
+        <span v-if="partner.featured" class="partners__badge partner__badge">Most active partner</span>
 
-        <Avatar
-          :initials="partner.initials"
-          verified
-          :label="`${partner.name}, verified partner`"
-        />
+        <div class="partner__identity">
+          <Avatar
+            :initials="partner.initials"
+            verified
+            :label="`${partner.name}, verified partner`"
+          />
 
-        <div class="partner__content">
-          <p class="partner__name">{{ partner.name }}</p>
-          <p class="partner__meta">{{ partner.meta }}</p>
+          <div class="partner__content">
+            <p class="partner__name">{{ partner.name }}</p>
+            <p class="partner__meta">
+              Total {{ partner.transactionCount }} Transaction · last {{ partner.lastTransaction }}
+            </p>
+          </div>
         </div>
 
-        <div class="partner__value">
-          <p class="partner__value-label">Avg. transaction</p>
-          <p class="partner__value-amount">{{ partner.averageTransaction }}</p>
-        </div>
+        <div class="partner__footer">
+          <div class="partner__value">
+            <p class="partner__value-label">Avg. transaction</p>
+            <p class="partner__value-amount">{{ partner.averageTransaction }}</p>
+          </div>
 
-        <Button
-          variant="outline"
-          color="primary"
-          size="small"
-          type="button"
-          class="partner__action"
-        >
-          Finance a new Transaction
-          <template #trailingIcon>
-            <span class="partner__action-icon" aria-hidden="true"></span>
-          </template>
-        </Button>
+          <Button
+            variant="outline"
+            color="neutral"
+            size="small"
+            type="button"
+            class="partner__action"
+          >
+            Finance a new Transaction
+          </Button>
+        </div>
       </article>
     </div>
   </section>
@@ -88,7 +88,7 @@ const partners = computed(() => {
   align-items: center;
   justify-content: space-between;
   gap: var(--primitives-padding-3);
-  padding-bottom: var(--primitives-padding-4);
+  padding-bottom: var(--primitives-padding-3);
 }
 
 .partners__intro {
@@ -98,17 +98,9 @@ const partners = computed(() => {
 .partners__intro h2 {
   margin: 0;
   font-family: var(--primitives-font-families-display), sans-serif;
-  font-size: var(--primitives-font-sizes-md);
+  font-size: var(--primitives-font-sizes-lg);
   font-weight: 500;
-  line-height: var(--primitives-line-heights-md);
-}
-
-.partners__intro p {
-  margin: var(--primitives-padding-1) 0 0;
-  color: var(--semantic-text-ach-color-text-secondary);
-  font-size: var(--primitives-font-sizes-sm);
-  font-weight: 400;
-  line-height: var(--primitives-line-heights-sm);
+  line-height: var(--primitives-line-heights-lg);
 }
 
 .partners__see-all {
@@ -141,76 +133,31 @@ const partners = computed(() => {
 }
 
 .partners__list {
-  display: flex;
+  display: grid;
   min-width: 0;
-  flex-direction: column;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--primitives-padding-3);
-}
-
-.partners__badge {
-  position: absolute;
-  z-index: 1;
-  top: -12px;
-  right: 0;
-  display: inline-flex;
-  height: 26px;
-  align-items: center;
-  gap: var(--primitives-padding-2);
-  padding: 0 var(--primitives-padding-3) 0 var(--primitives-padding-2);
-  border-radius: var(--primitives-border-radius-lg);
-  background: var(--semantic-fg-success-ach-color-fg-success);
-  color: var(--semantic-text-ach-color-text-inverse);
-  font-size: var(--primitives-font-sizes-xs);
-  font-weight: 700;
-  line-height: var(--primitives-line-heights-3xs);
-  white-space: nowrap;
-}
-
-.partners__badge-icon {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
-  background: var(--semantic-text-ach-color-text-inverse);
-  mask: url('/icons/text-formatting/percent.svg') center / contain no-repeat;
-  -webkit-mask: url('/icons/text-formatting/percent.svg') center / contain no-repeat;
 }
 
 .partner {
   position: relative;
   display: flex;
   min-width: 0;
-  align-items: center;
+  flex-direction: column;
   gap: var(--primitives-padding-4);
-  padding: var(--primitives-padding-4) var(--primitives-padding-6) var(--primitives-padding-4)
-    var(--primitives-padding-5);
+  overflow: hidden;
+  /* Top padding clears the flush tag so every card's content starts at the same height. */
+  padding: var(--primitives-padding-6) var(--primitives-padding-4) var(--primitives-padding-4);
+  border: var(--primitives-border-width-default) solid var(--semantic-border-ach-color-border-default);
   border-radius: var(--primitives-border-radius-lg);
-  background: var(--semantic-bg-ach-color-bg-canvas);
-  transition:
-    box-shadow 150ms ease,
-    transform 150ms ease;
+  background: var(--semantic-bg-ach-color-bg-surface);
 }
 
-.partner:hover {
-  box-shadow:
-    calc(var(--primitives-shadows-sm-shadow-1-x) * 1px)
-      calc(var(--primitives-shadows-sm-shadow-1-y) * 1px)
-      calc(var(--primitives-shadows-sm-shadow-1-blur) * 1px)
-      var(--primitives-shadows-sm-color),
-    calc(var(--primitives-shadows-sm-shadow-2-x) * 1px)
-      calc(var(--primitives-shadows-sm-shadow-2-y) * 1px)
-      calc(var(--primitives-shadows-sm-shadow-2-blur) * 1px)
-      var(--primitives-shadows-sm-color);
-  transform: translateY(-2px);
-}
-
-.partner--featured {
-  background:
-    radial-gradient(
-      ellipse 70% 140% at 100% 50%,
-      var(--semantic-bg-success-ach-color-bg-success-surface) 0%,
-      transparent 70%
-    ),
-    var(--semantic-bg-ach-color-bg-canvas);
+.partner__identity {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--primitives-padding-3);
 }
 
 .partner__content {
@@ -218,6 +165,7 @@ const partners = computed(() => {
   min-width: 0;
   flex: 1;
   flex-direction: column;
+  gap: 2px;
 }
 
 .partner__name,
@@ -226,52 +174,76 @@ const partners = computed(() => {
 }
 
 .partner__name {
+  display: -webkit-box;
   overflow: hidden;
   color: var(--semantic-text-ach-color-text-default);
-  font-family: var(--primitives-font-families-display), sans-serif;
   font-size: var(--primitives-font-sizes-md);
   font-weight: 500;
   line-height: var(--primitives-line-heights-md);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .partner__meta {
-  padding-top: 5px;
   overflow: hidden;
   color: var(--semantic-text-ach-color-text-secondary);
   font-size: var(--primitives-font-sizes-sm);
-  font-weight: 400;
   line-height: var(--primitives-line-heights-sm);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* A factual label, not an approval claim. Flush with the card's top right corner. */
+.partners__badge {
+  display: inline-flex;
+  height: 24px;
+  align-items: center;
+  padding: 0 var(--primitives-padding-3);
+  background: var(--semantic-bg-info-ach-color-bg-info-surface);
+  color: var(--semantic-text-info-ach-color-text-info);
+  font-size: var(--primitives-font-sizes-xs);
+  font-weight: 500;
+  line-height: var(--primitives-line-heights-3xs);
+  white-space: nowrap;
+}
+
+.partner__badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 0 0 var(--primitives-border-radius-md);
+}
+
+/* Average and action share one row. */
+.partner__footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--primitives-padding-3);
+  margin-top: auto;
+  padding-top: var(--primitives-padding-4);
+  border-top: var(--primitives-border-width-default) solid var(--semantic-border-ach-color-border-subtle);
+}
+
 .partner__value {
   display: flex;
-  width: 130px;
-  flex: 0 0 130px;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
 }
 
 .partner__value-label {
   margin: 0;
   color: var(--semantic-text-ach-color-text-subtle);
   font-size: var(--primitives-font-sizes-xs);
-  font-weight: 400;
   line-height: var(--primitives-line-heights-2xs);
   white-space: nowrap;
 }
 
 .partner__value-amount {
-  margin: 5px 0 0;
+  margin: 2px 0 0;
   color: var(--semantic-text-ach-color-text-default);
-  font-family: var(--primitives-font-families-display), sans-serif;
-  font-size: var(--primitives-font-sizes-lg);
+  font-size: var(--primitives-font-sizes-md);
   font-weight: 500;
-  line-height: var(--primitives-line-heights-lg);
+  line-height: var(--primitives-line-heights-md);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -279,11 +251,6 @@ const partners = computed(() => {
 .partner__action {
   flex: 0 0 auto;
   background: transparent;
-  box-shadow:
-    calc(var(--primitives-shadows-xs-x) * 1px)
-      calc(var(--primitives-shadows-xs-y) * 1px)
-      calc(var(--primitives-shadows-xs-blur) * 1px)
-      var(--primitives-shadows-xs-color);
 }
 
 .partner__action:focus-visible {
@@ -291,21 +258,9 @@ const partners = computed(() => {
   outline-offset: var(--primitives-border-width-2);
 }
 
-.partner__action-icon {
-  display: block;
-  width: 16px;
-  height: 16px;
-  background: currentColor;
-  mask: url('/icons/ui-actions/arrow-forward.svg') center / contain no-repeat;
-  -webkit-mask: url('/icons/ui-actions/arrow-forward.svg') center / contain no-repeat;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+@media (max-width: 900px) {
+  .partners__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>

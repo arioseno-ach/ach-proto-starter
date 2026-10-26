@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Button } from '@/components/ui/button'
 import type { BcaBankFeed, LoanApplication } from '@/lib/prototype/types'
 
-defineProps<{
+const MAX_APPLICATIONS = 3
+
+const props = defineProps<{
   applications: LoanApplication[]
   feed: BcaBankFeed | null
 }>()
+
+const visibleApplications = computed(() => props.applications.slice(0, MAX_APPLICATIONS))
 
 const expandedApplicationId = ref<string | null>(null)
 const feedExpanded = ref(false)
@@ -112,7 +116,7 @@ function toggleApplication(id: string): void {
         </div>
 
         <div
-          v-for="application in applications"
+          v-for="application in visibleApplications"
           :key="application.id"
           class="applications-card__row"
           :class="{

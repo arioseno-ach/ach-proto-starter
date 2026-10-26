@@ -29,15 +29,15 @@ import { financingOptions } from '@/components/credor/financing-options'
   align-items: center;
   justify-content: space-between;
   gap: var(--primitives-padding-3);
-  padding-bottom: var(--primitives-padding-4);
+  padding-bottom: var(--primitives-padding-3);
 }
 
 .financing-options__heading h2 {
   margin: 0;
   font-family: var(--primitives-font-families-display), sans-serif;
-  font-size: var(--primitives-font-sizes-md);
+  font-size: var(--primitives-font-sizes-lg);
   font-weight: 500;
-  line-height: var(--primitives-line-heights-md);
+  line-height: var(--primitives-line-heights-lg);
 }
 
 .financing-options__see-all {
