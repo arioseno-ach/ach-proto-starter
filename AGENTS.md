@@ -85,3 +85,33 @@
 - `pnpm lint:tokens` checks component Vue files for raw colors and unapproved arbitrary Tailwind values.
 - `pnpm typecheck` runs Vue-aware TypeScript checks.
 - `pnpm build` runs type checks and the Vite production build.
+
+## Token efficiency rules
+
+### Commands
+
+- Always run installs and builds quietly:
+  - `pnpm install --silent` (or `--reporter=silent`)
+  - `npm install --silent --no-progress`
+  - `pip install -q`
+- Never print full logs. Pipe long output through `tail -n 30`, or use `rtk err <command>` to show errors only.
+- If a command fails, show only the error lines, not the full output.
+
+### Type checking
+
+- Do not run `pnpm typecheck` after every edit.
+- Run it once, at the end of the task, after all changes are done.
+- Skip it entirely for small UI, text, or styling changes. The user will run it themselves.
+- When you do run it, use `pnpm typecheck 2>&1 | tail -n 30` and fix only the errors in files you changed.
+
+### Reading files
+
+- Do not read whole files if only one part is needed. Use search first, then read only the relevant lines.
+- Do not re-read files already read in the session.
+- Do not scan `node_modules`, `dist`, `build`, or lockfiles.
+
+### Responses
+
+- Keep explanations short. Do not recap what you did unless asked.
+- Do not repeat code. Just say which files changed.
+- Make the smallest change that solves the problem. Do not do unrequested refactoring.

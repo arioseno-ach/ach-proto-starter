@@ -93,11 +93,15 @@
   /* bg */
   --semantic-bg-ach-color-bg-canvas: var(--primitives-colors-neutral-50); /* Page canvas — outermost background, base layer everything sits on */
   --semantic-bg-ach-color-bg-inverse: var(--primitives-colors-neutral-900); /* Inverse — primary dark fill for buttons, badges, alerts, dark panels */
+  --semantic-bg-ach-color-bg-illustration-tint: var(--primitives-colors-blue-75); /* Illustration tint — soft avatar and chip fills inside product illustrations */
+  --semantic-bg-ach-color-bg-illustration-dot: var(--primitives-colors-blue-200); /* Illustration dot grid — decorative dot pattern inside product illustrations */
 
   /* border */
   --semantic-border-ach-color-border-default: var(--primitives-colors-neutral-250); /* border.default — card outlines, input strokes, table outer edge */
   --semantic-border-ach-color-border-subtle: var(--primitives-colors-neutral-150); /* border.subtle — table row separators, section breaks, hairline dividers */
   --semantic-border-ach-color-border-strong: var(--primitives-colors-neutral-350); /* border.strong — selected state, active input, focused element */
+  --semantic-border-ach-color-border-illustration: var(--primitives-colors-blue-150); /* Illustration hairline — separators and outlines inside product illustrations */
+  --semantic-border-ach-color-border-illustration-soft: var(--primitives-colors-blue-100); /* Illustration soft border — icon tiles inside product illustrations */
 
   /* fg */
   --semantic-fg-ach-color-fg-default: var(--primitives-colors-neutral-800); /* bg.surface — cards, modals, panels, table containers */
@@ -128,7 +132,23 @@
   --semantic-bg-success-ach-color-bg-success-surface: var(--primitives-colors-green-100); /* Success surface — badge background, alert container fill */
   --semantic-bg-warning-ach-color-bg-warning-surface: var(--primitives-colors-orange-100); /* Warning surface — badge background, alert container fill */
   --semantic-bg-info-ach-color-bg-info-surface: var(--primitives-colors-blue-100); /* Info surface — badge background, alert container fill */
+  --semantic-bg-info-ach-color-bg-info-surface-subtle: var(--primitives-colors-blue-50); /* Subtle info surface — inset summary panels */
   --semantic-bg-error-ach-color-bg-error-surface: var(--primitives-colors-red-100); /* Error surface — badge background, alert container fill */
+
+  /* score */
+  --semantic-bg-ach-color-bg-score-low: var(--primitives-colors-score-low);
+  --semantic-bg-ach-color-bg-score-fair: var(--primitives-colors-score-fair);
+  --semantic-bg-ach-color-bg-score-good: var(--primitives-colors-score-good);
+  --semantic-bg-ach-color-bg-score-very-good: var(--primitives-colors-score-very-good);
+  --semantic-bg-ach-color-bg-score-excellent: var(--primitives-colors-score-excellent);
+  --semantic-bg-ach-color-bg-score-low-strong: var(--primitives-colors-score-low-strong);
+  --semantic-bg-ach-color-bg-score-fair-strong: var(--primitives-colors-score-fair-strong);
+  --semantic-bg-ach-color-bg-score-good-strong: var(--primitives-colors-score-good-strong);
+  --semantic-bg-ach-color-bg-score-very-good-strong: var(--primitives-colors-score-very-good-strong);
+  --semantic-bg-ach-color-bg-score-excellent-strong: var(--primitives-colors-score-excellent-strong);
+  --semantic-text-ach-color-text-score-muted: var(--primitives-colors-score-muted); /* Score scale and category labels */
+  --semantic-text-ach-color-text-illustration: var(--primitives-colors-neutral-400); /* Illustration fine print — helper text inside product illustrations */
+  --semantic-text-ach-color-text-error-soft: var(--primitives-colors-red-500); /* Soft error text — status labels inside product illustrations */
 
   /* text */
   --semantic-text-ach-color-text-link: var(--primitives-colors-blue-700); /* text.inverse — text on dark/overlay surfaces like sidebars and dark cards */

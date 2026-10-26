@@ -21,6 +21,10 @@
   --primitives-topbar-icon-size: 24px;
   --primitives-topbar-action-icon-size: 20px;
 
+  /* drawer dimensions */
+  --primitives-drawer-width: 640px;
+  --primitives-drawer-header-height: 60px;
+
   /* borderRadius */
   --primitives-border-radius-infinite: 9999px;
   --primitives-border-radius-xl: 24px;
@@ -243,6 +247,19 @@
   --primitives-colors-grass-850: #004700;
   --primitives-colors-grass-900: #003300;
   --primitives-colors-grass-950: #001f00;
+
+  /* score scale */
+  --primitives-colors-score-low: #fecaca;
+  --primitives-colors-score-fair: #fed7aa;
+  --primitives-colors-score-good: #fde68a;
+  --primitives-colors-score-very-good: #d9f99d;
+  --primitives-colors-score-excellent: #bbf7d0;
+  --primitives-colors-score-low-strong: #ef4444;
+  --primitives-colors-score-fair-strong: #f97316;
+  --primitives-colors-score-good-strong: #eab308;
+  --primitives-colors-score-very-good-strong: #84cc16;
+  --primitives-colors-score-excellent-strong: #22c55e;
+  --primitives-colors-score-muted: #c3c2b7;
 
   /* fontFamilies */
   --primitives-font-families-display: "Lexend Variable";

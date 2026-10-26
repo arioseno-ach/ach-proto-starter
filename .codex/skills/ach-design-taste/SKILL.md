@@ -1,9 +1,11 @@
 ---
 name: ach-design-taste
-description: Applies ACH enterprise fintech visual-taste and anti-slop standards. Use when designing, implementing, or reviewing screens, flows, or UI components in this repository.
+description: ACH-specific rules for screens, flows, and UI components in this repository: product context, density/friction/motion dials, financial data, high-stakes forms, design-system tokens, and handoff. General visual craft and anti-slop come from design-taste-frontend.
 ---
 
 # ACH Design Taste
+
+> General visual craft and anti-slop come from `design-taste-frontend` (`.agents/skills`, used as installed). This skill only adds ACH constraints, which win on conflict.
 
 Apply these guidelines to UI design, implementation, and review across ACH product surfaces. Use judgment based on the task and existing product context; do not force every pattern onto every screen.
 
@@ -16,12 +18,10 @@ Apply these guidelines to UI design, implementation, and review across ACH produ
    - **Decision friction (1–5):** 1–2 for reversible exploration, 3 for validated saves, 5 for high-stakes or irreversible actions that need deliberate confirmation.
    - **Motion restraint (1–3):** 1 for immediate feedback, 2 for subtle transitions around 150 ms, 3 for meaningful staged transitions such as a wizard. Respect reduced-motion preferences.
 
-## Visual hierarchy and interaction
+## Interaction and copy
 
-- Prefer calm, high-trust hierarchy and clear typography. Use spacing, dividers, and surface contrast to group related content; avoid putting every field or metric in its own card.
 - Keep one visually primary action in a screen context when there is a clear next step. Keep destructive actions secondary and make their impact explicit.
 - Account for applicable default, hover, pressed, keyboard-focus, and disabled states. Add loading behavior for asynchronous actions without shifting control dimensions; explain a disabled state when its reason is not clear.
-- Use motion to communicate state changes, not as decoration. Avoid ornamental glows, gratuitous animation, and generic visual flourishes.
 - Keep copy calm, direct, and consistent with `docs/design-system/context/brand-voice.md` and `docs/design-system/context/legal-rules.md`. Avoid filler and em dashes in user-facing copy.
 
 ## Financial data and dense grids
