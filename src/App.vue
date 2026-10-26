@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ToastProvider } from 'reka-ui'
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Snackbar, SnackbarViewport } from '@/components/ui/snackbar'
-import AppWorkspace from '@/components/layout/AppWorkspace.vue'
+import Sidebar from '@/components/layout/Sidebar.vue'
+import TopBar from '@/components/layout/TopBar.vue'
 import { useSnackbar } from '@/composables/useSnackbar'
 
 const snackbar = useSnackbar()
@@ -11,7 +12,11 @@ const snackbar = useSnackbar()
 <template>
   <ToastProvider>
     <SidebarProvider>
-      <AppWorkspace />
+      <Sidebar />
+      <SidebarInset>
+        <TopBar />
+        <main class="p-6" />
+      </SidebarInset>
     </SidebarProvider>
 
     <Snackbar

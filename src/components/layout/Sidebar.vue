@@ -16,8 +16,6 @@ import {
 type SidebarItem = {
   label: string
   icon: string
-  subtitle?: string
-  logo?: string
 }
 
 const activeItem = ref('Home')
@@ -28,27 +26,6 @@ const platformItems: SidebarItem[] = [
   { label: 'Document', icon: '/icons/text-formatting/description.svg' },
   { label: 'Sales Transaction', icon: '/icons/custom/e-faktur.svg' },
   { label: 'Purchase Transaction', icon: '/icons/business-payments/receipt-long.svg' },
-]
-
-const productItems: SidebarItem[] = [
-  {
-    label: 'Tax & Compliance',
-    subtitle: 'by OnlinePajak',
-    icon: '',
-    logo: '/logo/logo-pajak-symbol-blue-20px.svg',
-  },
-  {
-    label: 'Cash & Financing',
-    subtitle: 'by Credor',
-    icon: '',
-    logo: '/logo/logo-credor-symbol-blue-24px.svg',
-  },
-  {
-    label: 'Insights & Commerce',
-    subtitle: 'by Covia',
-    icon: '',
-    logo: '/logo/logo-covia-symbol-blue-24px.svg',
-  },
 ]
 
 const footerItems: SidebarItem[] = [
@@ -131,31 +108,6 @@ function closeCompanySwitcher() {
               >
                 <img class="ach-sidebar__icon" :src="item.icon" alt="" />
                 <span>{{ item.label }}</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup class="ach-sidebar__group">
-          <SidebarGroupLabel as="h2" class="ach-sidebar__group-label">Products</SidebarGroupLabel>
-          <SidebarMenu class="ach-sidebar__menu">
-            <SidebarMenuItem v-for="item in productItems" :key="item.label">
-              <SidebarMenuButton
-                class="ach-sidebar__menu-button ach-sidebar__product-button"
-                size="lg"
-                :is-active="activeItem === item.label"
-                :aria-label="item.label"
-                :aria-current="activeItem === item.label ? 'page' : undefined"
-                :tooltip="item.label"
-                @click="selectItem(item.label)"
-              >
-                <span class="ach-sidebar__product-mark">
-                  <img :src="item.logo" alt="" />
-                </span>
-                <span class="ach-sidebar__product-copy">
-                  <span class="ach-sidebar__item-label">{{ item.label }}</span>
-                  <span class="ach-sidebar__item-subtitle">{{ item.subtitle }}</span>
-                </span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
@@ -266,8 +218,7 @@ function closeCompanySwitcher() {
   font-weight: 500;
 }
 
-.ach-sidebar__company-copy,
-.ach-sidebar__product-copy {
+.ach-sidebar__company-copy {
   display: flex;
   min-width: 0;
   flex: 1;
@@ -281,8 +232,7 @@ function closeCompanySwitcher() {
 
 .ach-sidebar__company-name,
 .ach-sidebar__company-id,
-.ach-sidebar__item-label,
-.ach-sidebar__item-subtitle {
+.ach-sidebar__item-label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -417,38 +367,6 @@ function closeCompanySwitcher() {
   background: var(--component-sidebar-item-background-active);
 }
 
-:global(.ach-sidebar .ach-sidebar__product-button) {
-  height: 50px;
-  min-height: 50px;
-  padding-block: var(--primitives-padding-2);
-}
-
-.ach-sidebar__product-mark {
-  display: grid;
-  width: var(--primitives-padding-6);
-  height: var(--primitives-padding-6);
-  flex: 0 0 var(--primitives-padding-6);
-  place-items: center;
-  overflow: hidden;
-  border-radius: var(--primitives-border-radius-sm);
-  background: var(--avatar-logo-background);
-}
-
-.ach-sidebar__product-mark img {
-  display: block;
-  width: var(--primitives-padding-4);
-  height: var(--primitives-padding-4);
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-.ach-sidebar__item-subtitle {
-  color: var(--component-sidebar-item-secondary);
-  font-size: var(--primitives-font-sizes-xs);
-  font-weight: 400;
-  line-height: var(--primitives-line-heights-xs);
-}
-
 .ach-sidebar__footer {
   gap: 0;
   padding-block: var(--primitives-padding-4);
@@ -470,7 +388,7 @@ function closeCompanySwitcher() {
 :global(.group[data-collapsible="icon"] .ach-sidebar__company-copy),
 :global(.group[data-collapsible="icon"] .ach-sidebar__company-chevron),
 :global(.group[data-collapsible="icon"] .ach-sidebar__trailing-icon),
-:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button > span:not(.ach-sidebar__product-mark)) {
+:global(.group[data-collapsible="icon"] .ach-sidebar__menu-button > span) {
   display: none;
 }
 
@@ -493,12 +411,6 @@ function closeCompanySwitcher() {
   justify-content: center;
   margin-inline: auto;
   padding: var(--primitives-padding-2);
-}
-
-:global(.group[data-collapsible="icon"] .ach-sidebar__product-button) {
-  height: 36px;
-  min-height: 36px;
-  padding: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

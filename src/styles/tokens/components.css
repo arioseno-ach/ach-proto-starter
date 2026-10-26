@@ -118,45 +118,12 @@
   --component-checkbox-text: var(--semantic-text-ach-color-text-default);
   --component-checkbox-focus: var(--semantic-brand-ach-color-brand-default);
 
-  /* financing option card */
-  --component-option-card-background: var(--semantic-brand-ach-color-brand-subtle);
-  --component-option-card-border: var(--semantic-border-ach-color-border-default);
-  --component-option-card-radius: var(--primitives-border-radius-lg);
-  --component-option-illustration-text: var(--semantic-text-ach-color-text-illustration);
-  --component-option-illustration-hairline: var(--semantic-border-ach-color-border-illustration);
-  --component-option-illustration-tint: var(--semantic-bg-ach-color-bg-illustration-tint);
-  --component-option-illustration-paper-border: var(--semantic-border-ach-color-border-default);
-  --component-option-illustration-rule: var(--semantic-border-ach-color-border-subtle);
-  --component-option-illustration-error: var(--semantic-text-ach-color-text-error-soft);
-
   /* slider */
   --component-slider-track: var(--primitives-colors-neutral-200);
   --component-slider-fill: var(--semantic-brand-ach-color-brand-default);
   --component-slider-handle: var(--semantic-brand-ach-color-brand-default);
   --component-slider-handle-border: var(--component-card-background);
   --component-slider-height: var(--primitives-padding-1);
-
-  /* loan simulation card */
-  --component-loan-simulation-background: var(--component-card-background);
-  --component-loan-simulation-border: var(--semantic-border-ach-color-border-default);
-  --component-loan-simulation-radius: var(--primitives-border-radius-lg);
-  --component-loan-simulation-icon-color: var(--semantic-brand-ach-color-brand-default);
-  --component-loan-simulation-dot: var(--semantic-bg-ach-color-bg-illustration-dot);
-  --component-loan-simulation-cta: var(--semantic-text-ach-color-text-link);
-  --component-loan-simulation-cta-hover: var(--semantic-text-ach-color-text-hover);
-
-  /* risk score */
-  --component-risk-score-meter-low: var(--semantic-bg-ach-color-bg-score-low);
-  --component-risk-score-meter-fair: var(--semantic-bg-ach-color-bg-score-fair);
-  --component-risk-score-meter-good: var(--semantic-bg-ach-color-bg-score-good);
-  --component-risk-score-meter-very-good: var(--semantic-bg-ach-color-bg-score-very-good);
-  --component-risk-score-meter-excellent: var(--semantic-bg-ach-color-bg-score-excellent);
-  --component-risk-score-meter-low-strong: var(--semantic-bg-ach-color-bg-score-low-strong);
-  --component-risk-score-meter-fair-strong: var(--semantic-bg-ach-color-bg-score-fair-strong);
-  --component-risk-score-meter-good-strong: var(--semantic-bg-ach-color-bg-score-good-strong);
-  --component-risk-score-meter-very-good-strong: var(--semantic-bg-ach-color-bg-score-very-good-strong);
-  --component-risk-score-meter-excellent-strong: var(--semantic-bg-ach-color-bg-score-excellent-strong);
-  --component-risk-score-label-text: var(--semantic-text-ach-color-text-score-muted);
 
   /* table */
   --component-table-header-background-hover: var(--semantic-bg-ach-color-bg-surface-active);
@@ -726,9 +693,6 @@
   --component-dialog-exit-easing: var(--semantic-motion-easing-exit);
   --component-sheet-enter-duration: var(--semantic-motion-duration-slow);
   --component-sheet-exit-duration: var(--semantic-motion-duration-base);
-
-  /* risk card */
-  --component-risk-card-sync-spin-duration: var(--semantic-motion-duration-spin);
 
   /* list */
   --component-list-background: var(--semantic-bg-ach-color-bg-surface);
